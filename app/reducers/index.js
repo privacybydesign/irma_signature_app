@@ -1,11 +1,23 @@
-// @flow
 import { combineReducers } from 'redux';
-import { routerReducer as router } from 'react-router-redux';
-import counter from './counter';
+import {
+  EXAMPLE_ACTION,
+} from '../actions';
+
+function example(
+  state = {
+    isFetching: false,
+  },
+  action
+) {
+  switch (action.type) {
+    case EXAMPLE_ACTION:
+    default:
+      return state;
+  }
+}
 
 const rootReducer = combineReducers({
-  counter,
-  router,
+  example,
 });
 
 export default rootReducer;

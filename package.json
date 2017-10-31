@@ -1,8 +1,8 @@
 {
-  "name": "electron-react-boilerplate",
+  "name": "irma_signature_app",
   "productName": "ElectronReact",
-  "version": "0.12.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "version": "1.0.0",
+  "description": "IRMA signature app based on Electron application boilerplate",
   "scripts": {
     "build": "concurrently \"npm run build-main\" \"npm run build-renderer\"",
     "build-dll": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.dev.dll.js --colors",
@@ -32,7 +32,7 @@
   "browserslist": "electron 1.6",
   "build": {
     "productName": "ElectronReact",
-    "appId": "org.develar.ElectronReact",
+    "appId": "org.irmacard.IrmaSignatureApp",
     "files": [
       "dist/",
       "node_modules/",
@@ -80,7 +80,7 @@
     "email": "chentsulin@gmail.com",
     "url": "https://github.com/chentsulin"
   },
-  "license": "MIT",
+  "license": "Apache",
   "bugs": {
     "url": "https://github.com/chentsulin/electron-react-boilerplate/issues"
   },
@@ -190,8 +190,10 @@
     "electron-debug": "^1.2.0",
     "font-awesome": "^4.7.0",
     "history": "^4.6.3",
+    "material-ui": "^0.19.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-flexbox-grid": "^2.0.0",
     "react-hot-loader": "3.0.0-beta.6",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",

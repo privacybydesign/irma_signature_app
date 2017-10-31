@@ -1,8 +1,8 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "electron-react-boilerplate",
+  "name": "irma_signature_app",
+  "productName": "irma-signature-app",
   "version": "1.0.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "description": "IRMA signature app based on Electron application boilerplate",
   "main": "./main.prod.js",
   "author": {
     "name": "C. T. Lin",
@@ -12,7 +12,7 @@
   "scripts": {
     "postinstall": "npm rebuild --runtime=electron --target=1.6.6 --disturl=https://atom.io/download/atom-shell --build-from-source"
   },
-  "license": "MIT",
+  "license": "Apache",
   "dependencies": {
   }
 }
