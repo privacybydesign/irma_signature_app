@@ -1,3 +1,10 @@
 // action types
-export const EXAMPLE_ACTION = 'example_action';
-export const SECOND_EXAMPLE = 'second_example';
+
+export const SEND_SIGNATURE_REQUEST = 'send-signature-request';
+
+export function sendSignatureRequest(sigRequest, destination, mailBody) {
+  return () => {
+    console.log('we would be sending this:', sigRequest, destination, mailBody);
+    return Promise.resolve();
+  };
+}

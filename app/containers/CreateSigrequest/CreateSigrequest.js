@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import SelectField from 'material-ui/SelectField';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
+import { sendSignatureRequest } from './../../actions';
 
-export default class CreateSigrequest extends Component {
+class CreateSigrequest extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +16,7 @@ export default class CreateSigrequest extends Component {
       sigMessage: '',
       mailBody: '',
       rcptMail: '',
+      error: false,
     };
   }
 
@@ -26,17 +30,49 @@ export default class CreateSigrequest extends Component {
     });
   };
 
-  sendSigrequest = () => {
-    console.log('we would be sending this:', this.state);
+  handleSubmit = () => {
+    if (!this.validate()) {
+      return;
+    }
+    const { dispatch } = this.props;
+    dispatch(sendSignatureRequest(
+      this.mapStateToSigrequest, this.state.rcptMail, this.state.mailBody));
   }
 
+  validate = () => {
+    const error = (
+      this.state.sigMessage === '' ||
+      this.state.rcptMail === '' ||
+      this.state.mailBody === ''
+    );
+    this.setState({
+      error,
+    });
+    return !error;
+  }
+
+  mapStateToSigrequest = () => (
+    {
+      message: this.state.sigMessage,
+      messageType: 'STRING',
+      content: [
+        {
+          label: 'TODO',
+          attributes: [this.state.attributeValue],
+        }
+      ],
+    }
+  );
+
   render() {
+    const errorText = 'This field is required';
     return (
       <div style={{ padding: '20px' }}>
         <h2>Create a new signature request</h2>
         <TextField
           id="sigMessage"
           hintText="Message to be signed"
+          errorText={(this.state.error && this.state.sigMessage === '' ? errorText : '')}
           onChange={this.handleTextFieldChange}
           value={this.state.sigMessage}
         />
@@ -44,6 +80,7 @@ export default class CreateSigrequest extends Component {
         <TextField
           id="mailBody"
           hintText="Mail body"
+          errorText={(this.state.error && this.state.mailBody === '' ? errorText : '')}
           onChange={this.handleTextFieldChange}
           value={this.state.mailBody}
         />
@@ -51,6 +88,7 @@ export default class CreateSigrequest extends Component {
         <TextField
           id="rcptMail"
           hintText="Recipient mail address"
+          errorText={(this.state.error && this.state.rcptMail === '' ? errorText : '')}
           onChange={this.handleTextFieldChange}
           value={this.state.rcptMail}
         />
@@ -68,9 +106,15 @@ export default class CreateSigrequest extends Component {
         <FlatButton
           label="Send signature request"
           fullWidth
-          onClick={this.sendSigrequest}
+          onClick={this.handleSubmit}
         />
       </div>
     );
   }
 }
+
+CreateSigrequest.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+export default connect()(CreateSigrequest);
