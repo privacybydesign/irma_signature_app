@@ -15,6 +15,7 @@ class CreateSigrequest extends Component {
       attributeValue: 'pbdf.pbdf.address',
       sigMessage: '',
       mailBody: '',
+      mailSubject: '',
       rcptMail: '',
       error: false,
     };
@@ -36,13 +37,18 @@ class CreateSigrequest extends Component {
     }
     const { dispatch } = this.props;
     dispatch(sendSignatureRequest(
-      this.mapStateToSigrequest, this.state.rcptMail, this.state.mailBody));
+      this.mapStateToSigrequest(),
+      this.state.rcptMail,
+      this.state.mailSubject,
+      this.state.mailBody)
+    );
   }
 
   validate = () => {
     const error = (
       this.state.sigMessage === '' ||
       this.state.rcptMail === '' ||
+      this.state.mailSubject === '' ||
       this.state.mailBody === ''
     );
     this.setState({
@@ -83,6 +89,14 @@ class CreateSigrequest extends Component {
           errorText={(this.state.error && this.state.mailBody === '' ? errorText : '')}
           onChange={this.handleTextFieldChange}
           value={this.state.mailBody}
+        />
+        <Divider />
+        <TextField
+          id="mailSubject"
+          hintText="Mail subject"
+          errorText={(this.state.error && this.state.mailSubject === '' ? errorText : '')}
+          onChange={this.handleTextFieldChange}
+          value={this.state.mailSubject}
         />
         <Divider />
         <TextField
