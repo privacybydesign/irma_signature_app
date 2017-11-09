@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import SelectField from 'material-ui/SelectField';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
-import { sendSignatureRequest } from './../../actions';
+import { detectMailclients, sendSignatureRequest } from './../../actions';
 
 class CreateSigrequest extends Component {
   constructor(props) {
@@ -20,6 +21,15 @@ class CreateSigrequest extends Component {
       error: false,
     };
   }
+
+  componentWillMount() {
+    const { dispatch, mailClientsDetected, mailClients } = this.props;
+    console.log('mail clients: ', mailClients);
+    if (!mailClientsDetected) {
+      dispatch(detectMailclients());
+    }
+  }
+
 
   setAttributeValue = (event, index, attributeValue) => this.setState({ attributeValue });
 
@@ -38,6 +48,7 @@ class CreateSigrequest extends Component {
     const { dispatch } = this.props;
     dispatch(sendSignatureRequest(
       this.mapStateToSigrequest(),
+      this.props.mailClients,
       this.state.rcptMail,
       this.state.mailSubject,
       this.state.mailBody)
@@ -121,6 +132,7 @@ class CreateSigrequest extends Component {
           label="Send signature request"
           fullWidth
           onClick={this.handleSubmit}
+          disabled={!this.props.mailClientsDetected}
         />
       </div>
     );
@@ -129,6 +141,17 @@ class CreateSigrequest extends Component {
 
 CreateSigrequest.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  mailClientsDetected: PropTypes.bool.isRequired,
+  mailClients: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
-export default connect()(CreateSigrequest);
+function mapStateToProps(state) {
+  const { mail } = state;
+
+  return {
+    mailClientsDetected: mail.mailClientsDetected,
+    mailClients: mail.mailClients,
+  };
+}
+
+export default connect(mapStateToProps)(CreateSigrequest);

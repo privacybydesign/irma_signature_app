@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
@@ -11,6 +13,8 @@ import SideMenu from '../../containers/SideMenu/SideMenu';
 import Home from '../../containers/Home/Home';
 import CreateSigrequest from '../../containers/CreateSigrequest/CreateSigrequest';
 import VerifySignature from '../../containers/VerifySignature/VerifySignature';
+
+import { detectMailclients } from '../../actions';
 
 import './App.css';
 
@@ -29,6 +33,14 @@ class App extends Component {
     this.state = {
       showMenu: true
     };
+  }
+
+  componentWillMount() {
+    const { mailClientsDetected, dispatch } = this.props;
+    console.log('MAIL DETECTED: ', mailClientsDetected);
+    if (!mailClientsDetected) {
+      dispatch(detectMailclients());
+    }
   }
 
   toggleMenu() {
@@ -71,4 +83,17 @@ class App extends Component {
   }
 }
 
-export default App;
+App.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  mailClientsDetected: PropTypes.bool.isRequired,
+};
+
+function mapStateToProps(state) {
+  const { mail } = state;
+
+  return {
+    mailClientsDetected: mail.mailClientsDetected,
+  };
+}
+
+export default connect(mapStateToProps)(App);

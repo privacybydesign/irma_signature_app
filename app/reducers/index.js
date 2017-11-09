@@ -1,23 +1,28 @@
 import { combineReducers } from 'redux';
 import {
-  EXAMPLE_ACTION,
+  DETECT_MAIL_CLIENTS,
 } from '../actions';
 
-function example(
+function mail(
   state = {
-    isFetching: false,
+    mailClients: new Map(),
+    mailClientsDetected: false,
   },
   action
 ) {
   switch (action.type) {
-    case EXAMPLE_ACTION:
+    case DETECT_MAIL_CLIENTS:
+      return Object.assign({}, state, {
+        mailClients: action.mailClients,
+        mailClientsDetected: true,
+      });
     default:
       return state;
   }
 }
 
 const rootReducer = combineReducers({
-  example,
+  mail,
 });
 
 export default rootReducer;
