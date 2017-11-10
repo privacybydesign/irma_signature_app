@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
@@ -14,7 +15,7 @@ export default class MailClientPicker extends Component {
     super(props);
     this.state = {
       selected: defaultSelected,
-    }
+    };
   }
 
   handleRadioButtonSelect = (event, selected) => {
@@ -25,20 +26,19 @@ export default class MailClientPicker extends Component {
   };
 
   handleSubmit = () => {
-    this.props.handleSelect(this.state.selected)
+    this.props.handleSelect(this.state.selected);
   }
 
   getRadioButtons = () => {
     const mailClients = this.props.mailClients;
     return Array.from(mailClients.keys()).map((el) => (
-        <RadioButton
-          key={el}
-          value={el}
-          label={mailClients.get(el).description}
-          style={radioButtonStyle}
-        />
-      )
-    );
+      <RadioButton
+        key={el}
+        value={el}
+        label={mailClients.get(el).description}
+        style={radioButtonStyle}
+      />
+    ));
   }
 
   render() {
@@ -47,13 +47,13 @@ export default class MailClientPicker extends Component {
     const actions = [
       <FlatButton
         label="Cancel"
-        primary={true}
+        primary
         onClick={handleClose}
       />,
       <FlatButton
         label="Select"
-        primary={true}
-        keyboardFocused={true}
+        primary
+        keyboardFocused
         onClick={this.handleSubmit}
       />,
     ];
@@ -79,3 +79,10 @@ export default class MailClientPicker extends Component {
     );
   }
 }
+
+MailClientPicker.propTypes = {
+  handleSelect: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  mailClients: PropTypes.objectOf(PropTypes.string).isRequired,
+  openState: PropTypes.bool.isRequired,
+};

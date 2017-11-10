@@ -1,6 +1,7 @@
-import { searchMailClients, composeMail } from './../utils/mail';
 import fs from 'fs';
 import { tempdir } from 'shelljs';
+
+import { searchMailClients, composeMail } from './../utils/mail';
 
 // action types
 export const SEND_SIGNATURE_REQUEST = 'send-signature-request';
@@ -19,7 +20,7 @@ export function setPreferredMailClient(client) {
   return {
     type: SET_PREFERRED_MAIL_CLIENT,
     preferredMailClient: client,
-  }
+  };
 }
 
 export function detectMailClients() {
@@ -29,6 +30,7 @@ export function detectMailClients() {
 }
 
 export function sendSignatureRequest(attachmentPath, mailClientName, mailClientPath, mail) {
+  // TODO async
   return Promise.resolve(composeMail(attachmentPath, mailClientName, mailClientPath, mail));
 }
 

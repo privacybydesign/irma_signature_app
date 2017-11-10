@@ -5,8 +5,9 @@ const mailClients = {
   win32: [
     { name: 'outlook', description: 'Microsoft Outlook' },
     { name: 'thunderbird', description: 'Mozilla Thunderbird' },
-  ], linux: [
-    { name: 'claws-mail', description: 'Claws Mail' },
+  ],
+  linux: [
+//    { name: 'claws-mail', description: 'Claws Mail' },
     { name: 'thunderbird', description: 'Mozilla Thunderbird' },
   ],
 };
@@ -44,13 +45,13 @@ function detectMailClientsWindows(candidates) {
   return candidates.reduce((result, el) => {
     const name = el.name;
     const description = el.description;
-    let findResult = 
+    let findResult =
       exec(`dir /s/b "c:\\Program Files\\" |findstr /I ${name}.exe`).split('\n')[0];
 
     // Try again in 32bit dir if result is empty
     if (findResult === '') {
-    findResult = 
-      exec(`dir /s/b "c:\\Program Files\\ (x86)" |findstr /I ${name}.exe`).split('\n')[0];
+      findResult =
+        exec(`dir /s/b "c:\\Program Files\\ (x86)" |findstr /I ${name}.exe`).split('\n')[0];
     }
 
     if (findResult !== '') {
@@ -90,19 +91,19 @@ export function searchMailClients() {
 function composeMailOutlook(attachmentPath, mailClientPath, mail) {
   setNodePath();
   if (isNewOutlook(mailClientPath)) {
-    return exec(`"${mailClientPath}" /c ipm.note /m "${mail.destination}&subject=${mail.subject}body=${mail.body}" /a "${attachmentPath}"`);
-  } 
+    return exec(`"${mailClientPath}" /c ipm.note /m "${mail.destination}&subject=${mail.subject}body=${mail.body}" /a "${attachmentPath}"`, { async: true });
+  }
 
-  return exec(`"${mailClientPath}" /a ${attachmentPath}`);
+  return exec(`"${mailClientPath}" /a ${attachmentPath}`, { async: true });
 }
 
 function composeMailThunderbird(attachmentPath, mailClientPath, mail) {
-  return exec(`"${mailClientPath}" -compose "to='${mail.destination}',subject='${mail.subject}',body='${mail.body}',attachment='${attachmentPath}'"`);
+  return exec(`"${mailClientPath}" -compose "to='${mail.destination}',subject='${mail.subject}',body='${mail.body}',attachment='${attachmentPath}'"`, { async: true });
 }
 
 export function composeMail(attachmentPath, mailClientName, mailClientPath, mail) {
   setNodePath();
-  const path = (attachmentPath) ? attachmentPath : `${tempdir()}/signatureRequest.irma`;
+  const path = (attachmentPath !== null) ? attachmentPath : `${tempdir()}/signatureRequest.irma`;
   if (mailClientName === 'thunderbird') {
     return composeMailThunderbird(path, mailClientPath, mail);
   } else if (mailClientName === 'outlook') {

@@ -48,11 +48,11 @@ class CreateSigrequest extends Component {
     if (!this.validate()) {
       return;
     }
-    this.setState({mailClientDialogOpen: true});
+    this.setState({ mailClientDialogOpen: true });
   };
 
   closeMailDialog = () => {
-    this.setState({mailClientDialogOpen: false});
+    this.setState({ mailClientDialogOpen: false });
   };
 
   handleSubmit = (selectedMailClient) => {
@@ -66,7 +66,6 @@ class CreateSigrequest extends Component {
       console.log('Save not implemented yet!');
       return;
     }
-    const { dispatch } = this.props;
     const sigRequest = this.mapStateToSigrequest();
 
     saveSignatureRequest(sigRequest);
