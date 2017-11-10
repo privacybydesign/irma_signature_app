@@ -46,19 +46,19 @@ function detectMailClientsWindows(candidates) {
     const name = el.name;
     const description = el.description;
     let findResult =
-      exec(`dir /s/b "c:\\Program Files\\" |findstr /I ${name}.exe`).split('\n')[0];
+      exec(`dir /s/b "c:\\Program Files" |findstr /I ${name}.exe`).split('\n')[0];
 
     // Try again in 32bit dir if result is empty
     if (findResult === '') {
       findResult =
-        exec(`dir /s/b "c:\\Program Files\\ (x86)" |findstr /I ${name}.exe`).split('\n')[0];
+        exec(`dir /s/b "c:\\Program Files (x86)" |findstr /I ${name}.exe`).split('\n')[0];
     }
 
     if (findResult !== '') {
       return result.set(name, { path: findResult, description });
     }
 
-    return new Map();
+    return result;
   }, new Map());
 }
 
