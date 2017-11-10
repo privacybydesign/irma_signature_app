@@ -7,7 +7,9 @@ import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
-import { detectMailclients, sendSignatureRequest } from './../../actions';
+
+import { detectMailClients, saveSignatureRequest, sendSignatureRequest } from './../../actions';
+import MailClientPicker from './../../components/MailClientPicker/MailClientPicker';
 
 class CreateSigrequest extends Component {
   constructor(props) {
@@ -19,6 +21,7 @@ class CreateSigrequest extends Component {
       mailSubject: '',
       rcptMail: '',
       error: false,
+      mailClientDialogOpen: false,
     };
   }
 
@@ -26,7 +29,7 @@ class CreateSigrequest extends Component {
     const { dispatch, mailClientsDetected, mailClients } = this.props;
     console.log('mail clients: ', mailClients);
     if (!mailClientsDetected) {
-      dispatch(detectMailclients());
+      dispatch(detectMailClients());
     }
   }
 
@@ -41,17 +44,42 @@ class CreateSigrequest extends Component {
     });
   };
 
-  handleSubmit = () => {
+  openMailDialog = () => {
     if (!this.validate()) {
       return;
     }
+    this.setState({mailClientDialogOpen: true});
+  };
+
+  closeMailDialog = () => {
+    this.setState({mailClientDialogOpen: false});
+  };
+
+  handleSubmit = (selectedMailClient) => {
+    if (!this.validate()) {
+      return;
+    }
+
+    this.closeMailDialog();
+
+    if (selectedMailClient === 'save') {
+      console.log('Save not implemented yet!');
+      return;
+    }
     const { dispatch } = this.props;
-    dispatch(sendSignatureRequest(
-      this.mapStateToSigrequest(),
-      this.props.mailClients,
-      this.state.rcptMail,
-      this.state.mailSubject,
-      this.state.mailBody)
+    const sigRequest = this.mapStateToSigrequest();
+
+    saveSignatureRequest(sigRequest);
+
+    sendSignatureRequest(
+      null,
+      selectedMailClient,
+      this.props.mailClients.get(selectedMailClient).path,
+      {
+        body: this.state.mailBody,
+        destination: this.state.rcptMail,
+        subject: this.state.mailSubject,
+      },
     );
   }
 
@@ -131,8 +159,14 @@ class CreateSigrequest extends Component {
         <FlatButton
           label="Send signature request"
           fullWidth
-          onClick={this.handleSubmit}
+          onClick={this.openMailDialog}
           disabled={!this.props.mailClientsDetected}
+        />
+        <MailClientPicker
+          handleClose={this.closeMailDialog}
+          handleSelect={this.handleSubmit}
+          openState={this.state.mailClientDialogOpen}
+          mailClients={this.props.mailClients}
         />
       </div>
     );

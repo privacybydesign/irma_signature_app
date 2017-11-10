@@ -14,7 +14,7 @@ import Home from '../../containers/Home/Home';
 import CreateSigrequest from '../../containers/CreateSigrequest/CreateSigrequest';
 import VerifySignature from '../../containers/VerifySignature/VerifySignature';
 
-import { detectMailclients } from '../../actions';
+import { detectMailClients } from '../../actions';
 
 import './App.css';
 
@@ -37,9 +37,8 @@ class App extends Component {
 
   componentWillMount() {
     const { mailClientsDetected, dispatch } = this.props;
-    console.log('MAIL DETECTED: ', mailClientsDetected);
     if (!mailClientsDetected) {
-      dispatch(detectMailclients());
+      dispatch(detectMailClients());
     }
   }
 

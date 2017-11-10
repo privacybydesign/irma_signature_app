@@ -1,9 +1,13 @@
-import { searchMailclients, composeMail, saveSignature } from './../utils/mail';
+import { searchMailClients, composeMail } from './../utils/mail';
+import fs from 'fs';
+import { tempdir } from 'shelljs';
 
 // action types
 export const SEND_SIGNATURE_REQUEST = 'send-signature-request';
 export const DETECT_MAIL_CLIENTS = 'detect-mail-clients';
+export const SET_PREFERRED_MAIL_CLIENT = 'set-preferred-mail-client';
 
+// TODO: implement in container
 export function storeMailClients(clients) {
   return {
     type: DETECT_MAIL_CLIENTS,
@@ -11,19 +15,28 @@ export function storeMailClients(clients) {
   };
 }
 
-export function detectMailclients() {
+export function setPreferredMailClient(client) {
+  return {
+    type: SET_PREFERRED_MAIL_CLIENT,
+    preferredMailClient: client,
+  }
+}
+
+export function detectMailClients() {
   return dispatch =>
-    searchMailclients()
+    searchMailClients()
       .then(clients => dispatch(storeMailClients(clients)));
 }
 
-export function sendSignatureRequest(sigRequest, mailclients, destination, mailSubject, mailBody) {
-  return () => {
-    console.log('we will send this:', sigRequest, destination, mailSubject, mailBody);
-    const attachmentPath = '/tmp/ramdisk/sigrequest.irma';
-
-    saveSignature(sigRequest, attachmentPath);
-    composeMail(destination, mailSubject, mailBody, attachmentPath, 'thunderbird', mailclients.get('thunderbird'));
-    return Promise.resolve();
-  };
+export function sendSignatureRequest(attachmentPath, mailClientName, mailClientPath, mail) {
+  return Promise.resolve(composeMail(attachmentPath, mailClientName, mailClientPath, mail));
 }
+
+export function saveSignatureRequest(sigRequest, path) {
+  if (path === undefined) {
+    fs.writeFileSync(`${tempdir()}/signatureRequest.irma`, JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json
+  } else {
+    fs.writeFileSync(path, JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json
+  }
+}
+

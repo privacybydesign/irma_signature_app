@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
 import {
   DETECT_MAIL_CLIENTS,
+  SET_PREFERRED_MAIL_CLIENT,
 } from '../actions';
 
 function mail(
   state = {
     mailClients: new Map(),
     mailClientsDetected: false,
+    preferredMailClient: null,
   },
   action
 ) {
@@ -15,6 +17,10 @@ function mail(
       return Object.assign({}, state, {
         mailClients: action.mailClients,
         mailClientsDetected: true,
+      });
+    case SET_PREFERRED_MAIL_CLIENT:
+      return Object.assign({}, state, {
+        preferredMailClient: action.preferredMailClient,
       });
     default:
       return state;
