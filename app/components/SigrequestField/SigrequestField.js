@@ -39,10 +39,7 @@ export default class SigrequestField extends Component {
 
   validate = () => {
     const error = (
-      this.state.sigMessage === '' ||
-      this.state.dest === '' ||
-      this.state.subject === '' ||
-      this.state.body === ''
+      this.state.sigMessage === ''
     );
     this.setState({
       error,
@@ -60,30 +57,32 @@ export default class SigrequestField extends Component {
           hintText="Message to be signed"
           errorText={(this.state.error && this.state.sigMessage === '' ? errorText : '')}
           onChange={this.handleTextFieldChange}
+          multiLine
+          fullWidth
           value={this.state.sigMessage}
         />
         <Divider />
         <TextField
           id="subject"
           hintText="Mail subject"
-          errorText={(this.state.error && this.state.subject === '' ? errorText : '')}
           onChange={this.handleTextFieldChange}
+          fullWidth
           value={this.state.subject}
         />
         <Divider />
         <TextField
           id="body"
           hintText="Mail body"
-          errorText={(this.state.error && this.state.body === '' ? errorText : '')}
           onChange={this.handleTextFieldChange}
+          fullWidth
           value={this.state.body}
         />
         <Divider />
         <TextField
           id="dest"
           hintText="Recipient mail address"
-          errorText={(this.state.error && this.state.dest === '' ? errorText : '')}
           onChange={this.handleTextFieldChange}
+          fullWidth
           value={this.state.dest}
         />
         <Divider />
@@ -91,6 +90,7 @@ export default class SigrequestField extends Component {
           floatingLabelText="Select attribute"
           value={this.state.attributeValue}
           onChange={this.setAttributeValue}
+          fullWidth
         >
           <MenuItem value="pbdf.pbdf.address" primaryText="Address" />
           <MenuItem value="pbdf.pbdf.city" primaryText="City" />
@@ -100,7 +100,6 @@ export default class SigrequestField extends Component {
         <Divider />
         <FlatButton
           label="Send signature request"
-          fullWidth
           onClick={this.handleSubmit}
           disabled={disabled}
         />
