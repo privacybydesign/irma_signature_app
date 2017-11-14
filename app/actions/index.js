@@ -1,7 +1,6 @@
 import fs from 'fs';
-import { tempdir } from 'shelljs';
 
-import { searchMailClients, composeMail } from './../utils/mail';
+import { searchMailClients, composeMail, getTempPath } from './../utils/mail';
 
 // action types
 export const SEND_SIGNATURE_REQUEST = 'send-signature-request';
@@ -36,7 +35,7 @@ export function sendSignatureRequest(attachmentPath, mailClientName, mailClientP
 
 export function saveSignatureRequest(sigRequest, path) {
   if (path === undefined) {
-    fs.writeFileSync(`${tempdir()}/signatureRequest.irma`, JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json
+    fs.writeFileSync(getTempPath(), JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json
   } else {
     fs.writeFileSync(path, JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json
   }

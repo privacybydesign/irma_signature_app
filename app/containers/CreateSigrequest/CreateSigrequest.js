@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { detectMailClients, saveSignatureRequest, sendSignatureRequest } from './../../actions';
+import getSignatureSavePath from './../../utils/electron';
 import MailClientPicker from './../../components/MailClientPicker/MailClientPicker';
 import SigrequestField from './../../components/SigrequestField/SigrequestField';
 
@@ -40,12 +41,12 @@ class CreateSigrequest extends Component {
 
   handleSubmit = (selectedMailClient) => {
     this.closeMailDialog();
+    const sigRequest = this.mapStateToSigrequest();
 
     if (selectedMailClient === 'save') {
-      console.log('Save not implemented yet!');
-      return;
+      const path = getSignatureSavePath();
+      return saveSignatureRequest(sigRequest, path);
     }
-    const sigRequest = this.mapStateToSigrequest();
 
     saveSignatureRequest(sigRequest);
 

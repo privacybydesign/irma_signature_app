@@ -1,3 +1,6 @@
+// Util functions to send an e-mail via detected mail clients
+// Works only on desktop apps!
+
 import { config, exec, tempdir, which } from 'shelljs';
 import { platform } from 'process';
 
@@ -101,9 +104,14 @@ function composeMailThunderbird(attachmentPath, mailClientPath, mail) {
   return exec(`"${mailClientPath}" -compose "to='${mail.destination}',subject='${mail.subject}',body='${mail.body}',attachment='${attachmentPath}'"`, { async: true });
 }
 
+export function getTempPath() {
+  const sep = (detectOs() === 'win32') ? '\\' : '/';
+  return `${tempdir()}${sep}signatureRequest.irma`;
+}
+
 export function composeMail(attachmentPath, mailClientName, mailClientPath, mail) {
   setNodePath();
-  const path = (attachmentPath !== null) ? attachmentPath : `${tempdir()}/signatureRequest.irma`;
+  const path = (attachmentPath !== null) ? attachmentPath : getTempPath();
   if (mailClientName === 'thunderbird') {
     return composeMailThunderbird(path, mailClientPath, mail);
   } else if (mailClientName === 'outlook') {
