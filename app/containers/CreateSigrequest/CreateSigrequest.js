@@ -2,24 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import SelectField from 'material-ui/SelectField';
-import TextField from 'material-ui/TextField';
-import Divider from 'material-ui/Divider';
-import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
-
 import { detectMailClients, saveSignatureRequest, sendSignatureRequest } from './../../actions';
 import MailClientPicker from './../../components/MailClientPicker/MailClientPicker';
+import SigrequestField from './../../components/SigrequestField/SigrequestField';
 
 class CreateSigrequest extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      attributeValue: 'pbdf.pbdf.address',
-      sigMessage: '',
-      mailBody: '',
-      mailSubject: '',
-      rcptMail: '',
+      mail: {},
       error: false,
       mailClientDialogOpen: false,
     };
@@ -34,20 +25,7 @@ class CreateSigrequest extends Component {
   }
 
 
-  setAttributeValue = (event, index, attributeValue) => this.setState({ attributeValue });
-
-  handleTextFieldChange = (event) => {
-    const id = event.target.id;
-    const value = event.target.value;
-    return this.setState({
-      [id]: value,
-    });
-  };
-
   openMailDialog = () => {
-    if (!this.validate()) {
-      return;
-    }
     this.setState({ mailClientDialogOpen: true });
   };
 
@@ -55,11 +33,12 @@ class CreateSigrequest extends Component {
     this.setState({ mailClientDialogOpen: false });
   };
 
-  handleSubmit = (selectedMailClient) => {
-    if (!this.validate()) {
-      return;
-    }
+  saveSigrequestData = (mail) => {
+    this.setState({ mail });
+    this.openMailDialog();
+  };
 
+  handleSubmit = (selectedMailClient) => {
     this.closeMailDialog();
 
     if (selectedMailClient === 'save') {
@@ -75,91 +54,34 @@ class CreateSigrequest extends Component {
       selectedMailClient,
       this.props.mailClients.get(selectedMailClient).path,
       {
-        body: this.state.mailBody,
-        destination: this.state.rcptMail,
-        subject: this.state.mailSubject,
+        body: this.state.mail.body,
+        destination: this.state.mail.dest,
+        subject: this.state.mail.subject,
       },
     );
   }
 
-  validate = () => {
-    const error = (
-      this.state.sigMessage === '' ||
-      this.state.rcptMail === '' ||
-      this.state.mailSubject === '' ||
-      this.state.mailBody === ''
-    );
-    this.setState({
-      error,
-    });
-    return !error;
-  }
-
   mapStateToSigrequest = () => (
     {
-      message: this.state.sigMessage,
+      message: this.state.mail.sigMessage,
       messageType: 'STRING',
       content: [
         {
           label: 'TODO',
-          attributes: [this.state.attributeValue],
+          attributes: [this.state.mail.attributeValue],
         }
       ],
     }
   );
 
   render() {
-    const errorText = 'This field is required';
     return (
       <div style={{ padding: '20px' }}>
         <h2>Create a new signature request</h2>
-        <TextField
-          id="sigMessage"
-          hintText="Message to be signed"
-          errorText={(this.state.error && this.state.sigMessage === '' ? errorText : '')}
-          onChange={this.handleTextFieldChange}
-          value={this.state.sigMessage}
-        />
-        <Divider />
-        <TextField
-          id="mailBody"
-          hintText="Mail body"
-          errorText={(this.state.error && this.state.mailBody === '' ? errorText : '')}
-          onChange={this.handleTextFieldChange}
-          value={this.state.mailBody}
-        />
-        <Divider />
-        <TextField
-          id="mailSubject"
-          hintText="Mail subject"
-          errorText={(this.state.error && this.state.mailSubject === '' ? errorText : '')}
-          onChange={this.handleTextFieldChange}
-          value={this.state.mailSubject}
-        />
-        <Divider />
-        <TextField
-          id="rcptMail"
-          hintText="Recipient mail address"
-          errorText={(this.state.error && this.state.rcptMail === '' ? errorText : '')}
-          onChange={this.handleTextFieldChange}
-          value={this.state.rcptMail}
-        />
-        <Divider />
-        <SelectField
-          floatingLabelText="Select attribute"
-          value={this.state.attributeValue}
-          onChange={this.setAttributeValue}
-        >
-          <MenuItem value="pbdf.pbdf.address" primaryText="Address" />
-          <MenuItem value="pbdf.pbdf.city" primaryText="City" />
-          <MenuItem value="pbdf.pbdf.familyname" primaryText="Name" />
-        </SelectField>
-        <Divider />
-        <FlatButton
-          label="Send signature request"
-          fullWidth
-          onClick={this.openMailDialog}
+        <SigrequestField
           disabled={!this.props.mailClientsDetected}
+          onSubmit={this.saveSigrequestData}
+          error={this.state.error}
         />
         <MailClientPicker
           handleClose={this.closeMailDialog}
