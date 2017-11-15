@@ -1,0 +1,13 @@
+{
+  "name": "irmago_bridge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "gopherjs build main.go && node index.js",
+    "build-go": "go build main.go && rm main"
+  },
+  "author": "",
+  "license": "Apache"
+}
