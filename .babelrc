@@ -23,5 +23,8 @@
         }]
       ]
     }
-  }
+  },
+  "ignore": [
+    "**/utils/irmago_bridge/*.js"
+  ]
 }
