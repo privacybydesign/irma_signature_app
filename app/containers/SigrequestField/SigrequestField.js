@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import TextField from 'material-ui/TextField';
-import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Chip from 'material-ui/Chip';
 import Snackbar from 'material-ui/Snackbar';
 
 import { removeAttribute } from './../../actions';
+import SigTextFields from './../../components/SigTextFields/SigTextFields';
 import AttributeSearch from './../AttributeSearch/AttributeSearch';
 
 class SigrequestField extends Component {
@@ -24,6 +23,16 @@ class SigrequestField extends Component {
       attributeSearchDialogOpen: false,
       chips: [],
       snackbarOpen: false,
+    };
+    this.styles = {
+      chip: {
+        margin: 4,
+      },
+      wrapper: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        padding: '0px 0px 20px 0px',
+      },
     };
   }
 
@@ -76,6 +85,7 @@ class SigrequestField extends Component {
           // Key is always unique/constant here so safe to use as index
           key={key} // eslint-disable-line react/no-array-index-key
           onRequestDelete={(chip) => this.handleChipDelete(key, chip)}
+          style={this.styles.chip}
         >
           {value}
         </Chip>
@@ -109,57 +119,34 @@ class SigrequestField extends Component {
 
   render() {
     const { disabled } = this.props;
-    const errorText = 'This field is required';
     return (
       <div>
-        <TextField
-          id="sigMessage"
-          hintText="Message to be signed"
-          errorText={(this.state.error && this.state.sigMessage === '' ? errorText : '')}
+        <SigTextFields
           onChange={this.handleTextFieldChange}
-          multiLine
-          fullWidth
-          value={this.state.sigMessage}
+          sigMessageValue={this.state.sigMessage}
+          subjectValue={this.state.subject}
+          bodyValue={this.state.body}
+          destValue={this.state.dest}
+          error={this.state.error}
         />
-        <Divider />
-        <TextField
-          id="subject"
-          hintText="Mail subject"
-          onChange={this.handleTextFieldChange}
-          fullWidth
-          value={this.state.subject}
-        />
-        <Divider />
-        <TextField
-          id="body"
-          hintText="Mail body"
-          onChange={this.handleTextFieldChange}
-          fullWidth
-          value={this.state.body}
-        />
-        <Divider />
-        <TextField
-          id="dest"
-          hintText="Recipient mail address"
-          onChange={this.handleTextFieldChange}
-          fullWidth
-          value={this.state.dest}
-        />
-        <Divider />
-        <FlatButton
-          label="Select attributes"
-          onClick={this.handleSelectAttributes}
-        />
-        <AttributeSearch
-          openState={this.state.attributeSearchDialogOpen}
-          handleClose={this.closeAttributeSearchDialog}
-        />
-        {this.state.chips}
+        <div style={{ padding: '20px 0px 0px 0px' }}>
+          <FlatButton
+            label="Select attributes"
+            onClick={this.handleSelectAttributes}
+          />
+        </div>
+        <div style={this.styles.wrapper}>
+          {this.state.chips}
+        </div>
         <RaisedButton
           label="Send signature request"
           onClick={this.handleSubmit}
           disabled={disabled}
           primary
+        />
+        <AttributeSearch
+          openState={this.state.attributeSearchDialogOpen}
+          handleClose={this.closeAttributeSearchDialog}
         />
         <Snackbar
           open={this.state.snackbarOpen}
@@ -180,10 +167,8 @@ SigrequestField.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const { attributes } = state;
-
   return {
-    selectedAttributes: attributes.attributes,
+    selectedAttributes: state.attributes.attributes,
   };
 }
 
