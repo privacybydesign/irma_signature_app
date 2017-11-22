@@ -1,34 +1,10 @@
 import { combineReducers } from 'redux';
-import {
-  DETECT_MAIL_CLIENTS,
-  SET_PREFERRED_MAIL_CLIENT,
-} from '../actions';
-
-function mail(
-  state = {
-    mailClients: new Map(),
-    mailClientsDetected: false,
-    preferredMailClient: null,
-  },
-  action
-) {
-  switch (action.type) {
-    case DETECT_MAIL_CLIENTS:
-      return Object.assign({}, state, {
-        mailClients: action.mailClients,
-        mailClientsDetected: true,
-      });
-    case SET_PREFERRED_MAIL_CLIENT:
-      return Object.assign({}, state, {
-        preferredMailClient: action.preferredMailClient,
-      });
-    default:
-      return state;
-  }
-}
+import attributes from './attribute-search';
+import mail from './mail';
 
 const rootReducer = combineReducers({
   mail,
+  attributes,
 });
 
 export default rootReducer;

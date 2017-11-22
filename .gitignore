@@ -53,3 +53,6 @@ npm-debug.log.*
 
 # Vim swap files
 *.swp
+
+# Yarn.lock (TODO: check in as well if everything finished)
+yarn.lock
