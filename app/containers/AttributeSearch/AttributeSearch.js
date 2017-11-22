@@ -63,7 +63,7 @@ class AttributeSearch extends Component {
     const { handleClose, openState } = this.props;
     const actions = [
       <FlatButton
-        label="Close"
+        label="Save selected attributes"
         primary
         onClick={handleClose}
       />,
