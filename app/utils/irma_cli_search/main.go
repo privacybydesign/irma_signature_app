@@ -1,36 +1,33 @@
 package main
 
 import (
-	"fmt"
-	"github.com/credentials/irmago"
+  "fmt"
+  "github.com/credentials/irmago"
   "encoding/json"
-	"strings"
+  "strings"
   "os"
   "github.com/go-errors/errors"
 )
 
 func parse(path string, assets string) (*irma.Configuration, error) {
-	// path := "/tmp/path"
-	// assets := "/home/koen/Documents/Delivery/irma_sig_ru/irma_configuration"
+  conf, err := irma.NewConfiguration(path, assets)
 
-	conf, err := irma.NewConfiguration(path, assets)
+  if err != nil {
+    return nil, err
+  }
 
-	if err != nil {
-		return nil, err
-	}
+  err = conf.ParseFolder()
+  if err != nil {
+    return nil, err
+  }
 
-	err = conf.ParseFolder()
-	if err != nil {
-		return nil, err
-	}
-
-	return conf, nil
+  return conf, nil
 }
 
 type SearchResult struct {
-	identifier  string
-	attribute  irma.AttributeDescription
-	credential irma.CredentialType
+  identifier  string
+  attribute  irma.AttributeDescription
+  credential irma.CredentialType
 }
 
 type CliArgs struct {
@@ -41,7 +38,7 @@ type CliArgs struct {
 
 func getAttributeNames(s []SearchResult) (string, error) {
   results := make(map[string]string)
-	for _, el := range s {
+  for _, el := range s {
     results[el.identifier] = el.attribute.Name["en"]  + " (" +  el.credential.IssuerID + ")"
   }
 
@@ -54,24 +51,24 @@ func getAttributeNames(s []SearchResult) (string, error) {
 }
 
 func searchAttribute(name string, conf *irma.Configuration) []SearchResult {
-	var results []SearchResult
+  var results []SearchResult
 
-	for _, cred := range conf.CredentialTypes {
-		for _, attribute := range cred.Attributes {
+  for _, cred := range conf.CredentialTypes {
+    for _, attribute := range cred.Attributes {
       lName := strings.ToLower(name)
-			if strings.Contains(strings.ToLower(attribute.ID), lName) ||
+      if strings.Contains(strings.ToLower(attribute.ID), lName) ||
        strings.Contains(strings.ToLower(cred.IssuerID), lName) {
-				attributeIdentifier := "irma-demo" + "." + cred.IssuerID + "." + cred.ID + "." + attribute.ID
-				results = append(results,
-					SearchResult{
-						identifier: attributeIdentifier,
-						attribute: attribute,
-						credential: *cred,
-					})
-			}
-		}
-	}
-	return results
+        attributeIdentifier := cred.SchemeManagerID + "." + cred.IssuerID + "." + cred.ID + "." + attribute.ID
+        results = append(results,
+          SearchResult{
+            identifier: attributeIdentifier,
+            attribute: attribute,
+            credential: *cred,
+          })
+      }
+    }
+  }
+  return results
 }
 
 func printUsage() {
@@ -95,30 +92,31 @@ func main() {
 
   // Parse CLI args
   cliArgs, err := parseCliArgs()
-	if err != nil {
-		fmt.Println(err)
+  if err != nil {
+    fmt.Println(err)
     exitCode = 1
-		return
-	}
+    return
+  }
 
   // Parse irma_configuration files
   conf, err := parse(cliArgs.path, cliArgs.assets)
-	if err != nil {
-		fmt.Println(err)
+  if err != nil {
+    fmt.Println(err)
     exitCode = 1
-		return
-	}
+    return
+  }
 
   // Search for attributes
   searchResult := searchAttribute(cliArgs.name, conf)
   jsonResult, err := getAttributeNames(searchResult)
   if err != nil {
-		fmt.Println(err)
+    fmt.Println(err)
     exitCode = 1
-		return
-	}
+    return
+  }
 
   // Print final result of search
   fmt.Println(string(jsonResult))
   return
+
 }

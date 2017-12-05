@@ -15,12 +15,19 @@ Install Golang compiler and verify GOPATH:
 
 ```
     apt-get install golang    # For debian-based Linux distros
+    brew install golang       # For OSX
     echo $GOPATH              # Make sure this var points to a directory
 ```
 
 Build Go executable:
 ```
     yarn run build-get-go
+```
+
+Initialize and update `irma_configuration` submodule:
+```
+    git submodule init
+    git submodule update
 ```
 
 Start the app:
