@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Chip from 'material-ui/Chip';
 import Snackbar from 'material-ui/Snackbar';
+import Divider from 'material-ui/Divider';
 
 import { removeAttribute } from './../../actions';
 import SigTextFields from './../../components/SigTextFields/SigTextFields';
@@ -29,7 +29,7 @@ class SigrequestField extends Component {
         margin: 4,
       },
       wrapper: {
-        display: 'flex',
+      //  display: 'flex',
         flexWrap: 'wrap',
         padding: '0px 0px 20px 0px',
       },
@@ -130,14 +130,17 @@ class SigrequestField extends Component {
           error={this.state.error}
         />
         <div style={{ padding: '20px 0px 0px 0px' }}>
-          <FlatButton
-            label="Select attributes"
+          <RaisedButton
+            label="Add attributes"
             onClick={this.handleSelectAttributes}
+            secondary
           />
         </div>
+        {this.state.chips.length !== 0 ? <div><Divider /><h4>Signer&apos;s attributes:</h4></div> : ''}
         <div style={this.styles.wrapper}>
           {this.state.chips}
         </div>
+        {this.state.chips.length !== 0 ? <Divider /> : ''}
         <RaisedButton
           label="Send signature request"
           onClick={this.handleSubmit}

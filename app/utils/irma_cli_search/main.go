@@ -42,7 +42,7 @@ type CliArgs struct {
 func getAttributeNames(s []SearchResult) (string, error) {
   results := make(map[string]string)
 	for _, el := range s {
-    results[el.identifier] = el.credential.IssuerID + ": " + el.attribute.Name["en"]
+    results[el.identifier] = el.attribute.Name["en"]  + " (" +  el.credential.IssuerID + ")"
   }
 
   jsonResult, err := json.Marshal(results)
@@ -58,7 +58,9 @@ func searchAttribute(name string, conf *irma.Configuration) []SearchResult {
 
 	for _, cred := range conf.CredentialTypes {
 		for _, attribute := range cred.Attributes {
-			if strings.Contains(strings.ToLower(attribute.ID), strings.ToLower(name)) {
+      lName := strings.ToLower(name)
+			if strings.Contains(strings.ToLower(attribute.ID), lName) ||
+       strings.Contains(strings.ToLower(cred.IssuerID), lName) {
 				attributeIdentifier := "irma-demo" + "." + cred.IssuerID + "." + cred.ID + "." + attribute.ID
 				results = append(results,
 					SearchResult{

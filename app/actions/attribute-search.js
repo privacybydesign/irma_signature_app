@@ -22,8 +22,6 @@ export function removeAttribute(key) {
 }
 
 export function setSearchResult(searchResult) {
-  console.log('result: ', searchResult);
-  console.log('result type: ', typeof searchResult);
   return {
     type: SET_SEARCH_RESULT,
     searchResult,
