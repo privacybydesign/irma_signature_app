@@ -13,6 +13,10 @@ const mailClients = {
 //    { name: 'claws-mail', description: 'Claws Mail' },
     { name: 'thunderbird', description: 'Mozilla Thunderbird' },
   ],
+  darwin: [
+    { name: 'Thunderbird.app', binary: 'thunderbird', description: 'Mozilla Thunderbird' },
+    { name: 'Mail.app', binary: 'Mail', description: 'Apple Mail' },
+  ],
 };
 
 // Hack to let this work in electron
@@ -65,6 +69,25 @@ function detectMailClientsWindows(candidates) {
   }, new Map());
 }
 
+function detectMailClientsMacOS(candidates) {
+  return candidates.reduce((result, el) => {
+    const name = el.name;
+    const description = el.description;
+    const binary = el.binary;
+
+    // find entries are separated by '\n'
+    // -maxdepth in order not to traverse too deeply into /Applications, which is generally huge
+    const findResult =
+      exec(`find /Applications -maxdepth 2 -type d -name '${name}'`).split('\n')[0];
+
+    if (findResult !== '') {
+      return result.set(name, { path: `${findResult}/Contents/MacOS/${binary}`, description });
+    }
+
+    return result;
+  }, new Map());
+}
+
 // Look if outlook >= 2010, because only those support setting subject&body
 // See: https://stackoverflow.com/questions/7912973/launch-outlook-to-compose-a-message-with-subject-and-attachment-by-outlooks-com
 function isNewOutlook(path) {
@@ -85,6 +108,8 @@ export function searchMailClients() {
     return Promise.resolve(detectMailClientsLinux(mailClients[os]));
   } else if (os === 'win32') {
     return Promise.resolve(detectMailClientsWindows(mailClients[os]));
+  } else if (os === 'darwin') {
+    return Promise.resolve(detectMailClientsMacOS(mailClients[os]));
   }
   // Currently unsupported OS, fallback to saving message manually
   console.log('OS not supported: ', os);
@@ -104,6 +129,17 @@ function composeMailThunderbird(attachmentPath, mailClientPath, mail) {
   return exec(`"${mailClientPath}" -compose "to='${mail.destination}',subject='${mail.subject}',body='${mail.body}',attachment='${attachmentPath}'"`, { async: true });
 }
 
+function composeMailAppleMail(attachmentPath, mailClientPath, mail) {
+  const script = `tell application "Mail"
+    make new outgoing message with properties {visible:true, subject:"${mail.subject}",content:"${mail.body}"}
+    tell result
+      make new to recipient with properties {address:"${mail.destination}"}
+      make new attachment with properties {file name:"${attachmentPath}"}
+    end tell
+  end tell`;
+  return exec(`echo '${script}' | /usr/bin/osascript`);
+}
+
 export function getTempPath() {
   const sep = (detectOs() === 'win32') ? '\\' : '/';
   return `${tempdir()}${sep}signatureRequest.irma`;
@@ -112,9 +148,11 @@ export function getTempPath() {
 export function composeMail(attachmentPath, mailClientName, mailClientPath, mail) {
   setNodePath();
   const path = (attachmentPath !== null) ? attachmentPath : getTempPath();
-  if (mailClientName === 'thunderbird') {
+  if (mailClientName === 'thunderbird' || mailClientName === 'Thunderbird.app') {
     return composeMailThunderbird(path, mailClientPath, mail);
   } else if (mailClientName === 'outlook') {
     return composeMailOutlook(path, mailClientPath, mail);
+  } else if (mailClientName === 'Mail.app') {
+    return composeMailAppleMail(path, mailClientPath, mail);
   }
 }
