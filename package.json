@@ -5,7 +5,7 @@
   "description": "IRMA signature app based on Electron application boilerplate",
   "scripts": {
     "build": "concurrently \"npm run build-main\" \"npm run build-renderer\"",
-    "build-get-go": "go get github.com/credentials/irmago; go build -o app/utils/irma_cli_search/main app/utils/irma_cli_search/main.go",
+    "build-get-go": "go get github.com/privacybydesign/irmago; go build -o app/utils/irma_cli_search/main app/utils/irma_cli_search/main.go",
     "build-go": "go build -o app/utils/irma_cli_search/main app/utils/irma_cli_search/main.go",
     "build-dll": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.dev.dll.js --colors",
     "build-main": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.main.prod.js --colors",

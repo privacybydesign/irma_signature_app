@@ -2,7 +2,7 @@ package main
 
 import (
   "fmt"
-  "github.com/credentials/irmago"
+  "github.com/privacybydesign/irmago"
   "encoding/json"
   "strings"
   "os"
