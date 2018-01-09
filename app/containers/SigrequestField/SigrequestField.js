@@ -19,6 +19,8 @@ class SigrequestField extends Component {
       body: '',
       subject: '',
       dest: '',
+      from: '',
+      name: '',
       error: false,
       attributeSearchDialogOpen: false,
       chips: [],
@@ -109,6 +111,8 @@ class SigrequestField extends Component {
   validate = () => {
     const error = (
       this.state.sigMessage === '' ||
+      this.state.from === '' ||
+      this.state.name === '' ||
       this.props.selectedAttributes.size < 1
     );
     this.setState({
@@ -127,6 +131,8 @@ class SigrequestField extends Component {
           subjectValue={this.state.subject}
           bodyValue={this.state.body}
           destValue={this.state.dest}
+          fromValue={this.state.from}
+          nameValue={this.state.name}
           error={this.state.error}
         />
         <div style={{ padding: '20px 0px 0px 0px' }}>

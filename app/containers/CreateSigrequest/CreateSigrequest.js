@@ -66,6 +66,9 @@ class CreateSigrequest extends Component {
       message: this.state.mail.sigMessage,
       messageType: 'STRING',
       content: this.createContent(this.props.selectedAttributes),
+      nonce: 0,
+      from: this.state.mail.from,
+      name: this.state.mail.name,
     }
   );
 

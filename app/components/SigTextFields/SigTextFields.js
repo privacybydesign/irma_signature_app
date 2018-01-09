@@ -14,6 +14,8 @@ export default class SigTextFields extends Component {
       bodyValue,
       destValue,
       error,
+      fromValue,
+      nameValue,
     } = this.props;
     const errorText = 'This field is required';
 
@@ -53,6 +55,24 @@ export default class SigTextFields extends Component {
           value={destValue}
         />
         <Divider />
+        <TextField
+          id="from"
+          hintText="Your e-mail address"
+          errorText={(error && fromValue === '' ? errorText : '')}
+          onChange={onChange}
+          fullWidth
+          value={fromValue}
+        />
+        <Divider />
+        <TextField
+          id="name"
+          hintText="Your name"
+          errorText={(error && nameValue === '' ? errorText : '')}
+          onChange={onChange}
+          fullWidth
+          value={nameValue}
+        />
+        <Divider />
       </div>
     );
   }
@@ -65,4 +85,6 @@ SigTextFields.propTypes = {
   bodyValue: PropTypes.string.isRequired,
   destValue: PropTypes.string.isRequired,
   error: PropTypes.bool.isRequired,
+  fromValue: PropTypes.string.isRequired,
+  nameValue: PropTypes.string.isRequired,
 };
