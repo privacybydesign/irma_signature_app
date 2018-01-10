@@ -14,7 +14,7 @@ Install dependencies:
 Install Golang compiler and verify GOPATH:
 
 ```
-    apt-get install golang    # For debian-based Linux distros
+    apt-get install golang    # For Debian-based Linux distros
     brew install golang       # For OSX
     echo $GOPATH              # Make sure this var points to a directory
 ```
@@ -35,3 +35,9 @@ Start the app:
 ```
     yarn run dev
 ```
+
+Currently the following mail clients are supported / autodetected / tested:
+
+- Thunderbird
+- Mail.app (OSX)
+- Outlook 2007, Outlook 2010, Outlook 365 (Windows)
