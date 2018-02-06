@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
-import { Row, Col } from 'react-flexbox-grid';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
 import SideMenu from '../../containers/SideMenu/SideMenu';
 import Home from '../../containers/Home/Home';
@@ -60,22 +60,24 @@ class App extends Component {
             iconClassNameRight="muidocs-icon-navigation-expand-more"
             onLeftIconButtonTouchTap={() => this.toggleMenu()}
           />
-          <Row>
-            {
-              this.state.showMenu &&
-              <Col xs={12} sm={3}>
-                <SideMenu />
-              </Col>
-            }
+          <Grid fluid>
+            <Row>
+              {
+                this.state.showMenu &&
+                <Col xs={12} sm={3}>
+                  <SideMenu />
+                </Col>
+              }
 
-            <Col xs>
-              <Paper style={styles.main}>
-                <Route exact path="/" component={Home} />
-                <Route path="/create-sigrequest" component={CreateSigrequest} />
-                <Route path="/verify-signature" component={VerifySignature} />
-              </Paper>
-            </Col>
-          </Row>
+              <Col xs>
+                <Paper style={styles.main}>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/create-sigrequest" component={CreateSigrequest} />
+                  <Route path="/verify-signature" component={VerifySignature} />
+                </Paper>
+              </Col>
+            </Row>
+          </Grid>
         </div>
       </Router>
     );
