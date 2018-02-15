@@ -39,7 +39,7 @@ type CliArgs struct {
 func getAttributeNames(s []SearchResult) (string, error) {
   results := make(map[string]string)
   for _, el := range s {
-    results[el.identifier] = el.attribute.Name["en"]  + " (" +  el.credential.IssuerID + ")"
+    results[el.identifier] = el.credential.Name["en"] + " - " + el.attribute.Name["en"]  + " (" +  el.credential.IssuerID + ")"
   }
 
   jsonResult, err := json.Marshal(results)
