@@ -1,3 +1,6 @@
 [submodule "app/utils/irma_cli_search/irma_configuration/pbdf"]
 	path = app/utils/irma_cli_search/irma_configuration/pbdf
 	url = https://github.com/privacybydesign/pbdf-schememanager
+[submodule "app/utils/irma_signature_verify/irma_configuration/pbdf"]
+	path = app/utils/irma_signature_verify/irma_configuration/pbdf
+	url = https://github.com/credentials/pbdf-schememanager
