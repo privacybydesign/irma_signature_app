@@ -23,7 +23,7 @@ export default class AttributeResultTable extends Component {
   generateTableBody = (attributes) => (
     (attributes && attributes !== 'null')
       ?
-        <TableBody>
+        <TableBody displayRowCheckbox={false}>
           {attributes.map((attribute) => {
             const name = (attribute.name && attribute.name.en) ? attribute.name.en : '';
             const value = (attribute.value && attribute.value.en) ? attribute.value.en : '';
@@ -39,7 +39,7 @@ export default class AttributeResultTable extends Component {
     const { attributes } = this.props;
     return (
       <Table selectable={false}>
-        <TableHeader>
+        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
             <TableHeaderColumn>Attribute</TableHeaderColumn>
             <TableHeaderColumn>Value</TableHeaderColumn>
