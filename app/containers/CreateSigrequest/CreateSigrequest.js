@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import bigInt from 'big-integer';
 
-import { detectMailClients, saveSignatureRequest, sendSignatureRequest } from './../../actions';
+import { setSignatureRequest, detectMailClients, saveSignatureRequest, sendSignatureRequest } from './../../actions';
 import getSignatureSavePath from './../../utils/electron';
 import MailClientPicker from './../../components/MailClientPicker/MailClientPicker';
 import SigrequestField from './../SigrequestField/SigrequestField';
+
+// TODO: move?
+function generateNonce() {
+  return bigInt.randBetween(bigInt.zero, bigInt('1e80')).toString();
+}
 
 class CreateSigrequest extends Component {
   constructor(props) {
@@ -41,6 +47,9 @@ class CreateSigrequest extends Component {
   handleSubmit = (selectedMailClient) => {
     this.closeMailDialog();
     const sigRequest = this.mapStateToSigrequest();
+    const { dispatch } = this.props;
+
+    dispatch(setSignatureRequest(sigRequest));
 
     if (selectedMailClient === 'save') {
       const path = getSignatureSavePath();
@@ -66,7 +75,8 @@ class CreateSigrequest extends Component {
       message: this.state.mail.sigMessage,
       messageType: 'STRING',
       content: this.createContent(this.props.selectedAttributes),
-      nonce: 0,
+      nonce: generateNonce(),
+      context: 0,
       from: this.state.mail.from,
       name: this.state.mail.name,
     }

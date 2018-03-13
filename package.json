@@ -188,8 +188,10 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "big-integer": "^1.6.26",
     "devtron": "^1.4.0",
     "electron-debug": "^1.2.0",
+    "electron-json-storage": "^4.0.2",
     "font-awesome": "^4.7.0",
     "history": "^4.6.3",
     "material-ui": "^0.19.4",

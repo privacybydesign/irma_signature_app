@@ -5,6 +5,7 @@ import { List, ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import IconActionCheckCircle from 'material-ui/svg-icons/action/check-circle';
 import IconActionNodeAdd from 'material-ui/svg-icons/action/note-add';
+import IconHardwareWatch from 'material-ui/svg-icons/hardware/watch';
 
 export default class SideMenu extends React.Component {
 
@@ -36,6 +37,9 @@ export default class SideMenu extends React.Component {
             </Link>
             <Link to="/verify-signature">
               <ListItem primaryText="Verify Signature" leftIcon={<IconActionCheckCircle />} />
+            </Link>
+            <Link to="/pending-signature-requests">
+              <ListItem primaryText="Pending Requests" leftIcon={<IconHardwareWatch />} />
             </Link>
           </List>
         </Paper>

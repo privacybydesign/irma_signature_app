@@ -13,8 +13,9 @@ import SideMenu from '../../containers/SideMenu/SideMenu';
 import Home from '../../containers/Home/Home';
 import CreateSigrequest from '../../containers/CreateSigrequest/CreateSigrequest';
 import VerifySignature from '../../containers/VerifySignature/VerifySignature';
+import SignatureRequests from '../../containers/SignatureRequests/SignatureRequests';
 
-import { detectMailClients } from '../../actions';
+import { getAllSignatureRequests, detectMailClients } from '../../actions';
 
 import './App.css';
 
@@ -40,6 +41,8 @@ class App extends Component {
     if (!mailClientsDetected) {
       dispatch(detectMailClients());
     }
+
+    dispatch(getAllSignatureRequests());
   }
 
   toggleMenu() {
@@ -74,6 +77,7 @@ class App extends Component {
                   <Route exact path="/" component={Home} />
                   <Route path="/create-sigrequest" component={CreateSigrequest} />
                   <Route path="/verify-signature" component={VerifySignature} />
+                  <Route path="/pending-signature-requests" component={SignatureRequests} />
                 </Paper>
               </Col>
             </Row>
