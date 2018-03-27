@@ -1,0 +1,20 @@
+# Dependency directory
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
+node_modules
+
+# Build dir
+build
+
+# OSX
+.DS_Store
+
+# IDE related files
+*.swp
+.idea
+
+# Log files
+npm-debug.log.*
+yarn-error.log
+
+# Yarn.lock (TODO: check in as well if everything finished)
+yarn.lock

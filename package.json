@@ -1,0 +1,40 @@
+{
+  "name": "IRMA_signature_app",
+  "version": "1.0.0",
+  "description": "An IRMA app to create IRMA signatures",
+  "main": "main.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "electron ."
+  },
+  "repository": "https://github.com/privacybydesign/irma_signature_app",
+  "keywords": [
+    "Electron",
+    "IRMA"
+  ],
+  "author": "Privacy By Design Foundatation",
+  "license": "Apache",
+  "devDependencies": {
+    "electron": "~1.8.2",
+    "material-ui": "^1.0.0-beta.10",
+    "material-ui-dropzone": "^1.0.3",
+    "material-ui-icons": "^1.0.0-beta.17",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.1.1"
+  },
+  "dependencies": {
+    "process": "^0.11.10",
+    "react-flexbox-grid": "^2.0.0",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "recompose": "^0.26.0",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
+    "shelljs": "^0.8.1"
+  }
+}
