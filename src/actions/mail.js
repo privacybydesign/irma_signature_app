@@ -1,4 +1,4 @@
-import { searchMailClientsElectron } from './electron/mail.js';
+import { searchMailClientsElectron } from './electron.js';
 
 export const STORE_MAIL_CLIENTS = 'store-mail-clients';
 export const SET_PREFERRED_MAIL_CLIENT = 'set-preferred-mail-client';
@@ -19,7 +19,7 @@ export function detectMailClients() {
 //   // TODO async
 //   return Promise.resolve(composeMail(attachmentPath, mailClientName, mailClientPath, mail));
 // }
-// 
+//
 // export function saveSignatureRequest(sigRequest, path) {
 //   if (path === undefined) {
 //     fs.writeFileSync(getTempPath(), JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json

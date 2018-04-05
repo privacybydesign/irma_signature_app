@@ -10,6 +10,8 @@ import Button from 'material-ui/Button';
 import Delete from 'material-ui-icons/Delete';
 import Download from 'material-ui-icons/FileDownload';
 
+import AttributeDropdown from './../AttributeDropdown/AttributeDropdown';
+
 class ComposeSigrequest extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +30,7 @@ class ComposeSigrequest extends Component {
 
   render() {
     return (
-      <div> 
+      <div>
         <TextField
           label="Message to be signed"
           multiline
@@ -38,6 +40,7 @@ class ComposeSigrequest extends Component {
           fullWidth
           margin="normal"
         />
+        <AttributeDropdown />
         <Typography style={{ paddingTop: '20px', fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)', paddingBottom: '6px' }}>You can export this request and share it manually or proceed to share it by email.</Typography>
           <Button onClick={this.handleNext} >
             Next

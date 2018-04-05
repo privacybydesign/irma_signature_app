@@ -55,6 +55,8 @@ app.on('activate', function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 const mail = require('./electron/mail');
+const getAllAttributes = require('./electron/irma_attribute_list');
+
 const ipcMain = electron.ipcMain;
 
 ipcMain.on('searchMailClients-req', (event, arg) => {
@@ -63,6 +65,17 @@ ipcMain.on('searchMailClients-req', (event, arg) => {
       const action = {
         type: 'store-mail-clients',
         mailClients,
+      };
+      event.sender.send('response', JSON.stringify(action));
+    });
+});
+
+ipcMain.on('searchAttributes-req', (event, arg) => {
+  getAllAttributes()
+    .then(attributeResult => {
+      const action = {
+        type: 'store-attribute-result',
+        attributeResult,
       };
       event.sender.send('response', JSON.stringify(action));
     });

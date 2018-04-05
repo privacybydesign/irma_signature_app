@@ -19,7 +19,6 @@ export default function configureStore(preloadedState) {
   const ipcRenderer = electron.ipcRenderer;
 
   ipcRenderer.on('response', (event, arg) => {
-    console.log('Response: ', arg);
     store.dispatch(JSON.parse(arg));
   });
 
