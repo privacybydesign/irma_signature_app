@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Stepper, { Step, StepLabel, StepContent } from 'material-ui/Stepper';
 import Button from 'material-ui/Button';
@@ -12,11 +13,11 @@ class RequestSignatureStepper extends Component {
     this.state = {
       stepIndex: 0,
       sigrequest: {},
+      mail: {},
     };
   }
 
   handleNewSigrequest = (sigrequest) => {
-    console.log('new sigrequest: ', sigrequest);
     this.setState({
       sigrequest,
     });
@@ -24,10 +25,17 @@ class RequestSignatureStepper extends Component {
   }
 
   handleComposeFinised = (mail) => {
-    console.log('new mail: ', mail);
+    this.setState({
+      mail,
+    });
+
+    // Search attributes and composing mail finished, open mail program
+    const sigrequest = this.state.sigrequest;
+    this.props.onComplete(mail, sigrequest);
+
     this.handleNext();
   }
-  
+
   handleComposeCancelled = () => {
     // Clear sigrequest in state TODO: needed?
     this.setState({
@@ -35,7 +43,7 @@ class RequestSignatureStepper extends Component {
     });
     this.handlePrev();
   }
-	
+
   handleNext = () => {
     const {stepIndex} = this.state;
 
@@ -52,10 +60,10 @@ class RequestSignatureStepper extends Component {
   }
 
   render() {
-    const { stepIndex, sigrequest } = this.state;
+    const { stepIndex } = this.state;
 
     return (
-      <div> 
+      <div>
         <Stepper activeStep={stepIndex} orientation="vertical">
           <Step>
             <StepLabel>Compose request</StepLabel>
@@ -66,7 +74,7 @@ class RequestSignatureStepper extends Component {
           <Step>
             <StepLabel>Send request</StepLabel>
             <StepContent>
-              <ComposeMail sigrequest={sigrequest} onComplete={this.handleComposeFinised} onCancel={this.handleComposeCancelled} />
+              <ComposeMail onComplete={this.handleComposeFinised} onCancel={this.handleComposeCancelled} />
             </StepContent>
           </Step>
         </Stepper>
@@ -83,5 +91,9 @@ class RequestSignatureStepper extends Component {
     );
   }
 }
+
+RequestSignatureStepper.propTypes = {
+  onComplete: PropTypes.func.isRequired,
+};
 
 export default RequestSignatureStepper;

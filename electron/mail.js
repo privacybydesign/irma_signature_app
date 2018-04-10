@@ -4,6 +4,7 @@
 
 const { config, exec, tempdir, which } = require('shelljs');
 const { platform } = require('process');
+const fs = require("fs");
 
 const mailClients = {
   win32: [
@@ -104,37 +105,43 @@ function isNewOutlook(path) {
 function composeMailOutlook(attachmentPath, mailClientPath, mail) {
   setNodePath();
   if (isNewOutlook(mailClientPath)) {
-    return exec(`"${mailClientPath}" /c ipm.note /m "${mail.destination}&subject=${mail.subject}body=${mail.body}" /a "${attachmentPath}"`, { async: true });
+    return exec(`"${mailClientPath}" /c ipm.note /m "${mail.recipient}&subject=${mail.subject}body=${mail.body}" /a "${attachmentPath}"`, { async: true });
   }
 
   return exec(`"${mailClientPath}" /a ${attachmentPath}`, { async: true });
 }
 
 function composeMailThunderbird(attachmentPath, mailClientPath, mail) {
-  return exec(`"${mailClientPath}" -compose "to='${mail.destination}',subject='${mail.subject}',body='${mail.body}',attachment='${attachmentPath}'"`, { async: true });
+  return exec(`"${mailClientPath}" -compose "to='${mail.recipient}',subject='${mail.subject}',body='${mail.body}',attachment='${attachmentPath}'"`, { async: true });
 }
 
 function composeMailAppleMail(attachmentPath, mailClientPath, mail) {
   const script = `tell application "Mail"
     make new outgoing message with properties {visible:true, subject:"${mail.subject}",content:"${mail.body}"}
     tell result
-      make new to recipient with properties {address:"${mail.destination}"}
+      make new to recipient with properties {address:"${mail.recipient}"}
       make new attachment with properties {file name:"${attachmentPath}"}
     end tell
   end tell`;
   return exec(`echo '${script}' | /usr/bin/osascript`);
 }
 
-/*
 function getTempPath() {
   const sep = (detectOs() === 'win32') ? '\\' : '/';
+  console.log('temp path: ', `${tempdir()}${sep}signatureRequest.irma`);
   return `${tempdir()}${sep}signatureRequest.irma`;
 }
-*/
 
-module.exports.composeMail = function composeMail(attachmentPath, mailClientName, mailClientPath, mail) {
+function save(path, sigRequest) {
+  return fs.writeFileSync(path, JSON.stringify(sigRequest));
+}
+
+module.exports.composeMail = function composeMail(sigRequest, mailClientName, mailClientPath, mail) {
   setNodePath();
-  const path = (attachmentPath !== null) ? attachmentPath : getTempPath();
+  const path = getTempPath();
+
+  save(path, sigRequest); // TODO: async needed?
+
   if (mailClientName === 'thunderbird' || mailClientName === 'Thunderbird.app') {
     return composeMailThunderbird(path, mailClientPath, mail);
   } else if (mailClientName === 'outlook') {
@@ -146,7 +153,6 @@ module.exports.composeMail = function composeMail(attachmentPath, mailClientName
 
 module.exports.searchMailClients = function searchMailClients() {
   setNodePath();
-
   const os = detectOs();
   if (os === 'linux') {
     return Promise.resolve(detectMailClientsLinux(mailClients[os]));

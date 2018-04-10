@@ -71,7 +71,7 @@ class ComposeSigrequest extends Component {
 
     this.props.onComplete({
       sigMessage: this.state.sigMessage,
-      attributes: Object.keys(this.state.selectedAttributes),
+      attributes: this.state.selectedAttributes,
     });
   }
 
