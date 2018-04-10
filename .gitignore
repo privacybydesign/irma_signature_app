@@ -18,3 +18,6 @@ yarn-error.log
 
 # Yarn.lock (TODO: check in as well if everything finished)
 yarn.lock
+
+# Go binaries
+go/get_all_attributes
