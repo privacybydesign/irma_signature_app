@@ -39,6 +39,7 @@ class AttributeDropdown extends Component {
       this.props.addAttribute(value, {
         issuer: entry.issuer,
         name: entry.name,
+        credentialName: entry.credentialName,
         logo: entry.logo,
       });
     }
@@ -53,7 +54,7 @@ class AttributeDropdown extends Component {
       const value = selectedAttributes[key];
       return (
         <Chip
-          label={value.name}
+          label={`${value.name} - ${value.credentialName} (${value.issuer})`}
           onDelete={this.handleRemove(key)}
           key={key}
           avatar={
@@ -68,7 +69,7 @@ class AttributeDropdown extends Component {
     const { attributeResult } = this.props;
     return attributeResult.map(el => ({
       value: el.id,
-      label: el.name,
+      label: `${el.name}   -   ${el.credentialName} (${el.issuer})`
     }));
   }
 

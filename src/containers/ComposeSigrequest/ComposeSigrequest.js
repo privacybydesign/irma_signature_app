@@ -11,6 +11,8 @@ import Delete from 'material-ui-icons/Delete';
 import Download from 'material-ui-icons/FileDownload';
 
 import AttributeDropdown from './../AttributeDropdown/AttributeDropdown';
+import { getSignatureSavePath, saveSignatureRequestElectron } from './../../actions/electron';
+import { createSigrequestFromInput } from './../../utils/requestUtils';
 
 class ComposeSigrequest extends Component {
   constructor(props) {
@@ -85,6 +87,16 @@ class ComposeSigrequest extends Component {
     this.props.history.push('/');
   }
 
+  exportRequest = () => {
+    if (!this.validate()) {
+      return;
+    }
+    const { sigMessage, selectedAttributes } = this.state;
+    const savePath = getSignatureSavePath();
+    const exportedRequest = createSigrequestFromInput({}, { sigMessage, attributes: selectedAttributes });
+    saveSignatureRequestElectron(exportedRequest, savePath);
+  }
+
   render() {
     const { selectedAttributes, errorAttributes, errorMessage, sigMessage } = this.state;
     return (
@@ -115,7 +127,7 @@ class ComposeSigrequest extends Component {
             <Delete style={{ marginLeft: '0px', marginRight: '10px' }} />
             Discard request
            </Button>
-          <Button style={{ float: "right"}} >
+          <Button style={{ float: "right"}} onClick={this.exportRequest} >
             <Download style={{ marginLeft: '0px', marginRight: '10px' }} />
             Export request
           </Button>

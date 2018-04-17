@@ -23,10 +23,11 @@ func parse(path string, assets string) (*irma.Configuration, error) {
 }
 
 type AttributeResult struct {
-	Identifier irma.AttributeTypeIdentifier `json:"id"`
-	Name       string                       `json:"name"`
-	Logo       string                       `json:"logo"`
-	Issuer     string                       `json:"issuer"`
+	Identifier     irma.AttributeTypeIdentifier `json:"id"`
+	Name           string                       `json:"name"`
+	CredentialName string                       `json:"credentialName"`
+	Logo           string                       `json:"logo"`
+	Issuer         string                       `json:"issuer"`
 }
 
 func getAllAttributes(conf *irma.Configuration) []AttributeResult {
@@ -38,10 +39,11 @@ func getAllAttributes(conf *irma.Configuration) []AttributeResult {
 			issuerId := attributeIdentifier.CredentialTypeIdentifier().IssuerIdentifier()
 			results = append(results,
 				AttributeResult{
-					Identifier: attributeIdentifier,
-					Name:       attribute.Name["en"],
-					Issuer:     conf.Issuers[issuerId].Name["en"],
-					Logo:       cred.Logo(conf),
+					Identifier:     attributeIdentifier,
+					Name:           attribute.Name["en"],
+					CredentialName: cred.ShortName["en"],
+					Issuer:         conf.Issuers[issuerId].ShortName["en"],
+					Logo:           cred.Logo(conf),
 				})
 		}
 	}
@@ -55,8 +57,8 @@ func main() {
 		os.Exit(exitCode)
 	}()
 
-  path := "go/irma_configuration"
-  assets := "go/assets"
+	path := "go/irma_configuration"
+	assets := "go/assets"
 
 	// Parse irma_configuration files
 	conf, err := parse(path, assets)
@@ -69,7 +71,7 @@ func main() {
 	attributes := getAllAttributes(conf)
 	jsonResult, err := json.Marshal(attributes)
 	if err != nil {
-    fmt.Printf("{\"error\": \"%v\"}", err)
+		fmt.Printf("{\"error\": \"%v\"}", err)
 		exitCode = 1
 		return
 	}

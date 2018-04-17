@@ -12,3 +12,17 @@ export function searchAttributesElectron() {
 export function composeMailElectron(sigRequest, mailClientName, mailClientPath, mailInfo) {
   ipcRenderer.send('composeMail-req', { sigRequest, mailClientName, mailClientPath, mailInfo });
 }
+
+export function saveSignatureRequestElectron(sigRequest, path) {
+  ipcRenderer.send('saveSignatureRequest-req', { sigRequest, path });
+}
+
+export function getSignatureSavePath() {
+  return electron.remote.dialog.showSaveDialog({
+    title: 'Save IRMA signature request',
+    filters: [
+      { name: 'IRMA Files', extensions: ['irma'] },
+      { name: 'All Files', extensions: ['*'] },
+    ],
+  });
+}
