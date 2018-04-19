@@ -11,8 +11,8 @@ import Delete from 'material-ui-icons/Delete';
 import Download from 'material-ui-icons/FileDownload';
 
 import AttributeDropdown from './../AttributeDropdown/AttributeDropdown';
-import { getSignatureSavePath, saveSignatureRequestElectron } from './../../actions/electron';
-import { createSigrequestFromInput } from './../../utils/requestUtils';
+import { setRequestElectron, getSignatureSavePath, saveSignatureRequestElectron } from './../../actions/electron';
+import { createSigrequestFromInput, generateDate } from './../../utils/requestUtils';
 
 class ComposeSigrequest extends Component {
   constructor(props) {
@@ -92,9 +92,14 @@ class ComposeSigrequest extends Component {
       return;
     }
     const { sigMessage, selectedAttributes } = this.state;
+    const exportedRequest = createSigrequestFromInput('Manually exported', { sigMessage, attributes: selectedAttributes });
+
     const savePath = getSignatureSavePath();
-    const exportedRequest = createSigrequestFromInput({}, { sigMessage, attributes: selectedAttributes });
-    saveSignatureRequestElectron(exportedRequest, savePath);
+
+    if (savePath !== undefined) {
+      saveSignatureRequestElectron(exportedRequest, savePath);
+      setRequestElectron(exportedRequest, generateDate(), 'Manually exported');
+    }
   }
 
   render() {

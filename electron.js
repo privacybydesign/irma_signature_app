@@ -35,7 +35,9 @@ ipcMain.on('composeMail-req', (event, { sigRequest, mailClientName, mailClientPa
 });
 
 ipcMain.on('saveSignatureRequest-req', (event, { sigRequest, path }) => {
-  fs.writeFileSync(path, JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json
+  if (path !== undefined) {
+    fs.writeFileSync(path, JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json
+  }
 });
 
 ipcMain.on('setRequest-req', (event, request) => {

@@ -12,7 +12,7 @@ import HelpIcon from 'material-ui-icons/Help';
 import RequestSignatureStepper from './../RequestSignatureStepper/RequestSignatureStepper';
 import { sendSignatureRequest } from './../../actions';
 import { setRequestElectron } from './../../actions/electron';
-import { createSigrequestFromInput } from './../../utils/requestUtils';
+import { createSigrequestFromInput, generateDate } from './../../utils/requestUtils';
 
 
 class RequestSignature extends Component {
@@ -20,10 +20,10 @@ class RequestSignature extends Component {
     const mailClientName = 'thunderbird'; // TODO: fix hard-coded thunderbird
     const mailClientPath = this.props.mailClients[mailClientName].path;
 
-    const request = createSigrequestFromInput(mail, sigRequest)
+    const request = createSigrequestFromInput(mail.from, sigRequest);
 
     sendSignatureRequest(request, mailClientName, mailClientPath, mail);
-    const date = new Date(); setRequestElectron(request, `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`, mail.recipient);
+    setRequestElectron(request, generateDate(), mail.recipient);
   }
 
   render() {

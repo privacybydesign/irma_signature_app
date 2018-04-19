@@ -24,6 +24,7 @@ class Sent extends Component {
     super(props);
     this.state = {
       checked: [],
+      headChecked: false,
     };
   }
 
@@ -36,6 +37,10 @@ class Sent extends Component {
 
   handleSelectAll = (event, checked) => {
     const { requests } = this.props;
+
+    this.setState({
+      headChecked: checked,
+    });
 
     Object.keys(requests).forEach(el =>
       this.handleCheckbox(el)(event, checked)
@@ -57,6 +62,9 @@ class Sent extends Component {
   handleDelete = () => {
     const toBeDeleted = this.state.checked;
     deleteRequestsElectron(toBeDeleted);
+    this.setState({
+      headChecked: false,
+    });
   }
 
   render() {
@@ -75,7 +83,7 @@ class Sent extends Component {
           <CardContent style={{ padding: '0px' }}>
             <EnhancedTableToolbar num={this.state.checked.length} onDelete={this.handleDelete}/>
             <Table style={{ minWidth: 200 }}>
-              <EnhancedTableHead handleSelect={this.handleSelectAll} />
+              <EnhancedTableHead handleSelect={this.handleSelectAll} checked={this.state.headChecked} />
               <TableBody>
                 <EnhancedTableBody handleCheckbox={this.handleCheckbox} checked={this.state.checked} requests={this.props.requests} />
               </TableBody>

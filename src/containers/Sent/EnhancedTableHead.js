@@ -14,7 +14,7 @@ class EnhancedTableHead extends Component {
       <TableHead >
         <TableRow>
           <TableCell padding="checkbox">
-            <Checkbox onChange={this.props.handleSelect} />
+            <Checkbox checked={this.props.checked} onChange={this.props.handleSelect} />
           </TableCell>
           <TableCell padding="none">Recipient</TableCell>
           <TableCell>Message</TableCell>
@@ -28,6 +28,7 @@ class EnhancedTableHead extends Component {
 
 EnhancedTableHead.propTypes = {
   handleSelect: PropTypes.func.isRequired,
+  checked: PropTypes.bool.isRequired,
 };
 
 export default EnhancedTableHead;

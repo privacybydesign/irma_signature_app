@@ -12,12 +12,17 @@ function attributeMapToContent(attributeMap) {
     }));
 }
 
-export function createSigrequestFromInput(mail, sigrequest) {
+export function createSigrequestFromInput(from, sigrequest) {
   return {
     nonce: generateNonce(),
     context: "0",
     message: sigrequest.sigMessage,
     content: attributeMapToContent(sigrequest.attributes),
-    from: mail.from,
-  }
+    from,
+  };
+}
+
+export function generateDate() {
+    const date = new Date();
+    return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
 }
