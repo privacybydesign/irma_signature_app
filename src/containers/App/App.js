@@ -141,7 +141,7 @@ class App extends Component {
   handleMenuClick = () => {
     this.setState({showMenu: !this.state.showMenu});
   }
-  
+
   componentWillMount() {
     const { mailClientsDetected, dispatch } = this.props;
     if (!mailClientsDetected) {

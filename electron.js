@@ -1,8 +1,9 @@
 // Electron event listeners
 const electron = require('electron')
-const mail = require('./electron/mail');
 const fs = require('fs');
 
+const mail = require('./electron/mail');
+const { setRequest, getAllRequests } = require('./electron/storage');
 const getAllAttributes = require('./electron/irma_attribute_list');
 
 const ipcMain = electron.ipcMain;
@@ -35,4 +36,20 @@ ipcMain.on('composeMail-req', (event, { sigRequest, mailClientName, mailClientPa
 
 ipcMain.on('saveSignatureRequest-req', (event, { sigRequest, path }) => {
   fs.writeFileSync(path, JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json
+});
+
+ipcMain.on('setRequest-req', (event, request) => {
+  setRequest(request); // TODO: async, create result action?
+});
+
+ipcMain.on('getAllRequests-req', (event, arg) => {
+  getAllRequests()
+    .then(requests => {
+      const action = {
+        type: 'store-requests',
+        requests,
+      }
+      console.log('getall action: ', action);
+      event.sender.send('response', JSON.stringify(action));
+    });
 });

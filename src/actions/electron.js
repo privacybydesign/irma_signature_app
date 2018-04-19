@@ -17,6 +17,14 @@ export function saveSignatureRequestElectron(sigRequest, path) {
   ipcRenderer.send('saveSignatureRequest-req', { sigRequest, path });
 }
 
+export function setRequestElectron(sigRequest, date, recipient) {
+  ipcRenderer.send('setRequest-req', { sigRequest, date, recipient });
+}
+
+export function retrieveRequestsElectron() {
+  ipcRenderer.send('getAllRequests-req');
+}
+
 export function getSignatureSavePath() {
   return electron.remote.dialog.showSaveDialog({
     title: 'Save IRMA signature request',
