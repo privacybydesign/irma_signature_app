@@ -6,6 +6,7 @@ const get = BPromise.promisify(storage.get);
 const set = BPromise.promisify(storage.set);
 const keys = BPromise.promisify(storage.keys);
 const getMany = BPromise.promisify(storage.getMany);
+const remove = BPromise.promisify(storage.remove);
 
 
 // TODO: use something more efficient like sqlite?
@@ -26,6 +27,10 @@ module.exports.setRequest = function setRequest(request) {
   console.log('saving: ', newRequest);
 
   return set(`request-${request.sigRequest.nonce}`, newRequest);
+}
+
+module.exports.deleteRequests = function deleteRequests(keys) {
+  return BPromise.map(keys, (el => remove(el)));
 }
 
 // export function setSignature(signature, state) {

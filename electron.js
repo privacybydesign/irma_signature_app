@@ -3,7 +3,7 @@ const electron = require('electron')
 const fs = require('fs');
 
 const mail = require('./electron/mail');
-const { setRequest, getAllRequests } = require('./electron/storage');
+const { setRequest, getAllRequests, deleteRequests } = require('./electron/storage');
 const getAllAttributes = require('./electron/irma_attribute_list');
 
 const ipcMain = electron.ipcMain;
@@ -49,7 +49,18 @@ ipcMain.on('getAllRequests-req', (event, arg) => {
         type: 'store-requests',
         requests,
       }
-      console.log('getall action: ', action);
+      event.sender.send('response', JSON.stringify(action));
+    });
+});
+
+ipcMain.on('deleteRequests-req', (event, arg) => {
+  deleteRequests(arg)
+    .then(getAllRequests)
+    .then(requests => {
+      const action = {
+        type: 'store-requests',
+        requests,
+      }
       event.sender.send('response', JSON.stringify(action));
     });
 });

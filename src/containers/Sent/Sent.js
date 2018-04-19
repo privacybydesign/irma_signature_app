@@ -14,6 +14,7 @@ import IconButton from 'material-ui/IconButton';
 import HelpIcon from 'material-ui-icons/Help';
 
 import { retrieveRequests } from './../../actions';
+import { deleteRequestsElectron } from './../../actions/electron';
 import EnhancedTableHead from './EnhancedTableHead.js';
 import EnhancedTableBody from './EnhancedTableBody.js';
 import EnhancedTableToolbar from './EnhancedTableToolbar.js';
@@ -25,6 +26,7 @@ class Sent extends Component {
       checked: [],
     };
   }
+
   componentWillMount() {
     const { dispatch, requestsFetching } = this.props;
     if (!requestsFetching) {
@@ -54,8 +56,7 @@ class Sent extends Component {
 
   handleDelete = () => {
     const toBeDeleted = this.state.checked;
-    // TODO: fire delete
-    console.log('To Be Deleted: ', toBeDeleted);
+    deleteRequestsElectron(toBeDeleted);
   }
 
   render() {

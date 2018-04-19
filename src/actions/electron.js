@@ -25,6 +25,10 @@ export function retrieveRequestsElectron() {
   ipcRenderer.send('getAllRequests-req');
 }
 
+export function deleteRequestsElectron(keys) {
+  ipcRenderer.send('deleteRequests-req', keys);
+}
+
 export function getSignatureSavePath() {
   return electron.remote.dialog.showSaveDialog({
     title: 'Save IRMA signature request',
