@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+// Material UI
 import Card, { CardHeader } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 

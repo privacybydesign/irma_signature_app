@@ -39,9 +39,10 @@ module.exports.deleteRequests = function deleteRequests(keys) {
 //     .then(request => console.log(request));
 // }
 //
-// export function getRequest(nonce) {
-//   return get(`request-${nonce}`);
-// }
+
+module.exports.getRequest = function getRequest(nonce) {
+   return get(`request-${nonce}`);
+}
 
 module.exports.getAllRequests = function getAllRequests() {
   return getDataWithPrefix('request-');

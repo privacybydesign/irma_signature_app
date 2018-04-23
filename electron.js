@@ -4,6 +4,7 @@ const fs = require('fs');
 
 const mail = require('./electron/mail');
 const { setRequest, getAllRequests, deleteRequests } = require('./electron/storage');
+const { verifySignature } = require('./electron/verify');
 const getAllAttributes = require('./electron/irma_attribute_list');
 
 const ipcMain = electron.ipcMain;
@@ -50,7 +51,7 @@ ipcMain.on('getAllRequests-req', (event, arg) => {
       const action = {
         type: 'store-requests',
         requests,
-      }
+      };
       event.sender.send('response', JSON.stringify(action));
     });
 });
@@ -62,7 +63,18 @@ ipcMain.on('deleteRequests-req', (event, arg) => {
       const action = {
         type: 'store-requests',
         requests,
-      }
+      };
+      event.sender.send('response', JSON.stringify(action));
+    });
+});
+
+ipcMain.on('verifySignature-req', (event, arg) => {
+  verifySignature(arg)
+    .then(verifyResult => {
+      const action = {
+        type: 'set-verify-result',
+        verifyResult,
+      };
       event.sender.send('response', JSON.stringify(action));
     });
 });

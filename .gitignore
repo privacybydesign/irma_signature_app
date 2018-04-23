@@ -21,3 +21,7 @@ yarn.lock
 
 # Go binaries
 go/get_all_attributes
+go/irma_signature_verify
+
+# Timestamp file
+go/irma_configuration/timestamp

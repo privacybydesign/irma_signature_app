@@ -14,6 +14,8 @@ ReactDOM.render(
   <Provider store={store}>
     <App store={store} />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
+  document.addEventListener('dragover', event => event.preventDefault()), // Disable redirect after drag in MOST cases (TODO)
+  document.addEventListener('drop', event => event.preventDefault()),
 );
 registerServiceWorker();

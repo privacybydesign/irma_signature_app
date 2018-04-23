@@ -6,7 +6,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build-go": "go build -o go/get_all_attributes go/get_all_attributes.go",
+    "build-go": "go build -o go/get_all_attributes go/get_all_attributes.go && go build -o go/irma_signature_verify go/irma_signature_verify.go",
     "lint": "./node_modules/.bin/eslint -c .eslintrc src",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
@@ -36,6 +36,7 @@
     "react-scripts": "1.1.1"
   },
   "dependencies": {
+    "antd": "^3.2.0",
     "big-integer": "^1.6.27",
     "electron-json-storage": "^4.1.0",
     "process": "^0.11.10",
