@@ -13,12 +13,26 @@ import IconButton from 'material-ui/IconButton';
 import HelpIcon from 'material-ui-icons/Help';
 
 import { verifySignature } from './../../actions';
+import SignatureResult from './SignatureResult';
 
 class VerifySignature extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: '',
+      verifyDone: false,
+    };
+  }
+
   handleUpload = (event => {
     const { dispatch, verifyPending } = this.props;
+
+    this.setState({
+      message: '',
+      verifyDone: false,
+    });
+
     if (verifyPending) {
-      console.log('verify pending: ', verifyPending);
       return;
     }
 
@@ -26,7 +40,30 @@ class VerifySignature extends Component {
     dispatch(verifySignature(path));
   });
 
+  componentWillReceiveProps(nextProps) {
+    const { signature, signatureResult } = nextProps;
+    if (signatureResult === undefined || Object.keys(signatureResult).length === 0) {
+      // No verified response received yet, do nothing
+      return;
+    }
+
+    try {
+      const { message } = JSON.parse(signature)
+      this.setState({
+        message,
+        verifyDone: true,
+      });
+    } catch (e) {
+      this.setState({
+        verifyDone: true,
+      });
+    }
+  }
+
   render() {
+    const { signatureResult } = this.props;
+
+    const { verifyDone } = this.state;
     return (
       <div style={{ paddingLeft: '10px' }}>
         <Card>
@@ -58,9 +95,17 @@ class VerifySignature extends Component {
             </div>
           </CardContent>
         </Card>
+
+        {verifyDone ? (
+          <SignatureResult
+            proofStatus={signatureResult.proofStatus}
+            message={this.state.message}
+            matched={signatureResult.disjunctions !== undefined}
+          />
+        ) : ''}
         <br />
         <br />
-        RESULT: {JSON.stringify(this.props.verifyResult)}
+        RESULT: {JSON.stringify(signatureResult)}
       </div>
     );
   }
@@ -68,12 +113,14 @@ class VerifySignature extends Component {
 
 VerifySignature.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  signature: PropTypes.string.isRequired,
+  signatureResult: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
-  const { signatureVerify } = state;
+  const verifyResult = state.signatureVerify.verifyResult;
   return {
-    ...signatureVerify,
+    ...verifyResult,
   };
 }
 

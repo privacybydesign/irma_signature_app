@@ -5,7 +5,10 @@ import {
 
 export default function signatureVerify(
   state = {
-    verifyResult: {},
+    verifyResult: {
+      signature: '',
+      signatureResult: {},
+    },
     verifyPending: false,
   },
   action

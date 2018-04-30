@@ -53,10 +53,18 @@ module.exports.verifySignature = function verifySignature(path) {
           }
 
           return verifySignatureGo(signature, request.request);
-        });
+        })
+        .then(JSON.parse)
+        .then(signatureResult => ({ signatureResult, signature }))
     })
-    .then(JSON.parse)
-    .catch(e => console.log('Error reading file: ', e));
+    .catch(error => ({
+        signatureResult: {
+          proofStatus: 'INVALID_SYNTAX',
+        },
+        signature: '',
+        error,
+      })
+    );
 }
 
 setNodePath();

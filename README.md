@@ -21,7 +21,7 @@ Install Golang compiler and verify GOPATH:
 
 Build Go executable:
 ```
-    yarn run build-get-go
+    yarn run build-go
 ```
 
 Initialize and update `irma_configuration` submodule:
@@ -36,10 +36,10 @@ Start the app backend:
     yarn start
 ```
 
-Start the electron fronend:
+Start the electron frontend:
 
 ```
-    yarn run start
+    yarn run electron
 ```
 
 Currently the following mail clients are supported / autodetected / tested:
