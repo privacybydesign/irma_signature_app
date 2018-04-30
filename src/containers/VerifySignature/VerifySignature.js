@@ -14,6 +14,7 @@ import HelpIcon from 'material-ui-icons/Help';
 
 import { verifySignature } from './../../actions';
 import SignatureResult from './SignatureResult';
+import AttributeResultTable from './AttributeResultTable';
 
 class VerifySignature extends Component {
   constructor(props) {
@@ -62,7 +63,6 @@ class VerifySignature extends Component {
 
   render() {
     const { signatureResult } = this.props;
-
     const { verifyDone } = this.state;
     return (
       <div style={{ paddingLeft: '10px' }}>
@@ -97,15 +97,25 @@ class VerifySignature extends Component {
         </Card>
 
         {verifyDone ? (
-          <SignatureResult
-            proofStatus={signatureResult.proofStatus}
-            message={this.state.message}
-            matched={signatureResult.disjunctions !== undefined}
-          />
+          <div>
+            <SignatureResult
+              proofStatus={signatureResult.proofStatus}
+              message={this.state.message}
+              matched={signatureResult.request !== undefined}
+              signatureRequest={signatureResult.request}
+            />
+            <Divider />
+            <AttributeResultTable
+              attributes={signatureResult.disjunctions
+                ?
+                  signatureResult.disjunctions
+                :
+                  signatureResult.credentialList}
+              matched={signatureResult.request !== undefined}
+              proofStatus={signatureResult.proofStatus}
+            />
+          </div>
         ) : ''}
-        <br />
-        <br />
-        RESULT: {JSON.stringify(signatureResult)}
       </div>
     );
   }

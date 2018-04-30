@@ -18,12 +18,17 @@ import Error from 'material-ui-icons/Error';
 class SignatureResult extends Component {
 
   getTitle = () => {
-    const { proofStatus } = this.props;
-    if (proofStatus === 'VALID') {
-      return 'The signed message matches your request from September 12, 2016, 11:24. All requested signatures have been returned and are valid. You can check the status in the request history.';
-    } else {
-      return 'This request is NOT valid!';
+    const { proofStatus, matched, signatureRequest } = this.props;
+
+    if (proofStatus !== 'VALID') {
+      return 'This signature is NOT valid!';
     }
+
+    if (matched) {
+      return `The signature matches your request from ${signatureRequest.date}. All requested signatures have been returned and are valid. You can check the status in the request history.`;
+    }
+
+    return 'This IRMA signature is valid, but doesn\'t match any of your previous requests. You can view the message and included attributes below:'
   }
 
   getAvatar = () => {
@@ -74,6 +79,12 @@ SignatureResult.propTypes = {
   proofStatus: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   matched: PropTypes.bool.isRequired,
+  signatureRequest: PropTypes.shape({
+    date: PropTypes.string,
+    recipient: PropTypes.string,
+    request: PropTypes.object,
+    state: PropTypes.string,
+  }),
 };
 
 export default SignatureResult;

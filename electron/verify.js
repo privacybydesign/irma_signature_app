@@ -34,6 +34,25 @@ function verifySignatureGo(signature, request) {
   return exec(`./go/irma_signature_verify '${signature}' '${requestString}'`);
 }
 
+function verifySignatureWithNonce(nonce, signature) {
+  return getRequest(nonce)
+    .then(request => {
+      if (Object.keys(request).length === 0) {
+        // No matching request found, verifying without request
+        return verifySignatureWithoutRequestGo(signature)
+          .then(JSON.parse);
+      }
+
+      return verifySignatureGo(signature, request.request)
+        .then(JSON.parse)
+        .then(signatureResult => (
+            Object.assign({}, signatureResult, { // TODO: no spread operator?
+              request,
+            })
+        ));
+    });
+}
+
 module.exports.verifySignature = function verifySignature(path) {
   return fs.readFileAsync(path, "utf8")
     .then(signature => {
@@ -45,17 +64,8 @@ module.exports.verifySignature = function verifySignature(path) {
         return;
       }
 
-      return getRequest(nonce)
-        .then(request => {
-          if (Object.keys(request).length === 0) {
-            // No matching request found, verifying without request
-            return verifySignatureWithoutRequestGo(signature);
-          }
-
-          return verifySignatureGo(signature, request.request);
-        })
-        .then(JSON.parse)
-        .then(signatureResult => ({ signatureResult, signature }))
+      return verifySignatureWithNonce(nonce, signature)
+        .then(signatureResult => ({ signatureResult, signature }));
     })
     .catch(error => ({
         signatureResult: {
