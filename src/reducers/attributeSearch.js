@@ -12,14 +12,16 @@ export default function mail(
 ) {
   switch (action.type) {
     case START_ATTRIBUTE_SEARCH:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         attributeSearching: true,
-      });
+      };
     case STORE_ATTRIBUTE_RESULT:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         attributeResult: action.attributeResult,
         attributeSearching: false,
-      });
+      };
     default:
       return state;
   }

@@ -14,14 +14,16 @@ export default function mail(
 ) {
   switch (action.type) {
     case STORE_MAIL_CLIENTS:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         mailClients: action.mailClients,
         mailClientsDetected: true,
-      });
+      };
     case SET_PREFERRED_MAIL_CLIENT:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         preferredMailClient: action.preferredMailClient,
-      });
+      };
     default:
       return state;
   }

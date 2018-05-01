@@ -15,14 +15,16 @@ export default function signatureVerify(
 ) {
   switch (action.type) {
     case START_VERIFY_SIGNATURE:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         verifyPending: true,
-      });
+      };
     case SET_VERIFY_RESULT:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         verifyResult: action.verifyResult,
         verifyPending: false,
-      });
+      };
     default:
       return state;
   }

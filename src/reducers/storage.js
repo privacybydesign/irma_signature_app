@@ -12,14 +12,16 @@ export default function storage(
 ) {
   switch (action.type) {
     case RETRIEVE_REQUESTS:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         requestsFetching: true,
-      });
+      };
     case STORE_REQUESTS:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         requests: action.requests,
         requestsFetching: false,
-      });
+      };
     default:
       return state;
   }
