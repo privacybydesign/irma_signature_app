@@ -7,10 +7,33 @@ import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Divider from 'material-ui/Divider';
 
+// Icons
+import { green, red, yellow } from 'material-ui/colors';
+import CheckCircle from 'material-ui-icons/CheckCircle';
+import Error from 'material-ui-icons/Error';
+import Warning from 'material-ui-icons/Warning';
+
+function getIconByProofStatus(proofStatus) {
+  switch(proofStatus) {
+    case  'PRESENT':
+      return <CheckCircle style={{color: green[500] }} />;
+    case  'MISSING': // TODO other icon for missing attributes?
+      return <Error style={{color: red[500] }} />;
+    case  'INVALID_VALUE':
+      return <Error style={{color: red[500] }} />;
+    default: // We consider everything else as 'extra, don't know what to do with it'
+      return <Warning style={{color: yellow[500] }} />;
+  }
+}
+
 class AttributeResultTable extends Component {
 
   genUnmatchedTableData = () => {
     const credentialList = this.props.attributes;
+
+    if (credentialList === null) {
+      return [];
+    }
 
     // TODO: make this less complicated
     return flatten(
@@ -20,7 +43,7 @@ class AttributeResultTable extends Component {
             key: attributeId,
             name: attributeId, // TODO convert to name
             value: credential.attributes[attributeId],
-            valid: this.props.proofStatus,
+            valid: getIconByProofStatus(this.props.proofStatus),
           }))
       ))
     );
@@ -32,7 +55,7 @@ class AttributeResultTable extends Component {
       key: attribute.disclosedId,
       name: attribute.label, // TODO use attribute name or label?
       value: attribute.disclosedValue,
-      valid: attribute.proofStatus,
+      valid: getIconByProofStatus(attribute.proofStatus),
     }));
   }
 

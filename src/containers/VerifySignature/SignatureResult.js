@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 // Material UI
 import Card, { CardHeader } from 'material-ui/Card';
 import Avatar from 'material-ui/Avatar';
-import green from 'material-ui/colors/green';
-import yellow from 'material-ui/colors/yellow';
-import red from 'material-ui/colors/red';
+import { green, red, yellow } from 'material-ui/colors';
 
 // Icons
 import IconButton from 'material-ui/IconButton';

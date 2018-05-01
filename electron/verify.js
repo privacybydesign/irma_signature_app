@@ -4,7 +4,7 @@ const shelljs = require('shelljs');
 const exec = BPromise.promisify(shelljs.exec);
 const { config, which } = shelljs;
 
-const { getRequest } = require('./storage');
+const { getRequest, setSignature } = require('./storage');
 
 // Hack to let this work in electron
 // https://github.com/shelljs/shelljs/wiki/Electron-compatibility
@@ -65,7 +65,8 @@ module.exports.verifySignature = function verifySignature(path) {
       }
 
       return verifySignatureWithNonce(nonce, signature)
-        .then(signatureResult => ({ signatureResult, signature }));
+        .tap(signatureResult => setSignature(nonce, signature, signatureResult.proofStatus))
+        .then(signatureResult => ({ signatureResult, signature }))
     })
     .catch(error => ({
         signatureResult: {
