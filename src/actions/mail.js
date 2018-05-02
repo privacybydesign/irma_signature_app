@@ -1,13 +1,16 @@
-import { searchMailClientsElectron, composeMailElectron } from './electron.js';
+import { searchMailClientsElectron, setPreferredMailClientElectron, getPreferredMailClientElectron, composeMailElectron } from './electron.js';
 
 export const STORE_MAIL_CLIENTS = 'store-mail-clients';
-export const SET_PREFERRED_MAIL_CLIENT = 'set-preferred-mail-client';
+// export const SET_PREFERRED_MAIL_CLIENT = 'set-preferred-mail-client';
+export const GET_PREFERRED_MAIL_CLIENT = 'get-preferred-mail-client';
 
-export function setPreferredMailClient(client) {
-  return {
-    type: SET_PREFERRED_MAIL_CLIENT,
-    preferredMailClient: client,
-  };
+export function setPreferredMailClient(clientName) {
+  return setPreferredMailClientElectron(clientName);
+}
+
+export function getPreferredMailClient() {
+  return dispatch =>
+    getPreferredMailClientElectron();
 }
 
 export function detectMailClients() {
@@ -17,13 +20,4 @@ export function detectMailClients() {
 
 export function sendSignatureRequest(sigRequest, mailClientName, mailClientPath, mailInfo) {
   composeMailElectron(sigRequest, mailClientName, mailClientPath, mailInfo);
-  //return Promise.resolve(composeMail(attachmentPath, mailClientName, mailClientPath, mail));
 }
-
-// export function saveSignatureRequest(sigRequest, path) {
-//   if (path === undefined) {
-//     fs.writeFileSync(getTempPath(), JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json
-//   } else {
-//     fs.writeFileSync(path, JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json
-//   }
-// }

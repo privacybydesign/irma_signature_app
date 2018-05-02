@@ -1,14 +1,13 @@
 import {
-  //DETECT_MAIL_CLIENTS,
   STORE_MAIL_CLIENTS,
-  SET_PREFERRED_MAIL_CLIENT,
+  GET_PREFERRED_MAIL_CLIENT,
 } from '../actions';
 
 export default function mail(
   state = {
     mailClients: new Map(),
     mailClientsDetected: false,
-    preferredMailClient: null,
+    preferredMailClient: '',
   },
   action
 ) {
@@ -19,10 +18,12 @@ export default function mail(
         mailClients: action.mailClients,
         mailClientsDetected: true,
       };
-    case SET_PREFERRED_MAIL_CLIENT:
+    case GET_PREFERRED_MAIL_CLIENT:
+      const clientNames = Object.keys(state.mailClients);
       return {
         ...state,
-        preferredMailClient: action.preferredMailClient,
+        preferredMailClient: // Set a preferred mailclient in state if available and not set
+          (action.preferredMailClient === '' && clientNames.length > 0 ) ? clientNames[0] : action.preferredMailClient,
       };
     default:
       return state;

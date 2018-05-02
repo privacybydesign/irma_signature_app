@@ -21,6 +21,14 @@ export function setRequestElectron(sigRequest, date, recipient) {
   ipcRenderer.send('setRequest-req', { sigRequest, date, recipient });
 }
 
+export function setPreferredMailClientElectron(clientName) {
+  ipcRenderer.send('setPreferredMailClient-req', clientName);
+}
+
+export function getPreferredMailClientElectron() {
+  ipcRenderer.send('getPreferredMailClient-req');
+}
+
 export function retrieveRequestsElectron() {
   ipcRenderer.send('getAllRequests-req');
 }

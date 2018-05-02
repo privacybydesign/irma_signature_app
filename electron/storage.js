@@ -33,6 +33,15 @@ module.exports.deleteRequests = function deleteRequests(keys) {
   return BPromise.map(keys, (el => remove(el)));
 }
 
+module.exports.setPreferredMailClient = function setPreferredMailClient(clientName) {
+  return set('config-mailClient', clientName);
+}
+
+module.exports.getPreferredMailClient = function getPreferredMailClient() {
+  return get('config-mailClient')
+    .then(clientName => (Object.keys(clientName).length === 0) ? '' : clientName);
+}
+
 module.exports.setSignature = function setSignature(nonce, signature, state) {
   return get(`request-${nonce}`)
     .then(request => {

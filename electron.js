@@ -3,7 +3,7 @@ const electron = require('electron')
 const fs = require('fs');
 
 const mail = require('./electron/mail');
-const { setRequest, getAllRequests, deleteRequests } = require('./electron/storage');
+const { setRequest, setPreferredMailClient, getPreferredMailClient, getAllRequests, deleteRequests } = require('./electron/storage');
 const { verifySignature } = require('./electron/verify');
 const getAllAttributes = require('./electron/irma_attribute_list');
 
@@ -43,6 +43,30 @@ ipcMain.on('saveSignatureRequest-req', (event, { sigRequest, path }) => {
 
 ipcMain.on('setRequest-req', (event, request) => {
   setRequest(request); // TODO: async, create result action?
+});
+
+ipcMain.on('setPreferredMailClient-req', (event, clientName) => {
+  setPreferredMailClient(clientName)
+    .then(() => getPreferredMailClient())
+    .then(preferredMailClient => {
+      const action = {
+        type: 'get-preferred-mail-client',
+        preferredMailClient,
+      };
+      event.sender.send('response', JSON.stringify(action));
+    });
+});
+
+ipcMain.on('getPreferredMailClient-req', (event, arg) => {
+  getPreferredMailClient()
+    .then(preferredMailClient => {
+      const action = {
+        type: 'get-preferred-mail-client',
+        preferredMailClient,
+      };
+      console.log('sending: ', action);
+      event.sender.send('response', JSON.stringify(action));
+    });
 });
 
 ipcMain.on('getAllRequests-req', (event, arg) => {
