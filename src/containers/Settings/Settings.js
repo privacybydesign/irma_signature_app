@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 // Material UI
 import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
-import Radio, { RadioGroup } from 'material-ui/Radio';
-import { FormLabel, FormControl, FormControlLabel } from 'material-ui/Form';
 
 // Icons
 import IconButton from 'material-ui/IconButton';
@@ -14,38 +12,7 @@ import HelpIcon from 'material-ui-icons/Help';
 
 import { getPreferredMailClient, setPreferredMailClient } from '../../actions';
 
-class MailClientControl extends Component {
-  render() {
-    const { mailClients, selectedClient, handleChange } = this.props;
-    return (
-      <CardContent style={{ paddingLeft: '30px' }}>
-        <FormControl>
-          <FormLabel>Mail Client</FormLabel>
-          <RadioGroup
-            value={selectedClient}
-            onChange={event => handleChange(event.target.value)}
-          >
-            {Object.keys(mailClients).map(client =>
-              <FormControlLabel
-                key={client}
-                value={client}
-                control={<Radio />}
-                label={mailClients[client].description}
-              />
-             )
-            }
-          </RadioGroup>
-        </FormControl>
-      </CardContent>
-    );
-  }
-}
-
-MailClientControl.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-  mailClients: PropTypes.objectOf(PropTypes.object),
-  selectedClient: PropTypes.string.isRequired,
-}
+import MailClientControl from './MailClientControl';
 
 class Settings  extends Component {
 
@@ -59,7 +26,6 @@ class Settings  extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div style={{ paddingLeft: '10px' }}>
         <Card>

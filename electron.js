@@ -64,7 +64,6 @@ ipcMain.on('getPreferredMailClient-req', (event, arg) => {
         type: 'get-preferred-mail-client',
         preferredMailClient,
       };
-      console.log('sending: ', action);
       event.sender.send('response', JSON.stringify(action));
     });
 });

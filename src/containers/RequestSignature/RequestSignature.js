@@ -12,19 +12,28 @@ import HelpIcon from 'material-ui-icons/Help';
 
 import RequestSignatureStepper from './../RequestSignatureStepper/RequestSignatureStepper';
 import { sendSignatureRequest } from './../../actions';
+import { getPreferredMailClient } from '../../actions';
 import { setRequestElectron } from './../../actions/electron';
 import { createSigrequestFromInput, generateDate } from './../../utils/requestUtils';
 
-
 class RequestSignature extends Component {
   handleComplete = (mail, sigRequest) => {
-    const mailClientName = 'thunderbird'; // TODO: fix hard-coded thunderbird
+    const mailClientName = this.props.preferredMailClient;
     const mailClientPath = this.props.mailClients[mailClientName].path;
 
     const request = createSigrequestFromInput(mail.from, sigRequest);
 
     sendSignatureRequest(request, mailClientName, mailClientPath, mail);
     setRequestElectron(request, generateDate(), mail.recipient);
+  }
+
+  componentWillMount() {
+    const { dispatch, mailClients, preferredMailClient } = this.props;
+
+    // Get preferred mailclient if we haven't yet
+    if (Object.keys(mailClients).length > 0 && preferredMailClient === '') {
+      dispatch(getPreferredMailClient());
+    }
   }
 
   render() {
@@ -38,7 +47,6 @@ class RequestSignature extends Component {
               </IconButton>
             }
             title="Create a signature request"
-          // subheader="Signature requests are shared via email. Fill in the information below to create a signature request email."
           />
           <Divider />
           <RequestSignatureStepper onComplete={this.handleComplete} />
@@ -58,6 +66,7 @@ function mapStateToProps(state) {
 
   return {
     mailClients: mail.mailClients,
+    preferredMailClient: mail.preferredMailClient,
   };
 }
 
