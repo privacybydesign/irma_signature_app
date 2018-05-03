@@ -5,7 +5,7 @@ import Divider from 'material-ui/Divider';
 
 const About = () => (
   <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
-    <Card style={{ marginTop: '30px', maxWidth: 240 }}>
+    <Card style={{ marginTop: '30px', maxWidth: 540 }}>
       <CardHeader
         title="About" />
       <Divider />

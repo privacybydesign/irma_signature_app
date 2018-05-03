@@ -24,5 +24,7 @@ export function createSigrequestFromInput(from, sigrequest) {
 
 export function generateDate() {
     const date = new Date();
-    return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+    const minutes = date.getMinutes() > 9 ? `${date.getMinutes()}` : `0${date.getMinutes()}`;
+    const hours = date.getHours() > 9 ? `${date.getHours()}` : `0${date.getHours()}`;
+    return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()} ${hours}:${minutes}`;
 }
