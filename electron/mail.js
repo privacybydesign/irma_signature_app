@@ -40,7 +40,7 @@ function detectMailClientsLinux(candidates) {
     // find entries are separated by '\n',
     // we only look at the first one which is (hopefully) the correct one
     const findResult =
-      exec(`find /bin /usr/bin /usr/local/bin -type f -executable -name '${name}'`).split('\n')[0];
+      exec(`find /bin /usr/bin /usr/local/bin -executable -name '${name}' \\( -type f -or -type l \\)`).split('\n')[0];
 
     if (findResult !== '') {
       result[name] = {  path: findResult, description };
