@@ -83,7 +83,7 @@ function detectMailClientsMacOS(candidates) {
       exec(`find /Applications -maxdepth 2 -type d -name '${name}'`).split('\n')[0];
 
     if (findResult !== '') {
-      result[name] = {  path: findResult, description };
+      result[name] = {  path: `${findResult}/Contents/MacOS/${binary}`, description };
     }
 
     return result;
