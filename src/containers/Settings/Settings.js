@@ -44,13 +44,11 @@ class Settings extends Component {
               subheader="Choose your default mailclient here."
             />
           </CardContent>
-          <CardContent style={{ paddingLeft: '30px' }}>
             <MailClientControl
               mailClients={this.props.mailClients}
               handleChange={this.updateMailClient}
               selectedClient={this.props.preferredMailClient}
             />
-          </CardContent>
         </Card>
       </div>
     );
