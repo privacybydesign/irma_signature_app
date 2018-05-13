@@ -16,9 +16,6 @@ build
 npm-debug.log.*
 yarn-error.log
 
-# Yarn.lock (TODO: check in as well if everything finished)
-yarn.lock
-
 # Go binaries
 go/get_all_attributes
 go/irma_signature_verify
