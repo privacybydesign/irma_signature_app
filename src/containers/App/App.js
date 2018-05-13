@@ -35,7 +35,7 @@ const IrmaTheme = createMuiTheme({
   palette: {
     primary: {
       // light: will be calculated from palette.primary.main,
-      main: '#3f51b5',
+      main: '#16a085',
       // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contast with palette.primary.main
     },
