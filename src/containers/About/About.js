@@ -4,8 +4,8 @@ import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 
 const About = () => (
-  <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
-    <Card style={{ marginTop: '30px', maxWidth: 540 }}>
+  <div style={{ paddingLeft: '10px' }}>
+  <Card >
       <CardHeader
         title="About" />
       <Divider />

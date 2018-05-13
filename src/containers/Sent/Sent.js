@@ -74,7 +74,7 @@ class Sent extends Component {
           <CardHeader
             action={
               <IconButton>
-                <HelpIcon />
+                {/* <HelpIcon /> */}
               </IconButton>
             }
             title="Request History"
@@ -82,7 +82,7 @@ class Sent extends Component {
           <Divider />
           <CardContent style={{ padding: '0px' }}>
             <EnhancedTableToolbar num={this.state.checked.length} onDelete={this.handleDelete}/>
-            <Table style={{ minWidth: 200 }}>
+            <Table>
               <EnhancedTableHead handleSelect={this.handleSelectAll} checked={this.state.headChecked} />
               <TableBody>
                 <EnhancedTableBody handleCheckbox={this.handleCheckbox} checked={this.state.checked} requests={this.props.requests} />

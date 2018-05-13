@@ -17,7 +17,7 @@ const cardStyle = {
 
 
 const Home = () => (
-  <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
+  <div style={{display: 'flex', justifyContent: 'center', padding: '20px' }}>
       <Card style={cardStyle}>
         <Link to="/request-signature">
           <Button>
