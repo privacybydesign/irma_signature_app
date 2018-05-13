@@ -29,7 +29,6 @@ import Settings from '../../containers/Settings/Settings';
 import About from '../../containers/About/About';
 
 import { detectMailClients } from '../../actions';
-import Helmet from 'react-helmet';
 
 const IrmaTheme = createMuiTheme({
   palette: {
@@ -49,9 +48,9 @@ const styles = theme => ({
     height: 'calc(100% - 56px)',
     marginTop: 56,
     [theme.breakpoints.up('sm')]: {
-            height: 'calc(100% - 64px)',
-            marginTop: 64,
-          },
+      height: 'calc(100% - 64px)',
+      marginTop: 64,
+    },
   },
   root: {
     width: '100%',
@@ -140,7 +139,7 @@ class App extends Component {
   }
 
   handleMenuClick = () => {
-    this.setState({showMenu: !this.state.showMenu});
+    this.setState({ showMenu: !this.state.showMenu });
   }
 
   componentWillMount() {
@@ -153,61 +152,58 @@ class App extends Component {
   render() {
     const { classes } = this.props;
     return (
-		<Router>
-      <MuiThemeProvider theme={IrmaTheme}>
-        <Helmet>
-          <style>{'body { background-color: #fafafa; }'}</style>
-        </Helmet>
+      <Router>
+        <MuiThemeProvider theme={IrmaTheme}>
           <div className={classes.root}>
             <div className={classes.appFrame}>
-            <AppBar style={{ position: 'fixed', backgroundColor: '#074487' }} className={classes.appBar}>
-              <Toolbar >
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={this.handleMenuClick}
-                  className={classes.menuButton}
-                >
-                  <MenuIcon />
-                </IconButton >
-                <img style={{ width: '60px', padding: '4px', float: 'left' }} alt={"logo"} src={logoImg} />
-                <Typography type="title" color="inherit" noWrap>
-                  Signature app
+              <AppBar style={{ position: 'fixed', backgroundColor: '#074487' }} className={classes.appBar}>
+                <Toolbar >
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={this.handleMenuClick}
+                    className={classes.menuButton}
+                  >
+                    <MenuIcon />
+                  </IconButton >
+                  <img style={{ width: '60px', padding: '4px', float: 'left' }} alt={"logo"} src={logoImg} />
+                  <Typography type="title" color="inherit" noWrap>
+                    Signature app
                 </Typography>
-                <div style={{ marginLeft: 'auto', marginRight: '10px' }}>
-                  <Link to="/" style={{color: 'inherit'}}>
-                  <IconButton style={{ display: 'block', align: 'right' }} color="inherit" >
-                    <HomeIcon />
-                  </IconButton>
-                  </Link>
-                </div>
-              </Toolbar>
-            </AppBar>
-            <Grid fluid>
-              <Row>
-                {
-                  this.state.showMenu &&
-                  <Col xs={12} sm={3}>
-                    <SideMenu />
-                  </Col>
-                }
+                  <div style={{ marginLeft: 'auto', marginRight: '10px' }}>
+                    <Link to="/" style={{ color: 'inherit' }}>
+                      <IconButton style={{ display: 'block', align: 'right' }} color="inherit" >
+                        <HomeIcon />
+                      </IconButton>
+                    </Link>
+                  </div>
+                </Toolbar>
+              </AppBar>
+              <Grid fluid>
+                <Row>
+                  {
+                    this.state.showMenu &&
+                    <Col xs={12} sm={3}>
+                      <SideMenu />
+                    </Col>
+                  }
 
-                <Col xs >
-                  <div className={classes.main}>
+                  <Col xs >
+                    <div className={classes.main}>
                       <Route exact path="/" component={Home} />
                       <Route path="/request-signature" component={RequestSignature} />
                       <Route path="/verify-signature" component={VerifySignature} />
                       <Route path="/sent" component={Sent} />
                       <Route path="/settings" component={Settings} />
                       <Route path="/about" component={About} />
-                  </div>
-                </Col>
-              </Row>
-            </Grid>
+                    </div>
+                  </Col>
+                </Row>
+              </Grid>
             </div>
           </div>
-      </MuiThemeProvider>
-    </Router>
+        </MuiThemeProvider>
+      </Router>
     );
   }
 }
