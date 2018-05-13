@@ -171,7 +171,7 @@ class App extends Component {
                     onClick={this.handleMenuClick}
                     className={classes.menuButton}
                   >
-                    <MenuIcon style={{ marginLeft: '-44'}} />
+                    <MenuIcon style={{ marginLeft: '-36'}} />
                   </IconButton >
                   <img style={{ width: '52px', padding: '4px' }} alt={"logo"} src={logoImg} />
                   <Typography type="title" color="inherit" noWrap>
