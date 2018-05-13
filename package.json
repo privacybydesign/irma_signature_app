@@ -44,6 +44,7 @@
     "flatten": "1.0.2",
     "process": "0.11.10",
     "react-flexbox-grid": "2.0.0",
+    "react-helmet": "^5.2.0",
     "react-redux": "5.0.7",
     "react-router-dom": "4.2.2",
     "react-select": "1.2.1",
