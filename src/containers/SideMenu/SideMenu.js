@@ -6,31 +6,35 @@ import Divider from 'material-ui/Divider';
 // Icons
 import BorderColorIcon from 'material-ui-icons/BorderColor';
 import VisibilityIcon from 'material-ui-icons/Visibility';
-import SendIcon from 'material-ui-icons/Send';
 import SettingsIcon from 'material-ui-icons/Settings';
 import InfoIcon from 'material-ui-icons/Info';
+import ListIcon from 'material-ui-icons/List';
 
 export default class SideMenu extends React.Component {
 
   render() {
     const style = {
-      height: '100%',
+      height: document.body.scrollHeight,
       paddingTop: 60,
+      borderRight: '1px solid rgba(0, 0, 0, 0.12)',
+      backgroundColor: 'white', 
+      position: 'fixed',
+      marginLeft: -16,
+      width: 280,
     };
-
     const linkStyle = {
       color: 'inherit',
       textDecoration: 'none',
     }
 
     return (
-      <div style={style}>
+      <div style={style} >
         <Link to="/request-signature" style={linkStyle}>
           <ListItem button>
             <ListItemIcon>
               <BorderColorIcon />
             </ListItemIcon>
-            <ListItemText primary="Request Signature" />
+            <ListItemText primary="Request a signature" />
           </ListItem>
         </Link>
         <Divider />
@@ -39,16 +43,16 @@ export default class SideMenu extends React.Component {
             <ListItemIcon>
               <VisibilityIcon />
             </ListItemIcon>
-            <ListItemText primary="Verify Signature" />
+            <ListItemText primary="Verify a signature" />
           </ListItem>
         </Link>
         <Divider />
         <Link to="/sent" style={linkStyle}>
           <ListItem button>
             <ListItemIcon>
-              <SendIcon />
+              <ListIcon />
             </ListItemIcon>
-            <ListItemText primary="Sent" />
+            <ListItemText primary="View request history" />
           </ListItem>
         </Link>
         <Divider />
