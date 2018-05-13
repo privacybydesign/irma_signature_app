@@ -29,9 +29,16 @@ import Settings from '../../containers/Settings/Settings';
 import About from '../../containers/About/About';
 
 import { detectMailClients } from '../../actions';
+import purple from 'material-ui/colors/purple';
 
 const IrmaTheme = createMuiTheme({
   palette: {
+    primary: {
+      // light: will be calculated from palette.primary.main,
+      main: '#3f51b5',
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contast with palette.primary.main
+    },
     type: 'light', // Switching the dark mode on is a single property value change.
   },
 });
