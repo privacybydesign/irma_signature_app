@@ -1,13 +1,25 @@
 // Electron event listeners
-const electron = require('electron')
+const electron = require('electron');
 const fs = require('fs');
+const isDev = require('electron-is-dev')
 
 const mail = require('./electron/mail');
 const { setRequest, setPreferredMailClient, getPreferredMailClient, getAllRequests, deleteRequests } = require('./electron/storage');
 const { verifySignature } = require('./electron/verify');
 const getAllAttributes = require('./electron/irma_attribute_list');
 
+const app = electron.app;
 const ipcMain = electron.ipcMain;
+
+app.on('ready', () => {
+  // Install React developer tools in development
+  if(isDev) {
+    const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
+    installExtension(REACT_DEVELOPER_TOOLS)
+        .then((name) => console.log(`Added Extension:  ${name}`))
+        .catch((err) => console.log('Could not install extension: ', err));
+  }
+});
 
 ipcMain.on('searchMailClients-req', (event, arg) => {
   mail.searchMailClients()
