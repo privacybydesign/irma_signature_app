@@ -36,7 +36,7 @@ const IrmaTheme = createMuiTheme({
     primary: {
       // light: will be calculated from palette.primary.main,
       main: '#16a085',
-      // dark: will be calculated from palette.primary.main,
+      error: '#E91E63'// dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contast with palette.primary.main
     },
     type: 'light', // Switching the dark mode on is a single property value change.
@@ -127,7 +127,7 @@ const styles = theme => ({
     width: '100%',
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: 24,
+    padding: 0,
     height: 'calc(100% - 56px)',
     marginTop: 56,
     [theme.breakpoints.up('sm')]: {
