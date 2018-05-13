@@ -40,7 +40,7 @@ const drawerWidth = 240;
 const styles = theme => ({
   main: {
     minHeight: 200,
-    margin: 90,
+    // margin: 90,
     width: '100%',
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
@@ -158,15 +158,15 @@ class App extends Component {
             <div className={classes.appFrame}>
               <AppBar style={{ position: 'fixed', backgroundColor: '#074487' }} className={classes.appBar}>
                 <Toolbar >
-                  <IconButton
+                  <IconButton style={{ marginLeft: '-52', marginRight: '0px', padding: '0px', width: '32px' }} 
                     color="inherit"
                     aria-label="open drawer"
                     onClick={this.handleMenuClick}
                     className={classes.menuButton}
                   >
-                    <MenuIcon />
+                    <MenuIcon style={{ marginLeft: '-44'}} />
                   </IconButton >
-                  <img style={{ width: '60px', padding: '4px', float: 'left' }} alt={"logo"} src={logoImg} />
+                  <img style={{ width: '52px', padding: '4px' }} alt={"logo"} src={logoImg} />
                   <Typography type="title" color="inherit" noWrap>
                     Signature app
                 </Typography>
@@ -179,11 +179,11 @@ class App extends Component {
                   </div>
                 </Toolbar>
               </AppBar>
-              <Grid fluid>
+              <Grid style={{ marginLeft: '0', paddingLeft: '0' }}>
                 <Row>
                   {
                     this.state.showMenu &&
-                    <Col xs={12} sm={3}>
+                    <Col xs={12} sm={4} >
                       <SideMenu />
                     </Col>
                   }

@@ -19,7 +19,6 @@ export default class SideMenu extends React.Component {
       borderRight: '1px solid rgba(0, 0, 0, 0.12)',
       backgroundColor: 'white', 
       position: 'fixed',
-      marginLeft: -16,
       width: 280,
     };
     const linkStyle = {

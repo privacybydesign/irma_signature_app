@@ -43,10 +43,10 @@ class RequestSignature extends Component {
           <CardHeader
             action={
               <IconButton>
-                <HelpIcon />
+                {/* <HelpIcon /> */}
               </IconButton>
             }
-            title="Create a signature request"
+            title="Request a signature"
           />
           <Divider />
           <RequestSignatureStepper onComplete={this.handleComplete} />

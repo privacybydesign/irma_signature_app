@@ -70,7 +70,7 @@ class VerifySignature extends Component {
           <CardHeader
             action={
               <IconButton>
-                <HelpIcon />
+                {/* <HelpIcon /> */}
               </IconButton>
             }
             title="Verify a signature"
