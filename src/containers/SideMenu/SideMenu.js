@@ -14,11 +14,10 @@ export default class SideMenu extends React.Component {
 
   render() {
     const style = {
-      height: document.body.scrollHeight,
+      height: 'calc(100vh - 60px - 24px)',
       paddingTop: 60,
       borderRight: '1px solid rgba(0, 0, 0, 0.12)',
-      backgroundColor: 'white', 
-      position: 'fixed',
+      backgroundColor: 'white',
     };
     const linkStyle = {
       color: 'inherit',
