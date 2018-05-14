@@ -4,7 +4,7 @@ import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 
 const About = () => (
-  <div style={{ paddingLeft: '10px' }}>
+  <div>
     <Card >
       <CardHeader
         title="About" />

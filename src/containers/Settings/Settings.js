@@ -27,7 +27,7 @@ class Settings extends Component {
 
   render() {
     return (
-      <div style={{ paddingLeft: '10px' }}>
+      <div>
         <Card>
           <CardHeader
             action={

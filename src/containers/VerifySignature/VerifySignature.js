@@ -65,7 +65,7 @@ class VerifySignature extends Component {
     const { signatureResult } = this.props;
     const { verifyDone } = this.state;
     return (
-      <div style={{ paddingLeft: '10px'}}>
+      <div>
         <Card>
           <CardHeader
             action={
