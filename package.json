@@ -22,6 +22,7 @@
   "devDependencies": {
     "electron": "~1.8.2",
     "electron-devtools-installer": "^2.2.4",
+    "electron-react-devtools": "^0.5.3",
     "eslint": "4.8.0",
     "eslint-config-airbnb": "15.1.0",
     "eslint-config-react-app": "2.0.1",
