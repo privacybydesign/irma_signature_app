@@ -14,12 +14,16 @@ export default class SideMenu extends React.Component {
 
   render() {
     const style = {
-      width: 260,
+      width: 250,
       height: 'calc(100vh - 60px - 24px)',
       flexShrink: 0,
       paddingTop: 60,
       borderRight: '1px solid rgba(0, 0, 0, 0.12)',
       backgroundColor: 'white',
+    };
+    const itemStyle = {
+      paddingLeft: 6,
+      paddingRight: 6,
     };
     const linkStyle = {
       color: 'inherit',
@@ -33,7 +37,7 @@ export default class SideMenu extends React.Component {
             <ListItemIcon>
               <BorderColorIcon />
             </ListItemIcon>
-            <ListItemText primary="Request a signature" />
+            <ListItemText style={itemStyle} primary="Request a signature" />
           </ListItem>
         </Link>
         <Divider />
@@ -42,7 +46,7 @@ export default class SideMenu extends React.Component {
             <ListItemIcon>
               <VisibilityIcon />
             </ListItemIcon>
-            <ListItemText primary="Verify a signature" />
+            <ListItemText style={itemStyle} primary="Verify a signature" />
           </ListItem>
         </Link>
         <Divider />
@@ -51,7 +55,7 @@ export default class SideMenu extends React.Component {
             <ListItemIcon>
               <ListIcon />
             </ListItemIcon>
-            <ListItemText primary="View request history" />
+            <ListItemText style={itemStyle} primary="View request history" />
           </ListItem>
         </Link>
         <Divider />
@@ -60,7 +64,7 @@ export default class SideMenu extends React.Component {
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
-            <ListItemText primary="Settings" />
+            <ListItemText style={itemStyle} primary="Settings" />
           </ListItem>
         </Link>
         <Divider />
@@ -69,7 +73,7 @@ export default class SideMenu extends React.Component {
             <ListItemIcon>
               <InfoIcon />
             </ListItemIcon>
-            <ListItemText primary="About" />
+            <ListItemText style={itemStyle} primary="About" />
           </ListItem>
         </Link>
         <Divider />

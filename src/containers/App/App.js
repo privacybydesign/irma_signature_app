@@ -43,7 +43,7 @@ const IrmaTheme = createMuiTheme({
   },
 });
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 const styles = theme => ({
   main: {
     minHeight: 200,
@@ -80,7 +80,7 @@ const styles = theme => ({
     }),
   },
   appBarShift: {
-    marginLeft: drawerWidth,
+    marginLeft: 250,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -172,10 +172,14 @@ class App extends Component {
                   >
                     <MenuIcon style={{ marginLeft: '-36' }} />
                   </IconButton >
-                  <img style={{ width: '52px', padding: '4px' }} alt={"logo"} src={logoImg} />
-                  <Typography type="title" color="inherit" noWrap>
-                    Signature app
-                </Typography>
+                  <Link to="/" style={{ color: 'inherit' }}>
+                    <img style={{ width: '52px', padding: '4px', marginTop: '6px' }} alt={"logo"} src={logoImg} />
+                  </Link>
+                  <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    <Typography type="title" color="inherit" noWrap style={{ fontSize:'16px' }}>
+                      Signature app
+                    </Typography>
+                  </Link>
                   <div style={{ marginLeft: 'auto', marginRight: '10px' }}>
                     <Link to="/" style={{ color: 'inherit' }}>
                       <IconButton style={{ display: 'block', align: 'right' }} color="inherit" >
