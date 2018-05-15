@@ -108,7 +108,7 @@ class ComposeMail extends Component {
             fullWidth
             margin="normal"
           />
-        <Typography style={{ paddingTop: '20px', paddingBottom: '20px',  fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)'}}>You can change your preferred mail client in the settings.</Typography>
+          <Typography style={{ paddingTop: '20px', paddingBottom: '20px', fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)' }}>You can change your preferred mail client in the settings.</Typography>
           {(mailClientAvailable) ? '' : <div style={{ color: 'red' }}><br />You do not have any mail client installed, please install a mail client first.</div>}
         </div>
         <Button size="small" variant="raised" style={{ marginLeft: '0px', marginRight: '10px' }} onClick={this.props.onCancel} >
