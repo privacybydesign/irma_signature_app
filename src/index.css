@@ -38,3 +38,8 @@ a:active {
   background-color: transparent;
   text-decoration: underline;
 }
+
+
+.Select * {
+  border-radius: 0px !important;
+}

@@ -72,7 +72,7 @@ class RequestSignatureStepper extends Component {
             </StepContent>
           </Step>
           <Step>
-            <StepLabel>Send request</StepLabel>
+            <StepLabel>Compose mail</StepLabel>
             <StepContent>
               <ComposeMail onComplete={this.handleComposeFinised} onCancel={this.handleComposeCancelled} />
             </StepContent>

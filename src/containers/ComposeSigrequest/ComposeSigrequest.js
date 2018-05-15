@@ -108,7 +108,7 @@ class ComposeSigrequest extends Component {
     const { selectedAttributes, errorAttributes, errorMessage, sigMessage } = this.state;
     return (
       <div>
-        <TextField style={{backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '10px 12px', width: 'calc(100% - 34px)'}}
+        <TextField style={{backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px', width: 'calc(100% - 34px)'}}
          InputProps={{
           disableUnderline: true,
          }}

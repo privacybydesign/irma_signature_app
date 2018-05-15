@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
+import Typography from 'material-ui/Typography';
 
 // Icons
 import Send from 'material-ui-icons/Send';
+import Back from 'material-ui-icons/NavigateBefore';
 
 class ComposeMail extends Component {
   constructor(props) {
@@ -88,7 +90,13 @@ class ComposeMail extends Component {
             fullWidth
             margin="normal"
           />
-          <TextField
+          <TextField style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px', width: 'calc(100% - 34px)' }}
+            InputProps={{
+              disableUnderline: true,
+            }}
+            InputLabelProps={{
+              shrink: true,
+            }}
             id="body"
             label="Mail body"
             value={mail.body}
@@ -100,15 +108,16 @@ class ComposeMail extends Component {
             fullWidth
             margin="normal"
           />
-          You can change your preferred mail client in the settings.
+        <Typography style={{ paddingTop: '20px', paddingBottom: '20px',  fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)'}}>You can change your preferred mail client in the settings.</Typography>
           {(mailClientAvailable) ? '' : <div style={{ color: 'red' }}><br />You do not have any mail client installed, please install a mail client first.</div>}
         </div>
-        <Button disabled={!mailClientAvailable} color="primary" onClick={this.handleSend} >
-          <Send style={{ marginLeft: '0px', marginRight: '10px' }} />
-          Send by e-mail
-        </Button>
-        <Button style={{ float: "right"}} onClick={this.props.onCancel} >
+        <Button size="small" variant="raised" style={{ marginLeft: '0px', marginRight: '10px' }} onClick={this.props.onCancel} >
+          <Back style={{ fontSize: "20", marginLeft: "2", marginRight: "10" }} />
           Back
+        </Button>
+        <Button disabled={!mailClientAvailable} variant="raised" color="primary" style={{ float: "right" }} onClick={this.handleSend} >
+          Send by e-mail
+          <Send style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
         </Button>
       </div>
     );
