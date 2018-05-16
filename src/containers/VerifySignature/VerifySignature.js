@@ -108,9 +108,9 @@ class VerifySignature extends Component {
             <AttributeResultTable
               attributes={signatureResult.disjunctions
                 ?
-                  signatureResult.disjunctions
+                signatureResult.disjunctions
                 :
-                  signatureResult.credentialList}
+                signatureResult.credentialList}
               matched={signatureResult.request !== undefined}
               proofStatus={signatureResult.proofStatus}
             />

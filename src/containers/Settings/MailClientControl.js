@@ -24,7 +24,7 @@ class MailClientControl extends Component {
                 control={<Radio />}
                 label={mailClients[client].description}
               />
-             )
+            )
             }
           </RadioGroup>
         </FormControl>

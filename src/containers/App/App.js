@@ -176,7 +176,7 @@ class App extends Component {
                     <img style={{ width: '52px', padding: '4px', marginTop: '6px' }} alt={"logo"} src={logoImg} />
                   </Link>
                   <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
-                    <Typography type="title" color="inherit" noWrap style={{ fontSize:'16px' }}>
+                    <Typography type="title" color="inherit" noWrap style={{ fontSize: '16px' }}>
                       Signature app
                     </Typography>
                   </Link>

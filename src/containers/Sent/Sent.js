@@ -81,7 +81,7 @@ class Sent extends Component {
           />
           <Divider />
           <CardContent style={{ padding: '0px' }}>
-            <EnhancedTableToolbar num={this.state.checked.length} onDelete={this.handleDelete}/>
+            <EnhancedTableToolbar num={this.state.checked.length} onDelete={this.handleDelete} />
             <Table>
               <EnhancedTableHead handleSelect={this.handleSelectAll} checked={this.state.headChecked} />
               <TableBody>
