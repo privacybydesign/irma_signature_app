@@ -132,13 +132,13 @@ class ComposeSigrequest extends Component {
           addAttribute={this.addAttribute}
           removeAttribute={this.removeAttribute}
         />
-        <Typography style={{ paddingTop: '20px', paddingBottom: '20px', fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)' }}>You can save this request and share it manually or proceed to share it by email.</Typography>
+        <Typography style={{ paddingTop: '20px', paddingBottom: '20px', fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)' }}>You can export this request and share it manually or proceed to share it by email.</Typography>
         <Button size="small" style={{ float: "left", marginRight: "20px" }} variant="raised" onClick={this.onDiscard} >
           Discard request
             <Delete style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
         </Button>
         <Button size="small" style={{ fontSize: "20" }} variant="raised" onClick={this.exportRequest} >
-          Save request
+          Export request
             <Save style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
         </Button>
         <Button size="small" style={{ float: "right" }} variant="raised" color="primary" onClick={this.handleNext} >
