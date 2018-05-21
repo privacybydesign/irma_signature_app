@@ -73,7 +73,7 @@ class AttributeDropdown extends Component {
       label: `${el.name}   -   ${el.credentialName}`
     }));
   }
-
+  
   render() {
     const { attributeSearching, attributeResult } = this.props;
     return (
