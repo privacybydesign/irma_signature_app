@@ -16,6 +16,9 @@ import { verifySignature } from './../../actions';
 import SignatureResult from './SignatureResult';
 import AttributeResultTable from './AttributeResultTable';
 
+// CSS
+import 'antd/lib/upload/style/css';
+
 class VerifySignature extends Component {
   constructor(props) {
     super(props);
@@ -89,7 +92,7 @@ class VerifySignature extends Component {
                 <p className="ant-upload-drag-icon">
                   <Icon type="inbox" />
                 </p>
-                <p className="ant-upload-text">Signed messages are shared as email attachments. Click or drag the signed message to this area.</p>
+                <p className="ant-upload-text">In order to verify a signature, click here or drag the signed message to this area.</p><p> A signed message has the filename extension <i>.irma</i>.</p>
                 <p className="ant-upload-hint"></p>
               </Upload.Dragger>
             </div>
