@@ -19,7 +19,7 @@ class EnhancedTableHead extends Component {
           <TableCell padding="none">Recipient</TableCell>
           <TableCell>Message</TableCell>
           <TableCell>Date</TableCell>
-          <TableCell>Verified</TableCell>
+          <TableCell style={{textAlign: 'center'}}>Verified</TableCell>
         </TableRow>
       </TableHead>
     );

@@ -61,17 +61,6 @@ class ComposeMail extends Component {
         <div style={{ minWidth: '50%', maxWidth: '500px' }}>
           <TextField
             required
-            id="from"
-            value={mail.from}
-            onChange={this.handleTextFieldChange}
-            label={error ? "This field is required" : "From:"}
-            placeholder={"Email address where you want to receive the signature (TODO: move to options)"}
-            error={error}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            required
             id="recipient"
             value={mail.recipient}
             onChange={this.handleTextFieldChange}
@@ -105,6 +94,18 @@ class ComposeMail extends Component {
             placeholder="Optional accompanying text (this part will appear in the email body and it will not be signed by the recipient)."
             rows="4"
             rowsMax="10"
+            fullWidth
+            margin="normal"
+          />
+           <TextField
+            required
+            id="from"
+            value={mail.from}
+            onChange={this.handleTextFieldChange}
+            
+            label={error ? "This field is required" : "Return signed message to:"}
+            placeholder={"Email address where you want to receive the signature"}
+            error={error}
             fullWidth
             margin="normal"
           />
