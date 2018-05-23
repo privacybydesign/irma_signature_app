@@ -31,6 +31,14 @@ import About from '../../containers/About/About';
 import { detectMailClients } from '../../actions';
 import purple from 'material-ui/colors/purple';
 
+import Drawer from 'material-ui/Drawer';
+import List from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
+import ChevronRightIcon from 'material-ui-icons/ChevronRight';
+import classNames from 'classnames';
+
+
 const IrmaTheme = createMuiTheme({
   palette: {
     primary: {
@@ -44,6 +52,7 @@ const IrmaTheme = createMuiTheme({
 });
 
 const drawerWidth = 250;
+
 const styles = theme => ({
   main: {
     minHeight: 200,
@@ -51,12 +60,8 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: 24,
-    height: 'calc(100% - 56px)',
-    marginTop: 56,
-    [theme.breakpoints.up('sm')]: {
-      height: 'calc(100% - 64px)',
-      marginTop: 64 - 24,
-    },
+    height: 'calc(100% - 32px)',
+    marginTop: 32,
     overflow: 'auto',
   },
   root: {
@@ -127,12 +132,6 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: 0,
-    height: 'calc(100% - 56px)',
-    marginTop: 56,
-    [theme.breakpoints.up('sm')]: {
-      height: 'calc(100% - 64px)',
-      marginTop: 64,
-    },
   },
 });
 
@@ -141,12 +140,17 @@ class App extends Component {
     super(props);
     this.state = {
       showMenu: true,
+      open: true,
     };
   }
 
   handleMenuClick = () => {
     this.setState({ showMenu: !this.state.showMenu });
   }
+
+  handleDrawerToggle = () => {
+    this.setState({ open: !this.state.open });
+  };
 
   componentWillMount() {
     const { mailClientsDetected, dispatch } = this.props;
@@ -156,7 +160,7 @@ class App extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { theme, classes } = this.props;
     return (
       <Router>
         <MuiThemeProvider theme={IrmaTheme}>
@@ -167,7 +171,7 @@ class App extends Component {
                   <IconButton style={{ marginLeft: '-52', marginRight: '0px', padding: '0px', width: '32px' }}
                     color="inherit"
                     aria-label="open drawer"
-                    onClick={this.handleMenuClick}
+                    onClick={this.handleDrawerToggle}
                     className={classes.menuButton}
                   >
                     <MenuIcon style={{ marginLeft: '-36' }} />
@@ -189,18 +193,36 @@ class App extends Component {
                   </div>
                 </Toolbar>
               </AppBar>
-              {
+              {/* {
                 this.state.showMenu &&
                 <SideMenu />
-              }
-              <div className={classes.main}>
-                <Route exact path="/" component={Home} />
+              } */}
+
+              <Drawer
+                variant="permanent"
+                classes={{
+                  paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+                }}
+                open={this.state.open}
+              >
+                <div className={classes.toolbar}>
+                  <IconButton onClick={this.handleDrawerClose}>
+                    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                  </IconButton>
+                </div>
+                <SideMenu/>
+              </Drawer>
+              <main className={classes.content}>
+                <div className={classes.toolbar} />
+                <div className={classes.main}>
+                   <Route exact path="/" component={Home} />
                 <Route path="/request-signature" component={RequestSignature} />
                 <Route path="/verify-signature" component={VerifySignature} />
                 <Route path="/sent" component={Sent} />
                 <Route path="/settings" component={Settings} />
-                <Route path="/about" component={About} />
-              </div>
+                <Route path="/about" component={About} /> 
+                </div>
+              </main>
             </div>
           </div>
         </MuiThemeProvider>
