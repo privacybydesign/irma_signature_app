@@ -57,9 +57,7 @@ class AttributeDropdown extends Component {
           label={`${value.name} - ${value.credentialName}`}
           onDelete={this.handleRemove(key)}
           key={key}
-          avatar={
-            <Avatar src={logo} />
-          }
+          avatar={(value.credentialName === 'iDIN') ?  <Avatar src={logo} /> : null}
         />
       )
     });
