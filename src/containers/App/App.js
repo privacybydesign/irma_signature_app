@@ -60,8 +60,8 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: 24,
-    height: 'calc(100% - 32px)',
-    marginTop: 32,
+    height: 'calc(100% - 40px)',
+    marginTop: 40,
     overflow: 'auto',
   },
   root: {
@@ -93,8 +93,8 @@ const styles = theme => ({
     }),
   },
   menuButton: {
-    marginLeft: 12,
-    marginRight: 36,
+    marginLeft: -17,
+    marginRight: 8,
   },
   hide: {
     display: 'none',
@@ -144,10 +144,6 @@ class App extends Component {
     };
   }
 
-  handleMenuClick = () => {
-    this.setState({ showMenu: !this.state.showMenu });
-  }
-
   handleDrawerToggle = () => {
     this.setState({ open: !this.state.open });
   };
@@ -168,16 +164,16 @@ class App extends Component {
             <div className={classes.appFrame}>
               <AppBar style={{ position: 'fixed', backgroundColor: '#074487' }} className={classes.appBar}>
                 <Toolbar >
-                  <IconButton style={{ marginLeft: '-52', marginRight: '0px', padding: '0px', width: '32px' }}
+                  <IconButton    
                     color="inherit"
                     aria-label="open drawer"
                     onClick={this.handleDrawerToggle}
                     className={classes.menuButton}
                   >
-                    <MenuIcon style={{ marginLeft: '-36' }} />
+                    <MenuIcon />
                   </IconButton >
                   <Link to="/" style={{ color: 'inherit' }}>
-                    <img style={{ width: '52px', padding: '4px', marginTop: '6px' }} alt={"logo"} src={logoImg} />
+                    <img style={{ width: '56px', padding: '4px', marginTop: '2px' }} alt={"logo"} src={logoImg} />
                   </Link>
                   <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
                     <Typography type="title" color="inherit" noWrap style={{ fontSize: '16px' }}>

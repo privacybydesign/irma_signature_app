@@ -23,6 +23,9 @@ export default class SideMenu extends React.Component {
       paddingLeft: 6,
       paddingRight: 6,
     };
+    const iconStyle = {
+      paddingLeft: 18,
+    };
     const linkStyle = {
       color: 'inherit',
       textDecoration: 'none',
@@ -31,8 +34,8 @@ export default class SideMenu extends React.Component {
     return (
       <div style={style} >
         <Link to="/request-signature" style={linkStyle}>
-          <ListItem button>
-            <ListItemIcon>
+          <ListItem style={iconStyle} button>
+            <ListItemIcon >
               <BorderColorIcon />
             </ListItemIcon>
             <ListItemText style={itemStyle} primary="Request a signature" />
@@ -40,7 +43,7 @@ export default class SideMenu extends React.Component {
         </Link>
         <Divider />
         <Link to="/verify-signature" style={linkStyle}>
-          <ListItem button>
+          <ListItem style={iconStyle} button>
             <ListItemIcon>
               <VisibilityIcon />
             </ListItemIcon>
@@ -49,7 +52,7 @@ export default class SideMenu extends React.Component {
         </Link>
         <Divider />
         <Link to="/sent" style={linkStyle}>
-          <ListItem button>
+          <ListItem style={iconStyle} button>
             <ListItemIcon>
               <ListIcon />
             </ListItemIcon>
@@ -58,7 +61,7 @@ export default class SideMenu extends React.Component {
         </Link>
         <Divider />
         <Link to="/settings" style={linkStyle}>
-          <ListItem button>
+          <ListItem style={iconStyle} button>
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
@@ -67,7 +70,7 @@ export default class SideMenu extends React.Component {
         </Link>
         <Divider />
         <Link to="/about" style={linkStyle}>
-          <ListItem button>
+          <ListItem style={iconStyle} button>
             <ListItemIcon>
               <InfoIcon />
             </ListItemIcon>
