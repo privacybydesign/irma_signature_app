@@ -29,32 +29,43 @@ import Settings from '../../containers/Settings/Settings';
 import About from '../../containers/About/About';
 
 import { detectMailClients } from '../../actions';
+import purple from 'material-ui/colors/purple';
+
+import Drawer from 'material-ui/Drawer';
+import List from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
+import ChevronRightIcon from 'material-ui-icons/ChevronRight';
+import classNames from 'classnames';
+
 
 const IrmaTheme = createMuiTheme({
   palette: {
+    primary: {
+      // light: will be calculated from palette.primary.main,
+      main: '#16a085',
+      error: '#E91E63'// dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contast with palette.primary.main
+    },
     type: 'light', // Switching the dark mode on is a single property value change.
   },
 });
 
-const drawerWidth = 240;
+const drawerWidth = 250;
+
 const styles = theme => ({
   main: {
     minHeight: 200,
-    margin: 90,
     width: '100%',
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: 24,
-    height: 'calc(100% - 56px)',
-    marginTop: 56,
-    [theme.breakpoints.up('sm')]: {
-            height: 'calc(100% - 64px)',
-            marginTop: 64,
-          },
+    height: 'calc(100% - 40px)',
+    marginTop: 40,
+    overflow: 'auto',
   },
   root: {
     width: '100%',
-    height: 1000,
     marginTop: theme.spacing.unit * 3,
     zIndex: 1,
     overflow: 'hidden',
@@ -74,7 +85,7 @@ const styles = theme => ({
     }),
   },
   appBarShift: {
-    marginLeft: drawerWidth,
+    marginLeft: 250,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -82,8 +93,8 @@ const styles = theme => ({
     }),
   },
   menuButton: {
-    marginLeft: 12,
-    marginRight: 36,
+    marginLeft: -17,
+    marginRight: 8,
   },
   hide: {
     display: 'none',
@@ -120,13 +131,7 @@ const styles = theme => ({
     width: '100%',
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: 24,
-    height: 'calc(100% - 56px)',
-    marginTop: 56,
-    [theme.breakpoints.up('sm')]: {
-      height: 'calc(100% - 64px)',
-      marginTop: 64,
-    },
+    padding: 0,
   },
 });
 
@@ -135,12 +140,13 @@ class App extends Component {
     super(props);
     this.state = {
       showMenu: true,
+      open: true,
     };
   }
 
-  handleMenuClick = () => {
-    this.setState({showMenu: !this.state.showMenu});
-  }
+  handleDrawerToggle = () => {
+    this.setState({ open: !this.state.open });
+  };
 
   componentWillMount() {
     const { mailClientsDetected, dispatch } = this.props;
@@ -150,60 +156,73 @@ class App extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { theme, classes } = this.props;
     return (
-		<Router>
-      <MuiThemeProvider theme={IrmaTheme}>
-        <div className={classes.root}>
-          <div className={classes.appFrame}>
-           <AppBar style={{ position: 'fixed', backgroundColor: '#074487' }} className={classes.appBar}>
-            <Toolbar>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={this.handleMenuClick}
-                className={classes.menuButton}
-              >
-                <MenuIcon />
-              </IconButton >
-              <img style={{ width: '60px', padding: '4px', float: 'left' }} alt={"logo"} src={logoImg} />
-              <Typography type="title" color="inherit" noWrap>
-                Signature app
-							</Typography>
-              <div style={{ marginLeft: 'auto', marginRight: '10px' }}>
-                <Link to="/" style={{color: 'inherit'}}>
-                <IconButton style={{ display: 'block', align: 'right' }} color="inherit" >
-                  <HomeIcon />
-                </IconButton>
-                </Link>
-              </div>
-            </Toolbar>
-           </AppBar>
-           <Grid fluid>
-             <Row>
-               {
-                 this.state.showMenu &&
-                 <Col xs={12} sm={3}>
-                   <SideMenu />
-                 </Col>
-               }
+      <Router>
+        <MuiThemeProvider theme={IrmaTheme}>
+          <div className={classes.root}>
+            <div className={classes.appFrame}>
+              <AppBar style={{ position: 'fixed', backgroundColor: '#074487' }} className={classes.appBar}>
+                <Toolbar >
+                  <IconButton    
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={this.handleDrawerToggle}
+                    className={classes.menuButton}
+                  >
+                    <MenuIcon />
+                  </IconButton >
+                  <Link to="/" style={{ color: 'inherit' }}>
+                    <img style={{ width: '56px', padding: '4px', marginTop: '2px' }} alt={"logo"} src={logoImg} />
+                  </Link>
+                  <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    <Typography type="title" color="inherit" noWrap style={{ fontSize: '16px' }}>
+                      Signature app
+                    </Typography>
+                  </Link>
+                  <div style={{ marginLeft: 'auto', marginRight: '10px' }}>
+                    <Link to="/" style={{ color: 'inherit' }}>
+                      <IconButton style={{ display: 'block', align: 'right' }} color="inherit" >
+                        <HomeIcon />
+                      </IconButton>
+                    </Link>
+                  </div>
+                </Toolbar>
+              </AppBar>
+              {/* {
+                this.state.showMenu &&
+                <SideMenu />
+              } */}
 
-               <Col xs>
-                 <div className={classes.main}>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/request-signature" component={RequestSignature} />
-                    <Route path="/verify-signature" component={VerifySignature} />
-                    <Route path="/sent" component={Sent} />
-                    <Route path="/settings" component={Settings} />
-                    <Route path="/about" component={About} />
-                 </div>
-               </Col>
-             </Row>
-           </Grid>
+              <Drawer
+                variant="permanent"
+                classes={{
+                  paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+                }}
+                open={this.state.open}
+              >
+                <div className={classes.toolbar}>
+                  <IconButton onClick={this.handleDrawerClose}>
+                    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                  </IconButton>
+                </div>
+                <SideMenu/>
+              </Drawer>
+              <main className={classes.content}>
+                <div className={classes.toolbar} />
+                <div className={classes.main}>
+                   <Route exact path="/" component={Home} />
+                <Route path="/request-signature" component={RequestSignature} />
+                <Route path="/verify-signature" component={VerifySignature} />
+                <Route path="/sent" component={Sent} />
+                <Route path="/settings" component={Settings} />
+                <Route path="/about" component={About} /> 
+                </div>
+              </main>
+            </div>
           </div>
-        </div>
-      </MuiThemeProvider>
-    </Router>
+        </MuiThemeProvider>
+      </Router>
     );
   }
 }

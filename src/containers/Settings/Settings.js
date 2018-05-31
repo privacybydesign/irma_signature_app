@@ -14,7 +14,7 @@ import { getPreferredMailClient, setPreferredMailClient } from '../../actions';
 
 import MailClientControl from './MailClientControl';
 
-class Settings  extends Component {
+class Settings extends Component {
 
   componentWillMount() {
     const { dispatch } = this.props;
@@ -27,30 +27,28 @@ class Settings  extends Component {
 
   render() {
     return (
-      <div style={{ paddingLeft: '10px' }}>
+      <div>
         <Card>
           <CardHeader
             action={
               <IconButton>
-                <HelpIcon />
+                {/* <HelpIcon /> */}
               </IconButton>
             }
             title="Settings"
           />
-        </Card>
-        <Divider />
-        <Card>
-          <CardHeader
-            title="Mail client settings"
-            subheader="Choose your default mailclient here."
-          />
-          <CardContent style={{ paddingLeft: '30px' }}>
+          <Divider />
+          <CardContent>
+            <CardHeader
+              title="Mail client settings"
+              subheader="Choose your default mailclient here."
+            />
+          </CardContent>
             <MailClientControl
               mailClients={this.props.mailClients}
               handleChange={this.updateMailClient}
               selectedClient={this.props.preferredMailClient}
             />
-          </CardContent>
         </Card>
       </div>
     );

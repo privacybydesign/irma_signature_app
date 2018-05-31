@@ -6,67 +6,75 @@ import Divider from 'material-ui/Divider';
 // Icons
 import BorderColorIcon from 'material-ui-icons/BorderColor';
 import VisibilityIcon from 'material-ui-icons/Visibility';
-import SendIcon from 'material-ui-icons/Send';
 import SettingsIcon from 'material-ui-icons/Settings';
 import InfoIcon from 'material-ui-icons/Info';
+import ListIcon from 'material-ui-icons/List';
 
 export default class SideMenu extends React.Component {
 
   render() {
     const style = {
-      height: '100%',
-      paddingTop: 60,
+      width: 250,
+      flexShrink: 0,
+      borderRight: '1px solid rgba(0, 0, 0, 0.12)',
+      backgroundColor: 'white',
     };
-
+    const itemStyle = {
+      paddingLeft: 6,
+      paddingRight: 6,
+    };
+    const iconStyle = {
+      paddingLeft: 18,
+    };
     const linkStyle = {
       color: 'inherit',
       textDecoration: 'none',
     }
 
     return (
-      <div style={style}>
+      <div style={style} >
         <Link to="/request-signature" style={linkStyle}>
-          <ListItem button>
-            <ListItemIcon>
+          <ListItem style={iconStyle} button>
+            <ListItemIcon >
               <BorderColorIcon />
             </ListItemIcon>
-            <ListItemText primary="Request Signature" />
+            <ListItemText style={itemStyle} primary="Request a signature" />
           </ListItem>
         </Link>
         <Divider />
         <Link to="/verify-signature" style={linkStyle}>
-          <ListItem button>
+          <ListItem style={iconStyle} button>
             <ListItemIcon>
               <VisibilityIcon />
             </ListItemIcon>
-            <ListItemText primary="Verify Signature" />
+            <ListItemText style={itemStyle} primary="Verify a signature" />
           </ListItem>
         </Link>
         <Divider />
         <Link to="/sent" style={linkStyle}>
-          <ListItem button>
+          <ListItem style={iconStyle} button>
             <ListItemIcon>
-              <SendIcon />
+              <ListIcon />
             </ListItemIcon>
-            <ListItemText primary="Sent" />
+            <ListItemText style={itemStyle} primary="View request history" />
           </ListItem>
         </Link>
         <Divider />
         <Link to="/settings" style={linkStyle}>
-          <ListItem button>
+          <ListItem style={iconStyle} button>
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
-            <ListItemText primary="Settings" />
+            <ListItemText style={itemStyle} primary="Settings" />
           </ListItem>
         </Link>
         <Divider />
         <Link to="/about" style={linkStyle}>
-          <ListItem button>
+          <ListItem style={iconStyle} button>
             <ListItemIcon>
               <InfoIcon />
             </ListItemIcon>
-            <ListItemText primary="About" />
+            <ListItemText style={itemStyle} primary="About" />
           </ListItem>
         </Link>
         <Divider />

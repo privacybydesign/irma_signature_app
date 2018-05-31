@@ -4,14 +4,17 @@ import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 
 const About = () => (
-  <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
-    <Card style={{ marginTop: '30px', maxWidth: 540 }}>
+  <div>
+    <Card >
       <CardHeader
         title="About" />
       <Divider />
 
       <CardContent>
-        The IRMA Signature App has been developed by the Privacy by Design Foundation. More information about our activities and software can be found on our website. IRMA Signature works with the companion app IRMA mobile for Android and iOS. The Android version is available here and the iOS version is available here.
+        <p>The IRMA Signature App has been developed by the Privacy by Design Foundation. More information about our activities and software can be found on the <a href='https://privacybydesign.foundation/'>Privacy by Design website</a>.
+        </p>
+        IRMA Signature works in combination with the mobile companion app IRMA. Download IRMA for free on <a href='https://play.google.com/store/apps/details?id=org.irmacard.cardemu'>Google Play for Android</a>
+        or on the <a href='https://itunes.apple.com/us/app/irma-authentication/id1294092994'> AppStore for iOS</a>. Signature requests made with IRMA Signature can be signed with this mobile application.
       </CardContent>
     </Card>
   </div>

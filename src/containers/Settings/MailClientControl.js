@@ -10,7 +10,7 @@ class MailClientControl extends Component {
   render() {
     const { mailClients, selectedClient, handleChange } = this.props;
     return (
-      <CardContent style={{ paddingLeft: '30px' }}>
+      <CardContent style={{ paddingLeft: '50px' }}>
         <FormControl>
           <FormLabel>Mail Client</FormLabel>
           <RadioGroup
@@ -24,7 +24,7 @@ class MailClientControl extends Component {
                 control={<Radio />}
                 label={mailClients[client].description}
               />
-             )
+            )
             }
           </RadioGroup>
         </FormControl>

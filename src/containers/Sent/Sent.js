@@ -69,20 +69,20 @@ class Sent extends Component {
 
   render() {
     return (
-      <div style={{ paddingLeft: '10px' }}>
+      <div>
         <Card>
           <CardHeader
             action={
               <IconButton>
-                <HelpIcon />
+                {/* <HelpIcon /> */}
               </IconButton>
             }
             title="Request History"
           />
           <Divider />
           <CardContent style={{ padding: '0px' }}>
-            <EnhancedTableToolbar num={this.state.checked.length} onDelete={this.handleDelete}/>
-            <Table style={{ minWidth: 200 }}>
+            <EnhancedTableToolbar num={this.state.checked.length} onDelete={this.handleDelete} />
+            <Table>
               <EnhancedTableHead handleSelect={this.handleSelectAll} checked={this.state.headChecked} />
               <TableBody>
                 <EnhancedTableBody handleCheckbox={this.handleCheckbox} checked={this.state.checked} requests={this.props.requests} />

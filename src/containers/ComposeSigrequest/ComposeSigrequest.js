@@ -8,11 +8,13 @@ import Button from 'material-ui/Button';
 
 // Icons
 import Delete from 'material-ui-icons/Delete';
-import Download from 'material-ui-icons/FileDownload';
+import Save from 'material-ui-icons/Save';
+import Next from 'material-ui-icons/NavigateNext';
 
 import AttributeDropdown from './../AttributeDropdown/AttributeDropdown';
 import { setRequestElectron, getSignatureSavePath, saveSignatureRequestElectron } from './../../actions/electron';
 import { createSigrequestFromInput, generateDate } from './../../utils/requestUtils';
+
 
 class ComposeSigrequest extends Component {
   constructor(props) {
@@ -106,14 +108,20 @@ class ComposeSigrequest extends Component {
     const { selectedAttributes, errorAttributes, errorMessage, sigMessage } = this.state;
     return (
       <div>
-        <TextField
+        <TextField style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px', width: 'calc(100% - 34px)' }}
+          InputProps={{
+            disableUnderline: true,
+          }}
+          InputLabelProps={{
+            shrink: true,
+          }}
           label={errorMessage ? "This field is required" : "Message to be signed"}
           onChange={this.handleSigMessageChange}
           value={sigMessage}
           multiline
-          placeholder="The message that needs a signature."
           rows="4"
           rowsMax="10"
+          required="true"
           fullWidth
           margin="normal"
           error={errorMessage}
@@ -124,18 +132,19 @@ class ComposeSigrequest extends Component {
           addAttribute={this.addAttribute}
           removeAttribute={this.removeAttribute}
         />
-        <Typography style={{ paddingTop: '20px', fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)', paddingBottom: '6px' }}>You can export this request and share it manually or proceed to share it by email.</Typography>
-          <Button onClick={this.handleNext} >
-            Next
-          </Button>
-          <Button style={{ float: "right"}} onClick={this.onDiscard} >
-            <Delete style={{ marginLeft: '0px', marginRight: '10px' }} />
-            Discard request
-           </Button>
-          <Button style={{ float: "right"}} onClick={this.exportRequest} >
-            <Download style={{ marginLeft: '0px', marginRight: '10px' }} />
-            Export request
-          </Button>
+        <Typography style={{ paddingTop: '20px', paddingBottom: '20px', fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)' }}>You can export this request and share it manually or proceed to share it by email.</Typography>
+        <Button size="small" style={{ float: "left", marginRight: "20px" }} variant="raised" onClick={this.onDiscard} >
+          Discard request
+            <Delete style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
+        </Button>
+        <Button size="small" style={{ fontSize: "20" }} variant="raised" onClick={this.exportRequest} >
+          Export request
+            <Save style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
+        </Button>
+        <Button size="small" style={{ float: "right" }} variant="raised" color="primary" onClick={this.handleNext} >
+          Next
+            <Next style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
+        </Button>
       </div>
     );
   }

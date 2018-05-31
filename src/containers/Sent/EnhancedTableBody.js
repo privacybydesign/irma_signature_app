@@ -10,12 +10,12 @@ import {
 import { green, red, blue } from 'material-ui/colors';
 import CheckCircle from 'material-ui-icons/CheckCircle';
 import Error from 'material-ui-icons/Error';
-import Refresh from 'material-ui-icons/Refresh';
+import Pending from 'material-ui-icons/HourglassEmpty';
 
 function getIconByState(state) {
   switch(state) {
     case 'PENDING':
-      return <Refresh style={{color: blue[500] }} />;
+      return <Pending style={{color: blue[500] }} />;
     case  'VALID':
       return <CheckCircle style={{color: green[500] }} />;
     default: // We consider everything else as 'invalid', this includes: EXPIRED, INVALID_CRYPTO, UNMATCHED_REQUEST, MISSING_ATTRIBUTES
@@ -37,10 +37,10 @@ class EnhancedTableBody extends Component {
             <TableCell padding="checkbox">
               <Checkbox checked={checked.indexOf(el) > -1} onChange={handleCheckbox(el)} />
             </TableCell>
-            <TableCell style={{ textAlign: 'left', color: '#757575' }}>{request.recipient}</TableCell>
+            <TableCell style={{ paddingLeft:'0', textAlign: 'left', color: '#757575' }}>{request.recipient}</TableCell>
             <TableCell style={{ textAlign: 'left' }}>{request.request.message.substring(0,20)}</TableCell>
             <TableCell style={{ textAlign: 'left' }} numeric>{request.date}</TableCell>
-            <TableCell style={{ textAlign: 'left' }} numeric>{getIconByState(request.state)}</TableCell>
+            <TableCell style={{ textAlign: 'center' }} numeric>{getIconByState(request.state)}</TableCell>
           </TableRow>
         )
       });

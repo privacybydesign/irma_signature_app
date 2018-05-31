@@ -22,3 +22,5 @@ go/irma_signature_verify
 
 # Timestamp file
 go/irma_configuration/timestamp
+
+vendor/

@@ -38,15 +38,15 @@ class RequestSignature extends Component {
 
   render() {
     return (
-      <div style={{ paddingLeft: '10px' }}>
+      <div>
         <Card>
           <CardHeader
             action={
               <IconButton>
-                <HelpIcon />
+                {/* <HelpIcon /> */}
               </IconButton>
             }
-            title="Create a signature request"
+            title="Request a signature"
           />
           <Divider />
           <RequestSignatureStepper onComplete={this.handleComplete} />

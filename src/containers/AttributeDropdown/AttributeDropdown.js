@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Select from 'react-select';
-
 import Chip  from 'material-ui/Chip';
 import Avatar  from 'material-ui/Avatar';
 
 import { searchAttributes } from './../../actions';
+
+import 'react-select/dist/react-select.css';
 
 import logo from '../../irma_configuration/pbdf/pbdf/Issues/idin/logo.png'; // TODO: make dynamic import?
 
@@ -78,17 +79,18 @@ class AttributeDropdown extends Component {
         ?
           <div>
             {this.state.chips}
-            <Select
-              id="state-select"
-              autoFocus
-              simpleValue
-              clearable
-              options={this.getOptions()}
-              name="selected-state"
-              onChange={this.handleSelect}
-              placeholder="Select signature attributes"
-              searchable
-            />
+              <Select 
+                multiple
+                id="state-select"
+                autoFocus
+                simpleValue
+                clearable
+                options={this.getOptions()}
+                name="selected-state"
+                onChange={this.handleSelect}
+                placeholder="Select signature attributes"
+                searchable
+              />
           </div>
         :
           <div>
