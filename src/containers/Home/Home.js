@@ -1,8 +1,9 @@
 import React from 'react';
-import Card, { CardContent } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import { Link } from 'react-router-dom';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 import requestImg from '../../static/images/request.png';
 import verifyImg from '../../static/images/verify.png';
@@ -14,7 +15,6 @@ const cardStyle = {
   marginBottom: '40px',
   maxWidth: 240
 };
-
 
 const Home = () => (
   <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>

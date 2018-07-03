@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Card, { CardHeader, CardContent } from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
+import { Card, CardHeader, CardContent } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
 
 const About = () => (
   <div>

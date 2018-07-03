@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import TextField from 'material-ui/TextField';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 // Icons
-import Delete from 'material-ui-icons/Delete';
-import Save from 'material-ui-icons/Save';
-import Next from 'material-ui-icons/NavigateNext';
+import Delete from '@material-ui/icons/Delete';
+import Save from '@material-ui/icons/Save';
+import Next from '@material-ui/icons/NavigateNext';
 
 import AttributeDropdown from './../AttributeDropdown/AttributeDropdown';
 import { setRequestElectron, getSignatureSavePath, saveSignatureRequestElectron } from './../../actions/electron';

@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
+import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
 
 // Icons
-import BorderColorIcon from 'material-ui-icons/BorderColor';
-import VisibilityIcon from 'material-ui-icons/Visibility';
-import SettingsIcon from 'material-ui-icons/Settings';
-import InfoIcon from 'material-ui-icons/Info';
-import ListIcon from 'material-ui-icons/List';
+import BorderColorIcon from '@material-ui/icons/BorderColor';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import SettingsIcon from '@material-ui/icons/Settings';
+import InfoIcon from '@material-ui/icons/Info';
+import ListIcon from '@material-ui/icons/List';
 
 export default class SideMenu extends React.Component {
 
@@ -35,7 +35,7 @@ export default class SideMenu extends React.Component {
       <div style={style} >
         <Link to="/request-signature" style={linkStyle}>
           <ListItem style={iconStyle} button>
-            <ListItemIcon >
+            <ListItemIcon>
               <BorderColorIcon />
             </ListItemIcon>
             <ListItemText style={itemStyle} primary="Request a signature" />

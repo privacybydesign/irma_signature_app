@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Checkbox from 'material-ui/Checkbox';
+import Checkbox from '@material-ui/core/Checkbox';
 import {
   TableCell,
   TableHead,
   TableRow,
-} from 'material-ui/Table';
+} from '@material-ui/core';
 
 class EnhancedTableHead extends Component {
   render() {

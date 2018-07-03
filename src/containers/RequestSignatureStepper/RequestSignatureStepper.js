@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Stepper, { Step, StepLabel, StepContent } from 'material-ui/Stepper';
-import Button from 'material-ui/Button';
+import { Stepper, Step, StepLabel, StepContent } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 import ComposeSigrequest from './../ComposeSigrequest/ComposeSigrequest';
 import ComposeMail from './../ComposeMail/ComposeMail';
-import Typography from 'material-ui/Typography';
+import Typography from '@material-ui/core/Typography';
 
 // Icons
-import Done from 'material-ui-icons/Done';
-import Back from 'material-ui-icons/NavigateBefore';
+import Done from '@material-ui/icons/Done';
+import Back from '@material-ui/icons/NavigateBefore';
 
 class RequestSignatureStepper extends Component {
   constructor(props) {

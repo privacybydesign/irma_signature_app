@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import { Icon, Upload } from 'antd';
 
 // Material UI
-import Card, { CardHeader, CardContent } from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
+import { Card, CardHeader, CardContent } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
 
 // Icons
-import IconButton from 'material-ui/IconButton';
-import HelpIcon from 'material-ui-icons/Help';
+import IconButton from '@material-ui/core/IconButton';
+import HelpIcon from '@material-ui/icons/Help';
 
 import { verifySignature } from './../../actions';
 import SignatureResult from './SignatureResult';

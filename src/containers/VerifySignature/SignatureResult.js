@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Material UI
-import Card, { CardHeader } from 'material-ui/Card';
-import Avatar from 'material-ui/Avatar';
-import { green, red, yellow } from 'material-ui/colors';
+import { Card, CardHeader } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import { green, red, yellow } from '@material-ui/core/colors';
 
 // Icons
-import IconButton from 'material-ui/IconButton';
-import CloseIcon from 'material-ui-icons/Close';
-import VerifiedUser from 'material-ui-icons/VerifiedUser';
-import Warning from 'material-ui-icons/Warning';
-import Error from 'material-ui-icons/Error';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import VerifiedUser from '@material-ui/icons/VerifiedUser';
+import Warning from '@material-ui/icons/Warning';
+import Error from '@material-ui/icons/Error';
 
 class SignatureResult extends Component {
 

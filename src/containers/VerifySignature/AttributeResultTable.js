@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import flatten from 'flatten';
 
 // Material UI
-import Card, { CardHeader, CardContent } from 'material-ui/Card';
-import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
-import Divider from 'material-ui/Divider';
+import { Card, CardHeader, CardContent } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
 
 // Icons
-import { green, red, yellow } from 'material-ui/colors';
-import CheckCircle from 'material-ui-icons/CheckCircle';
-import Error from 'material-ui-icons/Error';
-import Warning from 'material-ui-icons/Warning';
+import { green, red, yellow } from '@material-ui/core/colors';
+import CheckCircle from '@material-ui/icons/CheckCircle';
+import Error from '@material-ui/icons/Error';
+import Warning from '@material-ui/icons/Warning';
 
 function getIconByProofStatus(proofStatus) {
   switch(proofStatus) {

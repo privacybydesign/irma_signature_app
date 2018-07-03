@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Select from 'react-select';
-import Chip  from 'material-ui/Chip';
-import Avatar  from 'material-ui/Avatar';
+import Chip  from '@material-ui/core/Chip';
+import Avatar  from '@material-ui/core/Avatar';
 
 import { searchAttributes } from './../../actions';
 

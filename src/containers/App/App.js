@@ -9,13 +9,13 @@ import {
 } from 'react-router-dom';
 import { compose } from 'recompose';
 
-import { createMuiTheme, MuiThemeProvider, withStyles } from 'material-ui/styles';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
-import HomeIcon from 'material-ui-icons/Home';
-import Typography from 'material-ui/Typography';
+import { createMuiTheme, MuiThemeProvider, withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
+import Typography from '@material-ui/core/Typography';
 
 import './App.css';
 import logoImg from '../../static/images/logo.png'; //relative path to image
@@ -29,13 +29,13 @@ import Settings from '../../containers/Settings/Settings';
 import About from '../../containers/About/About';
 
 import { detectMailClients } from '../../actions';
-import purple from 'material-ui/colors/purple';
+import purple from '@material-ui/core/colors/purple';
 
-import Drawer from 'material-ui/Drawer';
-import List from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
-import ChevronRightIcon from 'material-ui-icons/ChevronRight';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import classNames from 'classnames';
 
 
