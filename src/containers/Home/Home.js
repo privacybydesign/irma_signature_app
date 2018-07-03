@@ -23,24 +23,24 @@ const Home = () => (
         <Button>
           <img style={{ width: '99%' }} alt={"Request a signature"} src={requestImg} />
         </Button>
+        <CardContent>
+          <Typography style={{ fontSize: '18px', textAlign: 'center' }} type="headline" component="h2">
+            Request a signature
+          </Typography>
+        </CardContent>
       </Link>
-      <CardContent>
-        <Typography style={{ fontSize: '18px', textAlign: 'center' }} type="headline" component="h2">
-          Request a signature
-      </Typography>
-      </CardContent>
     </Card>
     <Card style={cardStyle}>
       <Link to="/verify-signature">
         <Button>
           <img style={{ width: '99%' }} alt={"Verify a signature"} src={verifyImg} />
         </Button>
+        <CardContent>
+          <Typography style={{ fontSize: '18px', textAlign: 'center' }} type="headline" component="h2">
+            Verify a signature
+          </Typography>
+        </CardContent>
       </Link>
-      <CardContent>
-        <Typography style={{ fontSize: '18px', textAlign: 'center' }} type="headline" component="h2">
-          Verify a signature
-      </Typography>
-      </CardContent>
     </Card>
   </div>
 );
