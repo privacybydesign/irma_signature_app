@@ -9,7 +9,6 @@ import { Table, TableBody } from '@material-ui/core';
 
 // Icons
 import IconButton from '@material-ui/core/IconButton';
-import HelpIcon from '@material-ui/icons/Help';
 
 import { retrieveRequests } from './../../actions';
 import { deleteRequestsElectron } from './../../actions/electron';

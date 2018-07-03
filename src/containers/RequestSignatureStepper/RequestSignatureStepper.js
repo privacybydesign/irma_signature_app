@@ -98,7 +98,7 @@ class RequestSignatureStepper extends Component {
                 <Back style={{ fontSize: "20", marginLeft: "2", marginRight: "10" }} />
                 Back
               </Button>
-              <Button size="small" variant="raised" variant="raised" color="primary" style={{ float: "right" }} onClick={this.handleReset}>
+              <Button size="small" variant="raised" color="primary" style={{ float: "right" }} onClick={this.handleReset}>
                 Done
                 <Done style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
               </Button>

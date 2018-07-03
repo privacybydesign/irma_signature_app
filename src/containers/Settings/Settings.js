@@ -8,7 +8,6 @@ import Divider from '@material-ui/core/Divider';
 
 // Icons
 import IconButton from '@material-ui/core/IconButton';
-import HelpIcon from '@material-ui/icons/Help';
 
 import { getPreferredMailClient, setPreferredMailClient } from '../../actions';
 

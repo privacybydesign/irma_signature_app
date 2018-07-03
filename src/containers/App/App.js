@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Row, Col } from 'react-flexbox-grid';
 import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
@@ -29,11 +28,8 @@ import Settings from '../../containers/Settings/Settings';
 import About from '../../containers/About/About';
 
 import { detectMailClients } from '../../actions';
-import purple from '@material-ui/core/colors/purple';
 
 import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import classNames from 'classnames';
