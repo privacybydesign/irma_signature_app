@@ -121,7 +121,7 @@ class ComposeSigrequest extends Component {
           multiline
           rows="4"
           rowsMax="10"
-          required="true"
+          required={true}
           fullWidth
           margin="normal"
           error={errorMessage}
