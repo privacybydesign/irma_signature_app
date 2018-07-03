@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 
 import './index.css';
 import App from './containers/App/App';
-import registerServiceWorker from './registerServiceWorker';
 
 import configureStore from './configureStore';
 
@@ -18,4 +17,3 @@ ReactDOM.render(
   document.addEventListener('dragover', event => event.preventDefault()), // Disable redirect after drag in MOST cases (TODO)
   document.addEventListener('drop', event => event.preventDefault()),
 );
-registerServiceWorker();
