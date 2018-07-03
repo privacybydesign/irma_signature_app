@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
-import Typography from 'material-ui/Typography';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
 // Icons
-import Send from 'material-ui-icons/Send';
-import Back from 'material-ui-icons/NavigateBefore';
+import Send from '@material-ui/icons/Send';
+import Back from '@material-ui/icons/NavigateBefore';
 
 class ComposeMail extends Component {
   constructor(props) {

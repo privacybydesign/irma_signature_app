@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Checkbox from 'material-ui/Checkbox';
+import Checkbox from '@material-ui/core/Checkbox';
 import {
   TableCell,
   TableRow,
-} from 'material-ui/Table';
+} from '@material-ui/core';
 
 // Icons
-import { green, red, blue } from 'material-ui/colors';
-import CheckCircle from 'material-ui-icons/CheckCircle';
-import Error from 'material-ui-icons/Error';
-import Pending from 'material-ui-icons/HourglassEmpty';
+import { green, red, blue } from '@material-ui/core/colors';
+import CheckCircle from '@material-ui/icons/CheckCircle';
+import Error from '@material-ui/icons/Error';
+import Pending from '@material-ui/icons/HourglassEmpty';
 
 function getIconByState(state) {
   switch(state) {
