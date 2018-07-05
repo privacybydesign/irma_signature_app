@@ -22,7 +22,7 @@ class RequestSignatureStepper extends Component {
     this.state = {
       stepIndex: 0,
       sigrequest: null,
-      mail: {},
+      mail: null,
     };
   }
 
@@ -109,7 +109,12 @@ class RequestSignatureStepper extends Component {
           <Step>
             <StepLabel>Compose mail</StepLabel>
             <StepContent>
-              <ComposeMail onComplete={this.handleComposeFinished} onCancel={this.handleComposeCancelled} />
+              <ComposeMail
+                initialMail={this.state.mail}
+                onComplete={this.handleComposeFinished}
+                onCancel={this.handleComposeCancelled}
+                onChange={ (mail) => {this.setState({mail});} }
+              />
             </StepContent>
           </Step>
           <Step>

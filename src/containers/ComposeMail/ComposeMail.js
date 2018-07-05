@@ -14,13 +14,13 @@ class ComposeMail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mail: {
+      mail: props.initialMail || {
         from: '',
         recipient: '',
         subject: '',
         body: '',
       },
-      error: false,
+      validationForced: false,
     };
   }
 
@@ -38,15 +38,21 @@ class ComposeMail extends Component {
   validate = () => {
     const { mail } = this.state;
     const error = mail.from.length === 0 && mail.recipient.length === 0;
-    this.setState({
-      error
-    });
-
     return !error;
+  }
+  
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.mail !== this.state.mail) {
+      if (this.validate())
+        this.props.onChange(this.state.mail);
+      else
+        this.props.onChange(null);
+    }
   }
 
   handleSend = () => {
     if (!this.validate()) {
+      this.setState({validationForced: true});
       return;
     }
 
@@ -54,8 +60,9 @@ class ComposeMail extends Component {
   }
 
   render() {
-    const { mail, error } = this.state;
+    const { mail, validationForced } = this.state;
     const { mailClientAvailable } = this.props;
+    const error = !this.validate() && validationForced;
     return (
       <div>
         <div style={{ minWidth: '50%', maxWidth: '500px' }}>
@@ -126,8 +133,10 @@ class ComposeMail extends Component {
 }
 
 ComposeMail.propTypes = {
+  initialMail: PropTypes.object,
   onComplete: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   mailClientAvailable: PropTypes.bool.isRequired,
 };
 
