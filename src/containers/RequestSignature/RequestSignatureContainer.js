@@ -59,18 +59,20 @@ class RequestSignatureContainer extends Component {
     const inhibitNavigation = 
       (!(!sigrequest || (Object.keys(sigrequest.attributes).length === 0 && sigrequest.sigMessage === ''))
       || !(!mail || (mail.from === '' && mail.recipient === '' && mail.subject === '' && mail.body === ''))) && !completed;
-    return [
-      <Prompt when={inhibitNavigation} message="Leaving will abandon the signature request, are you sure you want to continue?" />,
-      <RequestSignature
-        sigrequest={this.state.sigrequest}
-        mail={this.state.mail}
-        onComplete={this.handleComplete}
-        onReset={this.onReset}
-        onChangeSigrequest={ (sigrequest) => {this.setState({sigrequest});} }
-        onChangeMail={ (mail) => {this.setState({mail});} }
-        exportRequest={this.exportRequest}
-      />
-    ];
+    return (
+      <div>
+        <Prompt when={inhibitNavigation} message="Leaving will abandon the signature request, are you sure you want to continue?" />,
+        <RequestSignature
+          sigrequest={this.state.sigrequest}
+          mail={this.state.mail}
+          onComplete={this.handleComplete}
+          onReset={this.onReset}
+          onChangeSigrequest={ (sigrequest) => {this.setState({sigrequest});} }
+          onChangeMail={ (mail) => {this.setState({mail});} }
+          exportRequest={this.exportRequest}
+        />
+      </div>
+    );
   }
 }
 
