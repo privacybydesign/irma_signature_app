@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Prompt } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -14,6 +14,7 @@ class RequestSignatureContainer extends Component {
     this.state = {
       sigrequest: null,
       mail: null,
+      completed: false,
     };
   }
 
@@ -26,6 +27,7 @@ class RequestSignatureContainer extends Component {
 
     sendSignatureRequest(request, mailClientName, mailClientPath, mail);
     setRequestElectron(request, generateDate(), mail.recipient);
+    this.setState({completed: true});
   }
 
   exportRequest = () => {
@@ -53,7 +55,12 @@ class RequestSignatureContainer extends Component {
   }
   
   render() {
-    return (
+    const { sigrequest, mail, completed } = this.state;
+    const inhibitNavigation = 
+      (!(!sigrequest || (Object.keys(sigrequest.attributes).length === 0 && sigrequest.sigMessage === ''))
+      || !(!mail || (mail.from === '' && mail.recipient === '' && mail.subject === '' && mail.body === ''))) && !completed;
+    return [
+      <Prompt when={inhibitNavigation} message="Leaving will abandon the signature request, are you sure you want to continue?" />,
       <RequestSignature
         sigrequest={this.state.sigrequest}
         mail={this.state.mail}
@@ -63,7 +70,7 @@ class RequestSignatureContainer extends Component {
         onChangeMail={ (mail) => {this.setState({mail});} }
         exportRequest={this.exportRequest}
       />
-    );
+    ];
   }
 }
 
