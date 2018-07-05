@@ -21,8 +21,7 @@ class RequestSignatureStepper extends Component {
     super(props);
     this.state = {
       stepIndex: 0,
-      sigMessage: null,
-      selectedAttributes: null,
+      sigrequest: null,
       mail: {},
     };
   }
@@ -78,12 +77,12 @@ class RequestSignatureStepper extends Component {
   }
 
   exportRequest = () => {
-    const { sigMessage, selectedAttributes } = this.state;
-    if (!sigMessage || !selectedAttributes) {
+    const { sigrequest } = this.state;
+    if (!sigrequest) {
       return;
     }
 
-    const exportedRequest = createSigrequestFromInput('Manually exported', { sigMessage, attributes: selectedAttributes });
+    const exportedRequest = createSigrequestFromInput('Manually exported', sigrequest);
 
     const savePath = getSignatureSavePath();
 
@@ -103,13 +102,11 @@ class RequestSignatureStepper extends Component {
             <StepLabel>Compose request</StepLabel>
             <StepContent>
               <ComposeSigrequest
-                initialAttributes={this.state.selectedAttributes}
-                initialMessage={this.state.sigMessage}
+                initialSigrequest={this.state.sigrequest}
                 onComplete={this.handleNewSigrequest}
                 onDiscard={this.onDiscard}
                 exportRequest={this.exportRequest}
-                onChangeAttributes={ (selectedAttributes) => {this.setState({selectedAttributes});} }
-                onChangeMessage={ (sigMessage) => {this.setState({sigMessage});} }
+                onChange={ (sigrequest) => {this.setState({sigrequest});} }
               />
             </StepContent>
           </Step>

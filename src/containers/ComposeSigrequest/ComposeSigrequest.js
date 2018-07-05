@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
@@ -16,9 +15,11 @@ import AttributeDropdown from './../AttributeDropdown/AttributeDropdown';
 class ComposeSigrequest extends Component {
   constructor(props) {
     super(props);
+    const initialAttributes = props.initialSigrequest ? props.initialSigrequest.attributes : null;
+    const initialMessage = props.initialSigrequest ? props.initialSigrequest.sigMessage : null;
     this.state = {
-      selectedAttributes: props.initialAttributes || {},
-      sigMessage: props.initialMessage || '',
+      selectedAttributes: initialAttributes || {},
+      sigMessage: initialMessage || '',
       validationForced: false,
     };
   }
@@ -65,17 +66,16 @@ class ComposeSigrequest extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.selectedAttributes !== this.state.selectedAttributes) {
-      if (this.validateAttributes())
-        this.props.onChangeAttributes(this.state.selectedAttributes);
+    const { selectedAttributes, sigMessage } = this.state
+    if (prevState.selectedAttributes !== selectedAttributes
+        || prevState.sigMessage !== sigMessage) {
+      if (this.validate())
+        this.props.onChange({
+          attributes: selectedAttributes,
+          sigMessage: sigMessage
+        });
       else
-        this.props.onChangeAttributes(null);
-    }
-    if (prevState.sigMessage !== this.state.sigMessage) {
-      if (this.validateMessage())
-        this.props.onChangeMessage(this.state.sigMessage);
-      else
-        this.props.onChangeMessage(null);
+        this.props.onChange(null);
     }
   }
   
@@ -146,11 +146,8 @@ ComposeSigrequest.propTypes = {
   onComplete: PropTypes.func.isRequired,
   onDiscard: PropTypes.func.isRequired,
   exportRequest: PropTypes.func.isRequired,
-  onChangeAttributes: PropTypes.func.isRequired,
-  onChangeMessage: PropTypes.func.isRequired,
-  initialAttributes: PropTypes.object,
-  initialMessage: PropTypes.string,
-  history: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  initialSigrequest: PropTypes.object,
 };
 
-export default withRouter(ComposeSigrequest);
+export default ComposeSigrequest;
