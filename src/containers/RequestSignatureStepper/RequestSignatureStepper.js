@@ -62,10 +62,11 @@ class RequestSignatureStepper extends Component {
   }
 
   handleReset = () => {
-    const { stepIndex } = this.state;
-    if (stepIndex > 0) {
-      this.setState({ stepIndex: 0 });
-    }
+    this.setState({
+      stepIndex: 0,
+      sigrequest: null,
+      mail: null,
+    });
   };
 
   onDiscard = () => {
