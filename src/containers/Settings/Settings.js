@@ -9,17 +9,11 @@ import Divider from '@material-ui/core/Divider';
 // Icons
 import IconButton from '@material-ui/core/IconButton';
 
-import { getPreferredMailClient, setPreferredMailClient } from '../../actions';
+import { setPreferredMailClient } from '../../actions';
 
 import MailClientControl from './MailClientControl';
 
 class Settings extends Component {
-
-  componentWillMount() {
-    const { dispatch } = this.props;
-    dispatch(getPreferredMailClient());
-  }
-
   updateMailClient = (value) => {
     setPreferredMailClient(value);
   }

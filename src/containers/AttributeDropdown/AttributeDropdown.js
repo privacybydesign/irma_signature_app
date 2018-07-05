@@ -5,8 +5,6 @@ import Select from 'react-select';
 import Chip  from '@material-ui/core/Chip';
 import Avatar  from '@material-ui/core/Avatar';
 
-import { searchAttributes } from './../../actions';
-
 import 'react-select/dist/react-select.css';
 
 import logo from '../../irma_configuration/pbdf/pbdf/Issues/idin/logo.png'; // TODO: make dynamic import?
@@ -17,10 +15,6 @@ class AttributeDropdown extends Component {
     this.state = {
       chips: [],
     };
-  }
-
-  componentWillMount() {
-    this.props.dispatch(searchAttributes());
   }
 
   componentWillReceiveProps(nextProps) {

@@ -10,7 +10,6 @@ import { Table, TableBody } from '@material-ui/core';
 // Icons
 import IconButton from '@material-ui/core/IconButton';
 
-import { retrieveRequests } from './../../actions';
 import { deleteRequestsElectron } from './../../actions/electron';
 import EnhancedTableHead from './EnhancedTableHead.js';
 import EnhancedTableBody from './EnhancedTableBody.js';
@@ -23,13 +22,6 @@ class Sent extends Component {
       checked: [],
       headChecked: false,
     };
-  }
-
-  componentWillMount() {
-    const { dispatch, requestsFetching } = this.props;
-    if (!requestsFetching) {
-      dispatch(retrieveRequests());
-    }
   }
 
   handleSelectAll = (event, checked) => {

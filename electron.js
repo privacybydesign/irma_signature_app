@@ -54,7 +54,15 @@ ipcMain.on('saveSignatureRequest-req', (event, { sigRequest, path }) => {
 });
 
 ipcMain.on('setRequest-req', (event, request) => {
-  setRequest(request); // TODO: async, create result action?
+  setRequest(request)
+    .then(() => getAllRequests())
+    .then(requests => {
+      const action = {
+        type: 'store-requests',
+        requests,
+      };
+      event.sender.send('response', JSON.stringify(action));
+    }); 
 });
 
 ipcMain.on('setPreferredMailClient-req', (event, clientName) => {

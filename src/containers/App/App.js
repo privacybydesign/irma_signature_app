@@ -27,8 +27,6 @@ import Sent from '../../containers/Sent/Sent';
 import Settings from '../../containers/Settings/Settings';
 import About from '../../containers/About/About';
 
-import { detectMailClients } from '../../actions';
-
 import Drawer from '@material-ui/core/Drawer';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -143,13 +141,6 @@ class App extends Component {
   handleDrawerToggle = () => {
     this.setState({ open: !this.state.open });
   };
-
-  componentWillMount() {
-    const { mailClientsDetected, dispatch } = this.props;
-    if (!mailClientsDetected) {
-      dispatch(detectMailClients());
-    }
-  }
 
   render() {
     const { theme, classes } = this.props;

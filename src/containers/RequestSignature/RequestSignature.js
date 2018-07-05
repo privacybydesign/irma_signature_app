@@ -11,7 +11,6 @@ import IconButton from '@material-ui/core/IconButton';
 
 import RequestSignatureStepper from './../RequestSignatureStepper/RequestSignatureStepper';
 import { sendSignatureRequest } from './../../actions';
-import { getPreferredMailClient } from '../../actions';
 import { setRequestElectron } from './../../actions/electron';
 import { createSigrequestFromInput, generateDate } from './../../utils/requestUtils';
 
@@ -24,15 +23,6 @@ class RequestSignature extends Component {
 
     sendSignatureRequest(request, mailClientName, mailClientPath, mail);
     setRequestElectron(request, generateDate(), mail.recipient);
-  }
-
-  componentWillMount() {
-    const { dispatch, mailClients, preferredMailClient } = this.props;
-
-    // Get preferred mailclient if we haven't yet
-    if (Object.keys(mailClients).length > 0 && preferredMailClient === '') {
-      dispatch(getPreferredMailClient());
-    }
   }
 
   render() {

@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import './index.css';
 import App from './containers/App/App';
 
+import { retrieveRequests, searchAttributes, detectMailClients, getPreferredMailClient } from './actions';
+
 import configureStore from './configureStore';
 
 const store = configureStore();
@@ -17,3 +19,8 @@ ReactDOM.render(
   document.addEventListener('dragover', event => event.preventDefault()), // Disable redirect after drag in MOST cases (TODO)
   document.addEventListener('drop', event => event.preventDefault()),
 );
+
+store.dispatch(retrieveRequests());
+store.dispatch(searchAttributes());
+store.dispatch(detectMailClients());
+store.dispatch(getPreferredMailClient());
