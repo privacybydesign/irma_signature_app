@@ -12,18 +12,14 @@ import Save from '@material-ui/icons/Save';
 import Next from '@material-ui/icons/NavigateNext';
 
 import AttributeDropdown from './../AttributeDropdown/AttributeDropdown';
-import { setRequestElectron, getSignatureSavePath, saveSignatureRequestElectron } from './../../actions/electron';
-import { createSigrequestFromInput, generateDate } from './../../utils/requestUtils';
-
 
 class ComposeSigrequest extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedAttributes: {},
-      errorAttributes: false,
-      errorMessage: false,
-      sigMessage: '',
+      selectedAttributes: props.initialAttributes || {},
+      sigMessage: props.initialMessage || '',
+      validationForced: false,
     };
   }
 
@@ -56,27 +52,40 @@ class ComposeSigrequest extends Component {
     });
   }
 
-  validate = () => {
-    const errorAttributes = Object.keys(this.state.selectedAttributes).length === 0;
-    const errorMessage = this.state.sigMessage.length === 0;
-
-    this.setState({
-      errorAttributes,
-      errorMessage,
-    });
-
-    return !errorAttributes && !errorMessage;
+  validateMessage() {
+    return this.state.sigMessage.length !== 0;
   }
 
-  handleNext = () => {
+  validateAttributes() {
+    return Object.keys(this.state.selectedAttributes).length !== 0
+  }
+
+  validate() {
+    return this.validateMessage() && this.validateAttributes();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.selectedAttributes !== this.state.selectedAttributes) {
+      if (this.validateAttributes())
+        this.props.onChangeAttributes(this.state.selectedAttributes);
+      else
+        this.props.onChangeAttributes(null);
+    }
+    if (prevState.sigMessage !== this.state.sigMessage) {
+      if (this.validateMessage())
+        this.props.onChangeMessage(this.state.sigMessage);
+      else
+        this.props.onChangeMessage(null);
+    }
+  }
+  
+  forceValidate = (continuation) => () => {
     if (!this.validate()) {
+      this.setState({validationForced: true});
       return;
     }
-
-    this.props.onComplete({
-      sigMessage: this.state.sigMessage,
-      attributes: this.state.selectedAttributes,
-    });
+    
+    continuation()
   }
 
   handleSigMessageChange = (event) => {
@@ -85,27 +94,10 @@ class ComposeSigrequest extends Component {
     });
   }
 
-  onDiscard = () => {
-    this.props.history.push('/');
-  }
-
-  exportRequest = () => {
-    if (!this.validate()) {
-      return;
-    }
-    const { sigMessage, selectedAttributes } = this.state;
-    const exportedRequest = createSigrequestFromInput('Manually exported', { sigMessage, attributes: selectedAttributes });
-
-    const savePath = getSignatureSavePath();
-
-    if (savePath !== undefined) {
-      saveSignatureRequestElectron(exportedRequest, savePath);
-      setRequestElectron(exportedRequest, generateDate(), 'Manually exported');
-    }
-  }
-
   render() {
-    const { selectedAttributes, errorAttributes, errorMessage, sigMessage } = this.state;
+    const { selectedAttributes, sigMessage } = this.state;
+    const errorMessage = !this.validateMessage();
+    const errorAttributes = !this.validateAttributes();
     return (
       <div>
         <TextField style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px', width: 'calc(100% - 34px)' }}
@@ -133,15 +125,15 @@ class ComposeSigrequest extends Component {
           removeAttribute={this.removeAttribute}
         />
         <Typography style={{ paddingTop: '20px', paddingBottom: '20px', fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)' }}>You can export this request and share it manually or proceed to share it by email.</Typography>
-        <Button size="small" style={{ float: "left", marginRight: "20px" }} variant="raised" onClick={this.onDiscard} >
+        <Button size="small" style={{ float: "left", marginRight: "20px" }} variant="raised" onClick={this.props.onDiscard} >
           Discard request
             <Delete style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
         </Button>
-        <Button size="small" style={{ fontSize: "20" }} variant="raised" onClick={this.exportRequest} >
+        <Button size="small" style={{ fontSize: "20" }} variant="raised" onClick={this.forceValidate(this.props.exportRequest)} >
           Export request
             <Save style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
         </Button>
-        <Button size="small" style={{ float: "right" }} variant="raised" color="primary" onClick={this.handleNext} >
+        <Button size="small" style={{ float: "right" }} variant="raised" color="primary" onClick={this.forceValidate(this.props.onComplete)} >
           Next
             <Next style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
         </Button>
@@ -152,6 +144,12 @@ class ComposeSigrequest extends Component {
 
 ComposeSigrequest.propTypes = {
   onComplete: PropTypes.func.isRequired,
+  onDiscard: PropTypes.func.isRequired,
+  exportRequest: PropTypes.func.isRequired,
+  onChangeAttributes: PropTypes.func.isRequired,
+  onChangeMessage: PropTypes.func.isRequired,
+  initialAttributes: PropTypes.object,
+  initialMessage: PropTypes.string,
   history: PropTypes.object.isRequired,
 };
 
