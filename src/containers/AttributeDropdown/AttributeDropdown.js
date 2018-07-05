@@ -10,20 +10,7 @@ import 'react-select/dist/react-select.css';
 import logo from '../../irma_configuration/pbdf/pbdf/Issues/idin/logo.png'; // TODO: make dynamic import?
 
 class AttributeDropdown extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      chips: [],
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      chips: this.getChips(nextProps.selectedAttributes),
-    });
-  }
-
-	handleSelect = value => {
+  handleSelect = value => {
     const { attributeResult } = this.props;
 
     const entry = attributeResult.find(el => (
@@ -44,7 +31,16 @@ class AttributeDropdown extends Component {
     this.props.removeAttribute(id);
   };
 
-  getChips(selectedAttributes) {
+  getOptions() {
+    const { attributeResult } = this.props;
+    return attributeResult.map(el => ({
+      value: el.id,
+      label: `${el.name}   -   ${el.credentialName}`
+    }));
+  }
+  
+  renderChips() {
+    const { selectedAttributes } = this.props;
     return Object.keys(selectedAttributes).map((key) => {
       const value = selectedAttributes[key];
       return (
@@ -58,38 +54,23 @@ class AttributeDropdown extends Component {
     });
   }
 
-  getOptions() {
-    const { attributeResult } = this.props;
-    return attributeResult.map(el => ({
-      value: el.id,
-      label: `${el.name}   -   ${el.credentialName}`
-    }));
-  }
-
   render() {
-    const { attributeSearching, attributeResult } = this.props;
     return (
-      attributeSearching || attributeResult.length !== 0
-        ?
-          <div>
-            {this.state.chips}
-              <Select 
-                multiple
-                id="state-select"
-                autoFocus
-                simpleValue
-                clearable
-                options={this.getOptions()}
-                name="selected-state"
-                onChange={this.handleSelect}
-                placeholder="Select signature attributes"
-                searchable
-              />
-          </div>
-        :
-          <div>
-            TODO: show spinner!
-          </div>
+      <div>
+        { this.renderChips() }
+        <Select 
+          multiple
+          id="state-select"
+          autoFocus
+          simpleValue
+          clearable
+          options={this.getOptions()}
+          name="selected-state"
+          onChange={this.handleSelect}
+          placeholder="Select signature attributes"
+          searchable
+        />
+      </div>
     );
   }
 }
@@ -97,7 +78,6 @@ class AttributeDropdown extends Component {
 AttributeDropdown.propTypes = {
   dispatch: PropTypes.func.isRequired,
   attributeResult: PropTypes.arrayOf(PropTypes.object).isRequired,
-  attributeSearching: PropTypes.bool.isRequired,
   selectedAttributes: PropTypes.objectOf(PropTypes.object).isRequired,
   addAttribute: PropTypes.func.isRequired,
   removeAttribute: PropTypes.func.isRequired,
@@ -108,7 +88,6 @@ function mapStateToProps(state) {
 
   return {
     attributeResult: attributeSearch.attributeResult,
-    attributeSearching: attributeSearch.attributeSearching,
   };
 }
 
