@@ -7,8 +7,6 @@ import Avatar  from '@material-ui/core/Avatar';
 
 import 'react-select/dist/react-select.css';
 
-import logo from '../../../irma_configuration/pbdf/pbdf/Issues/idin/logo.png'; // TODO: make dynamic import?
-
 class AttributeDropdown extends Component {
   handleSelect = value => {
     const { attributeResult } = this.props;
@@ -43,12 +41,13 @@ class AttributeDropdown extends Component {
     const { selectedAttributes } = this.props;
     return Object.keys(selectedAttributes).map((key) => {
       const value = selectedAttributes[key];
+      const logoUrl = value.logo.substr(3); //Removes the leading go/
       return (
         <Chip
           label={`${value.name} - ${value.credentialName}`}
           onDelete={this.handleRemove(key)}
           key={key}
-          avatar={(value.credentialName === 'iDIN') ?  <Avatar src={logo} /> : null}
+          avatar={logoUrl ? <Avatar src={logoUrl} /> : null}
         />
       )
     });
