@@ -20,10 +20,6 @@ class RequestSignatureStepper extends Component {
     };
   }
 
-  handleNewSigrequest = () => {
-    this.handleNext();
-  }
-
   handleComposeFinished = () => {
     this.props.onComplete();
     this.handleNext();
@@ -63,7 +59,7 @@ class RequestSignatureStepper extends Component {
             <StepContent>
               <ComposeSigrequest
                 initialSigrequest={this.props.sigrequest}
-                onComplete={this.handleNewSigrequest}
+                onComplete={this.handleNext}
                 onDiscard={this.onDiscard}
                 exportRequest={this.props.exportRequest}
                 onChange={this.props.onChangeSigrequest}
