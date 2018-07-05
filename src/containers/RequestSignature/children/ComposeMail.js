@@ -43,10 +43,7 @@ class ComposeMail extends Component {
   
   componentDidUpdate(prevProps, prevState) {
     if (prevState.mail !== this.state.mail) {
-      if (this.validate())
-        this.props.onChange(this.state.mail);
-      else
-        this.props.onChange(null);
+      this.props.onChange(this.state.mail);
     }
   }
 

@@ -19,9 +19,6 @@ class RequestSignatureContainer extends Component {
 
   handleComplete = () => {
     const { sigrequest, mail } = this.state;
-    if (!sigrequest || !mail) {
-        return; // Should never be needed
-    }
     const mailClientName = this.props.preferredMailClient;
     const mailClientPath = this.props.mailClients[mailClientName].path;
 
@@ -33,9 +30,6 @@ class RequestSignatureContainer extends Component {
 
   exportRequest = () => {
     const { sigrequest } = this.state;
-    if (!sigrequest) {
-      return; // Should never be needed
-    }
 
     const exportedRequest = createSigrequestFromInput('Manually exported', sigrequest);
 

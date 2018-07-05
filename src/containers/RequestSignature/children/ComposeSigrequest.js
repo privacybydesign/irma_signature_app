@@ -69,13 +69,10 @@ class ComposeSigrequest extends Component {
     const { selectedAttributes, sigMessage } = this.state
     if (prevState.selectedAttributes !== selectedAttributes
         || prevState.sigMessage !== sigMessage) {
-      if (this.validate())
-        this.props.onChange({
-          attributes: selectedAttributes,
-          sigMessage: sigMessage
-        });
-      else
-        this.props.onChange(null);
+      this.props.onChange({
+        attributes: selectedAttributes,
+        sigMessage: sigMessage
+      });
     }
   }
   
