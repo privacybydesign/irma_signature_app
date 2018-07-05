@@ -95,9 +95,9 @@ class ComposeSigrequest extends Component {
   }
 
   render() {
-    const { selectedAttributes, sigMessage } = this.state;
-    const errorMessage = !this.validateMessage();
-    const errorAttributes = !this.validateAttributes();
+    const { selectedAttributes, sigMessage, validationForced } = this.state;
+    const errorMessage = !this.validateMessage() && validationForced;
+    const errorAttributes = !this.validateAttributes() && validationForced;
     return (
       <div>
         <TextField style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px', width: 'calc(100% - 34px)' }}
