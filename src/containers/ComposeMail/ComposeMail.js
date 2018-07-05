@@ -56,7 +56,7 @@ class ComposeMail extends Component {
       return;
     }
 
-    this.props.onComplete(this.state.mail);
+    this.props.onComplete();
   }
 
   render() {

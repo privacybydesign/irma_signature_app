@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Stepper, Step, StepLabel, StepContent } from '@material-ui/core';
@@ -13,16 +12,11 @@ import Typography from '@material-ui/core/Typography';
 import Done from '@material-ui/icons/Done';
 import Back from '@material-ui/icons/NavigateBefore';
 
-import { setRequestElectron, getSignatureSavePath, saveSignatureRequestElectron } from './../../actions/electron';
-import { createSigrequestFromInput, generateDate } from './../../utils/requestUtils';
-
 class RequestSignatureStepper extends Component {
   constructor(props) {
     super(props);
     this.state = {
       stepIndex: 0,
-      sigrequest: null,
-      mail: null,
     };
   }
 
@@ -30,20 +24,9 @@ class RequestSignatureStepper extends Component {
     this.handleNext();
   }
 
-  handleComposeFinished = (mail) => {
-    this.setState({
-      mail,
-    });
-
-    // Search attributes and composing mail finished, open mail program
-    const { sigrequest } = this.state;
-    this.props.onComplete(mail, sigrequest);
-
+  handleComposeFinished = () => {
+    this.props.onComplete();
     this.handleNext();
-  }
-
-  handleComposeCancelled = () => {
-    this.handlePrev();
   }
 
   handleNext = () => {
@@ -64,30 +47,10 @@ class RequestSignatureStepper extends Component {
   handleReset = () => {
     this.setState({
       stepIndex: 0,
-      sigrequest: null,
-      mail: null,
     });
+
+    this.props.onReset();
   };
-
-  onDiscard = () => {
-    this.props.history.push('/');
-  }
-
-  exportRequest = () => {
-    const { sigrequest } = this.state;
-    if (!sigrequest) {
-      return;
-    }
-
-    const exportedRequest = createSigrequestFromInput('Manually exported', sigrequest);
-
-    const savePath = getSignatureSavePath();
-
-    if (savePath !== undefined) {
-      saveSignatureRequestElectron(exportedRequest, savePath);
-      setRequestElectron(exportedRequest, generateDate(), 'Manually exported');
-    }
-  }
 
   render() {
     const { stepIndex } = this.state;
@@ -99,11 +62,11 @@ class RequestSignatureStepper extends Component {
             <StepLabel>Compose request</StepLabel>
             <StepContent>
               <ComposeSigrequest
-                initialSigrequest={this.state.sigrequest}
+                initialSigrequest={this.props.sigrequest}
                 onComplete={this.handleNewSigrequest}
                 onDiscard={this.onDiscard}
-                exportRequest={this.exportRequest}
-                onChange={ (sigrequest) => {this.setState({sigrequest});} }
+                exportRequest={this.props.exportRequest}
+                onChange={this.props.onChangeSigrequest}
               />
             </StepContent>
           </Step>
@@ -111,10 +74,10 @@ class RequestSignatureStepper extends Component {
             <StepLabel>Compose mail</StepLabel>
             <StepContent>
               <ComposeMail
-                initialMail={this.state.mail}
+                initialMail={this.props.mail}
                 onComplete={this.handleComposeFinished}
-                onCancel={this.handleComposeCancelled}
-                onChange={ (mail) => {this.setState({mail});} }
+                onCancel={this.handlePrev}
+                onChange={this.props.onChangeMail}
               />
             </StepContent>
           </Step>
@@ -139,8 +102,13 @@ class RequestSignatureStepper extends Component {
 }
 
 RequestSignatureStepper.propTypes = {
+  sigrequest: PropTypes.object,
+  mail: PropTypes.object,
   onComplete: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
+  onChangeSigrequest: PropTypes.func.isRequired,
+  onChangeMail: PropTypes.func.isRequired,
+  onReset: PropTypes.func.isRequired,
+  exportRequest: PropTypes.func.isRequired,
 };
 
-export default withRouter(RequestSignatureStepper);
+export default RequestSignatureStepper;
