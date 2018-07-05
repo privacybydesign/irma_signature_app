@@ -10,7 +10,7 @@ import Delete from '@material-ui/icons/Delete';
 import Save from '@material-ui/icons/Save';
 import Next from '@material-ui/icons/NavigateNext';
 
-import AttributeDropdown from './../AttributeDropdown/AttributeDropdown';
+import AttributeDropdown from './AttributeDropdown';
 
 class ComposeSigrequest extends Component {
   constructor(props) {

@@ -21,7 +21,7 @@ import logoImg from '../../static/images/logo.png'; //relative path to image
 
 import SideMenu from '../../containers/SideMenu/SideMenu';
 import Home from '../../containers/Home/Home';
-import RequestSignature from '../../containers/RequestSignature/RequestSignature';
+import RequestSignature from '../../containers/RequestSignature';
 import VerifySignature from '../../containers/VerifySignature/VerifySignature';
 import Sent from '../../containers/Sent/Sent';
 import Settings from '../../containers/Settings/Settings';

@@ -7,7 +7,7 @@ import Avatar  from '@material-ui/core/Avatar';
 
 import 'react-select/dist/react-select.css';
 
-import logo from '../../irma_configuration/pbdf/pbdf/Issues/idin/logo.png'; // TODO: make dynamic import?
+import logo from '../../../irma_configuration/pbdf/pbdf/Issues/idin/logo.png'; // TODO: make dynamic import?
 
 class AttributeDropdown extends Component {
   handleSelect = value => {

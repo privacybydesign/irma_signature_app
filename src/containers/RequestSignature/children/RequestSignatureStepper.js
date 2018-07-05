@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { Stepper, Step, StepLabel, StepContent } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
-import ComposeSigrequest from './../ComposeSigrequest/ComposeSigrequest';
-import ComposeMail from './../ComposeMail/ComposeMail';
+import ComposeSigrequest from './ComposeSigrequest';
+import ComposeMail from './ComposeMail';
 import Typography from '@material-ui/core/Typography';
 
 // Icons
