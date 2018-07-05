@@ -78,6 +78,7 @@ class RequestSignatureContainer extends Component {
 
 RequestSignature.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  preferredMailClient: PropTypes.string.isRequired,
   mailClients: PropTypes.objectOf(PropTypes.object),
   history: PropTypes.object,
 };
