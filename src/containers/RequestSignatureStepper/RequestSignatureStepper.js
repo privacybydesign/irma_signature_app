@@ -36,11 +36,7 @@ class RequestSignatureStepper extends Component {
     });
 
     // Search attributes and composing mail finished, open mail program
-    const { selectedAttributes, sigMessage } = this.state;
-    const sigrequest = {
-      attributes: selectedAttributes,
-      sigMessage
-    }
+    const { sigrequest } = this.state;
     this.props.onComplete(mail, sigrequest);
 
     this.handleNext();
