@@ -60,7 +60,7 @@ class RequestSignatureStepper extends Component {
               <ComposeSigrequest
                 initialSigrequest={this.props.sigrequest}
                 onComplete={this.handleNext}
-                onDiscard={this.onDiscard}
+                onDiscard={this.props.onDiscard}
                 exportRequest={this.props.exportRequest}
                 onChange={this.props.onChangeSigrequest}
               />
@@ -104,6 +104,7 @@ RequestSignatureStepper.propTypes = {
   onChangeSigrequest: PropTypes.func.isRequired,
   onChangeMail: PropTypes.func.isRequired,
   onReset: PropTypes.func.isRequired,
+  onDiscard: PropTypes.func.isRequired,
   exportRequest: PropTypes.func.isRequired,
 };
 

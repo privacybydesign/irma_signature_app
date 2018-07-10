@@ -34,11 +34,12 @@ class RequestSignature extends Component {
           <RequestSignatureStepper
             sigrequest={this.props.sigrequest}
             mail={this.props.mail}
-            onComplete={this.props.handleComplete}
+            onComplete={this.props.onComplete}
             onReset={this.props.onReset}
             onChangeSigrequest={this.props.onChangeSigrequest}
             onChangeMail={this.props.onChangeMail}
-            exportRequest={this.exportRequest}
+            onDiscard={this.props.onDiscard}
+            exportRequest={this.props.exportRequest}
           />
         </Card>
       </div>
@@ -53,6 +54,7 @@ RequestSignature.propTypes = {
   onReset: PropTypes.func.isRequired,
   onChangeSigrequest: PropTypes.func.isRequired,
   onChangeMail: PropTypes.func.isRequired,
+  onDiscard: PropTypes.func.isRequired,
   exportRequest: PropTypes.func.isRequired,
 };
 

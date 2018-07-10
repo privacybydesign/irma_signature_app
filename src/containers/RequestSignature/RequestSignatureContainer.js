@@ -67,6 +67,7 @@ class RequestSignatureContainer extends Component {
           mail={this.state.mail}
           onComplete={this.handleComplete}
           onReset={this.onReset}
+          onDiscard={this.onDiscard}
           onChangeSigrequest={ (sigrequest) => {this.setState({sigrequest});} }
           onChangeMail={ (mail) => {this.setState({mail});} }
           exportRequest={this.exportRequest}
@@ -76,7 +77,7 @@ class RequestSignatureContainer extends Component {
   }
 }
 
-RequestSignature.propTypes = {
+RequestSignatureContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
   preferredMailClient: PropTypes.string.isRequired,
   mailClients: PropTypes.objectOf(PropTypes.object),
