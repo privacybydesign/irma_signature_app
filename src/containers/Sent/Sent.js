@@ -18,43 +18,40 @@ import EnhancedTableToolbar from './EnhancedTableToolbar.js';
 class Sent extends Component {
   constructor(props) {
     super(props);
+    const {requests} = props;
     this.state = {
-      checked: [],
-      headChecked: false,
+      checked: Object.keys(requests).reduce((res, id)=>{res[id] = false; return res;}, {}),
     };
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    const {checked} = this.state;
+    this.setState({
+      checked: Object.keys(nextProps.requests).reduce((res, id)=>{res[id] = !!checked[id]; return res}, {}),
+    });
   }
 
   handleSelectAll = (event, checked) => {
     const { requests } = this.props;
-
+    
     this.setState({
-      headChecked: checked,
+      checked: Object.keys(requests).reduce((res, id)=>{res[id] = true; return res;}, {}),
     });
-
-    Object.keys(requests).forEach(el =>
-      this.handleCheckbox(el)(event, checked)
-    );
   }
 
-  handleCheckbox = id => (event, checked) => {
-    if (checked) {
-      this.setState((prevState, props) => ({
-        checked: prevState.checked.concat([id]),
-      }));
-    } else {
-      this.setState((prevState, props) => ({
-        checked: prevState.checked.filter(el => el !== id),
-      }));
-    }
+  handleCheckbox = id => (event, mark) => {
+    const {checked} = this.state;
+    this.setState({
+      checked: {
+        ...checked,
+        [id]: mark,
+      }
+    });
   }
 
   handleDelete = () => {
     const toBeDeleted = this.state.checked;
     deleteRequestsElectron(toBeDeleted);
-    this.setState({
-      headChecked: false,
-      checked: [],
-    });
   }
   
   renderBody() {
@@ -62,14 +59,15 @@ class Sent extends Component {
     const {checked} = this.state;
     return Object.keys(requests).map(id => {
       const request = requests[id];
-      if (request.request === undefined || request.request.from === undefined) return null;
       return (
-        <EnhancedTableBody key={id} request={request} checked={checked.indexOf(id) > -1} onCheckbox={this.handleCheckbox(id)}/>
+        <EnhancedTableBody key={id} request={request} checked={checked[id]} onCheckbox={this.handleCheckbox(id)}/>
       );
     });
   }
 
   render() {
+    const { checked } = this.state;
+    const numChecked = Object.keys(checked).reduce((res, id)=>{return res + (checked[id]?1:0);}, 0);
     return (
       <div>
         <Card>
@@ -83,9 +81,9 @@ class Sent extends Component {
           />
           <Divider />
           <CardContent style={{ padding: '0px' }}>
-            <EnhancedTableToolbar num={this.state.checked.length} onDelete={this.handleDelete} />
+            <EnhancedTableToolbar num={numChecked} onDelete={this.handleDelete} />
             <Table>
-              <EnhancedTableHead handleSelect={this.handleSelectAll} checked={this.state.headChecked} />
+              <EnhancedTableHead handleSelect={this.handleSelectAll} checked={numChecked === Object.keys(checked).length} />
               <TableBody>
                 {this.renderBody()}
               </TableBody>
@@ -99,7 +97,7 @@ class Sent extends Component {
 
 Sent.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  requests: PropTypes.objectOf(PropTypes.object).isRequired,
+  requests: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
