@@ -19,7 +19,7 @@ export default function mail(
     case STORE_ATTRIBUTE_RESULT:
       return {
         ...state,
-        attributeResult: action.attributeResult,
+        attributeResult: action.attributeResult.sort((a,b)=>{if (a.id < b.id) return -1; if (a.id > b.id) return 1; return 0;}),
         attributeSearching: false,
       };
     default:
