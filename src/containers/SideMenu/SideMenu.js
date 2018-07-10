@@ -14,7 +14,7 @@ export default class SideMenu extends React.Component {
 
   render() {
     const style = {
-      width: '100%',
+      width: 250,
       flexShrink: 0,
       borderRight: '0px solid rgba(0, 0, 0, 0.12)',
       backgroundColor: 'white',
