@@ -96,8 +96,8 @@ class ComposeSigrequest extends Component {
     const errorMessage = !this.validateMessage() && validationForced;
     const errorAttributes = !this.validateAttributes() && validationForced;
     return (
-      <div>
-        <TextField style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px', width: 'calc(100% - 34px)' }}
+      <div style={{ minWidth: '100%', maxWidth: '500px' }}>
+      <TextField className="tfLabel" style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px' }}
           InputProps={{
             disableUnderline: true,
           }}
@@ -109,7 +109,7 @@ class ComposeSigrequest extends Component {
           value={sigMessage}
           multiline
           rows="4"
-          rowsMax="10"
+          rowsMax="16"
           required={true}
           fullWidth
           margin="normal"

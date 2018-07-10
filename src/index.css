@@ -42,4 +42,23 @@ a:active {
 
 .Select * {
   border-radius: 0px !important;
+  z-index: 999;
+}
+
+
+button {
+  border-radius: 0px !important;
+  margin-bottom: 10px !important;
+}
+
+.tfLabel label {
+  top: -18px !important;
+}
+
+.tfLabel label + div {
+  margin-top: 0px;
+}
+
+.tfLabel {
+  width: 100% !important;
 }
