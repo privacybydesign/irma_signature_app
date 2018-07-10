@@ -156,7 +156,7 @@ class App extends Component {
             <div className={classes.appFrame}>
               <AppBar style={{ position: 'fixed', backgroundColor: '#074487' }} className={classes.appBar}>
                 <Toolbar >
-                  <IconButton    
+                  <IconButton style={{ paddingTop: '7px' }}
                     color="inherit"
                     aria-label="open drawer"
                     onClick={this.handleDrawerToggle}

@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import ComposeSigrequest from './ComposeSigrequest';
 import ComposeMail from './ComposeMail';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
 
 // Icons
 import Done from '@material-ui/icons/Done';
@@ -85,10 +86,12 @@ class RequestSignatureStepper extends Component {
                 <Back style={{ fontSize: "20", marginLeft: "2", marginRight: "10" }} />
                 Back
               </Button>
-              <Button size="small" variant="raised" color="primary" style={{ float: "right", marginRight: '2px'  }} onClick={this.handleReset}>
-                Done
-                <Done style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
-              </Button>
+              <Link to="/sent">
+                <Button size="small" variant="raised" color="primary" style={{ float: "right", marginRight: '2px'  }} onClick={this.handleReset}>
+                  Done
+                  <Done style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
+                </Button>
+              </Link>
             </StepContent>
           </Step>
         </Stepper>
