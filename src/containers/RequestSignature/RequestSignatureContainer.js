@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import RequestSignature from './RequestSignature';
-import { sendSignatureRequest } from './../../actions';
-import { setRequestElectron, getSignatureSavePath, saveSignatureRequestElectron } from './../../actions/electron';
+import { sendSignatureRequest, addRequest } from './../../actions';
+import { getSignatureSavePath, saveSignatureRequestElectron } from './../../actions/electron';
 import { createSigrequestFromInput, generateDate } from './../../utils/requestUtils';
 
 class RequestSignatureContainer extends Component {
@@ -20,18 +20,20 @@ class RequestSignatureContainer extends Component {
 
   handleComplete = () => {
     const { sigrequest, mail } = this.state;
+    const { dispatch } = this.props;
     const mailClientName = this.props.preferredMailClient;
     const mailClientPath = this.props.mailClients[mailClientName].path;
 
     const request = createSigrequestFromInput(mail.from, sigrequest);
 
     sendSignatureRequest(request, mailClientName, mailClientPath, mail);
-    setRequestElectron(request, generateDate(), mail.recipient);
+    dispatch(addRequest(request, generateDate(), mail.recipient));
     this.setState({completed: true});
   }
 
   exportRequest = () => {
     const { sigrequest } = this.state;
+    const { dispatch } = this.props;
 
     const exportedRequest = createSigrequestFromInput('Manually exported', sigrequest);
 
@@ -39,7 +41,7 @@ class RequestSignatureContainer extends Component {
 
     if (savePath !== undefined) {
       saveSignatureRequestElectron(exportedRequest, savePath);
-      setRequestElectron(exportedRequest, generateDate(), 'Manually exported');
+      dispatch(addRequest(exportedRequest, generateDate(), 'Manually exported'));
     }
   }
 

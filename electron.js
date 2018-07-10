@@ -111,8 +111,8 @@ ipcMain.on('deleteRequests-req', (event, arg) => {
     });
 });
 
-ipcMain.on('verifySignature-req', (event, arg) => {
-  verifySignature(arg)
+ipcMain.on('verifySignature-req', (event, path, requests) => {
+  verifySignature(path, requests)
     .then(verifyResult => {
       const action = {
         type: 'set-verify-result',

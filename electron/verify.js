@@ -34,26 +34,22 @@ function verifySignatureGo(signature, request) {
   return exec(`./go/irma_signature_verify '${signature}' '${requestString}'`);
 }
 
-function verifySignatureWithNonce(nonce, signature) {
-  return getRequest(nonce)
-    .then(request => {
-      if (Object.keys(request).length === 0) {
-        // No matching request found, verifying without request
-        return verifySignatureWithoutRequestGo(signature)
-          .then(JSON.parse);
-      }
+function verifySignatureWithNonce(nonce, signature, requests) {
+  const request = requests[`request-${nonce}`]
 
-      return verifySignatureGo(signature, request.request)
-        .then(JSON.parse)
-        .then(signatureResult => (
-            Object.assign({}, signatureResult, { // TODO: no spread operator?
-              request,
-            })
-        ));
-    });
+  if (request === undefined) {
+    return verifySignatureWithoutRequestGo(signature)
+      .then(JSON.parse);
+  }
+
+  return verifySignatureGo(signature, request.request)
+    .then(JSON.parse)
+    .then(signatureResult => (Object.assign({},signatureResult,{
+      request,
+    })));
 }
 
-module.exports.verifySignature = function verifySignature(path) {
+module.exports.verifySignature = function verifySignature(path, requests) {
   return fs.readFileAsync(path, "utf8")
     .then(signature => {
       const nonce = getNonceFromSignature(signature);
@@ -64,8 +60,7 @@ module.exports.verifySignature = function verifySignature(path) {
         return;
       }
 
-      return verifySignatureWithNonce(nonce, signature)
-        .tap(signatureResult => setSignature(nonce, signature, signatureResult.proofStatus))
+      return verifySignatureWithNonce(nonce, signature, requests)
         .then(signatureResult => ({ signatureResult, signature }))
     })
     .catch(error => ({

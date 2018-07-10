@@ -1,17 +1,18 @@
-import { retrieveRequestsElectron } from './electron.js';
+export const ADD_REQUEST     = 'add-request';
+export const REMOVE_REQUESTS = 'remove-request';
 
-export const  RETRIEVE_REQUESTS = 'retrieve-requests';
-export const  STORE_REQUESTS = 'store-requests';
-
-export function startRequestRetrieval() {
+export function addRequest(sigRequest, date, recipient) {
   return {
-    type: RETRIEVE_REQUESTS,
+    type: ADD_REQUEST,
+    sigRequest,
+    date,
+    recipient,
   };
 }
 
-export function retrieveRequests() {
-  return dispatch => {
-    dispatch(startRequestRetrieval());
-    return retrieveRequestsElectron();
-  }
+export function removeRequests(ids) {
+  return {
+    type: REMOVE_REQUESTS,
+    ids,
+  };
 }
