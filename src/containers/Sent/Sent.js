@@ -53,6 +53,7 @@ class Sent extends Component {
     deleteRequestsElectron(toBeDeleted);
     this.setState({
       headChecked: false,
+      checked: [],
     });
   }
 
