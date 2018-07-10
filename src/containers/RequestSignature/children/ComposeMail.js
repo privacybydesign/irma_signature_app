@@ -62,7 +62,7 @@ class ComposeMail extends Component {
     const error = !this.validate() && validationForced;
     return (
       <div>
-        <div style={{ minWidth: '50%', maxWidth: '500px' }}>
+        <div style={{ minWidth: '100%', maxWidth: '500px' }}>
           <TextField
             required
             id="recipient"
@@ -83,7 +83,7 @@ class ComposeMail extends Component {
             fullWidth
             margin="normal"
           />
-          <TextField style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px', width: 'calc(100% - 34px)' }}
+          <TextField className="tfLabel" style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', marginTop: '30px', padding: '5px 12px'}}
             InputProps={{
               disableUnderline: true,
             }}
