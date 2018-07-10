@@ -50,7 +50,8 @@ class Sent extends Component {
   }
 
   handleDelete = () => {
-    const toBeDeleted = this.state.checked;
+    const { checked } = this.state;
+    const toBeDeleted = Object.keys(checked).filter((id)=>{return checked[id];});
     deleteRequestsElectron(toBeDeleted);
   }
   
