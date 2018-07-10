@@ -56,6 +56,18 @@ class Sent extends Component {
       checked: [],
     });
   }
+  
+  renderBody() {
+    const {requests} = this.props;
+    const {checked} = this.state;
+    return Object.keys(requests).map(id => {
+      const request = requests[id];
+      if (request.request === undefined || request.request.from === undefined) return null;
+      return (
+        <EnhancedTableBody key={id} request={request} checked={checked.indexOf(id) > -1} onCheckbox={this.handleCheckbox(id)}/>
+      );
+    });
+  }
 
   render() {
     return (
@@ -75,7 +87,7 @@ class Sent extends Component {
             <Table>
               <EnhancedTableHead handleSelect={this.handleSelectAll} checked={this.state.headChecked} />
               <TableBody>
-                <EnhancedTableBody handleCheckbox={this.handleCheckbox} checked={this.state.checked} requests={this.props.requests} />
+                {this.renderBody()}
               </TableBody>
             </Table>
           </CardContent>
@@ -88,7 +100,6 @@ class Sent extends Component {
 Sent.propTypes = {
   dispatch: PropTypes.func.isRequired,
   requests: PropTypes.objectOf(PropTypes.object).isRequired,
-  requestsFetching: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {

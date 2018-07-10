@@ -25,32 +25,25 @@ function getIconByState(state) {
 
 class EnhancedTableBody extends Component {
   render() {
-    const { requests, checked, handleCheckbox } = this.props;
-    return Object.keys(requests)
-      .map(el => {
-        const request = requests[el];
-        if (request.request === undefined || request.request.from === undefined) {
-          return '';
-        }
-        return (
-          <TableRow key={el}>
-            <TableCell padding="checkbox">
-              <Checkbox checked={checked.indexOf(el) > -1} onChange={handleCheckbox(el)} />
-            </TableCell>
-            <TableCell style={{ paddingLeft:'0', textAlign: 'left', color: '#757575' }}>{request.recipient}</TableCell>
-            <TableCell style={{ textAlign: 'left' }}>{request.request.message.substring(0,20)}</TableCell>
-            <TableCell style={{ textAlign: 'left' }} numeric>{request.date}</TableCell>
-            <TableCell style={{ textAlign: 'center' }} numeric>{getIconByState(request.state)}</TableCell>
-          </TableRow>
-        )
-      });
+    const {request, checked, onCheckbox} = this.props
+    return (
+      <TableRow>
+        <TableCell padding="checkbox">
+          <Checkbox checked={checked} onChange={onCheckbox} />
+        </TableCell>
+        <TableCell style={{ paddingLeft:'0', textAlign: 'left', color: '#757575' }}>{request.recipient}</TableCell>
+        <TableCell style={{ textAlign: 'left' }}>{request.request.message.substring(0,20)}</TableCell>
+        <TableCell style={{ textAlign: 'left' }} numeric>{request.date}</TableCell>
+        <TableCell style={{ textAlign: 'center' }} numeric>{getIconByState(request.state)}</TableCell>
+      </TableRow>
+    )
   }
 }
 
 EnhancedTableBody.propTypes = {
-  requests: PropTypes.objectOf(PropTypes.object).isRequired,
-  checked: PropTypes.arrayOf(PropTypes.string).isRequired,
-  handleCheckbox: PropTypes.func.isRequired,
+  request: PropTypes.object.isRequired,
+  checked: PropTypes.bool.isRequired,
+  onCheckbox: PropTypes.func.isRequired,
 };
 
 export default EnhancedTableBody;
