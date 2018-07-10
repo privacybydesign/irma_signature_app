@@ -81,13 +81,13 @@ class Sent extends Component {
           />
           <Divider />
           <CardContent style={{ padding: '0px' }}>
-            <EnhancedTableToolbar num={numChecked} onDelete={this.handleDelete} />
             <Table>
               <EnhancedTableHead handleSelect={this.handleSelectAll} checked={numChecked === Object.keys(checked).length} />
               <TableBody>
                 {this.renderBody()}
               </TableBody>
             </Table>
+            <EnhancedTableToolbar num={numChecked} onDelete={this.handleDelete} />
           </CardContent>
         </Card>
       </div>
