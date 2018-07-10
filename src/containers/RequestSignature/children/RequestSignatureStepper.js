@@ -81,11 +81,11 @@ class RequestSignatureStepper extends Component {
             <StepLabel>Send mail</StepLabel>
             <StepContent>
               <Typography style={{ paddingTop: '20px', paddingBottom: '20px', fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)' }}>Your email application has opened with an email. The signature request is included as an attachment. Send the mail to share the signature request.<br /></Typography>
-              <Button size="small" variant="raised" style={{ marginLeft: '0px', marginRight: '10px' }} onClick={this.handlePrev} >
+              <Button size="small" variant="raised" style={{  marginLeft: "2px", marginRight: '10px' }} onClick={this.handlePrev} >
                 <Back style={{ fontSize: "20", marginLeft: "2", marginRight: "10" }} />
                 Back
               </Button>
-              <Button size="small" variant="raised" color="primary" style={{ float: "right" }} onClick={this.handleReset}>
+              <Button size="small" variant="raised" color="primary" style={{ float: "right", marginRight: '2px'  }} onClick={this.handleReset}>
                 Done
                 <Done style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
               </Button>

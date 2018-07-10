@@ -155,15 +155,15 @@ class ComposeSigrequest extends Component {
             margin="normal"
           />
         <Typography style={{ paddingTop: '20px', paddingBottom: '20px', fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)' }}>You can export this request and share it manually or proceed to share it by email.</Typography>
-        <Button size="small" style={{ float: "left", marginRight: "20px" }} variant="raised" onClick={this.props.onDiscard} >
+        <Button size="small" style={{ float: "left", marginLeft: "2px",  marginRight: "20px" }} variant="raised" onClick={this.props.onDiscard} >
           Discard request
             <Delete style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
         </Button>
-        <Button size="small" style={{ fontSize: "20" }} variant="raised" onClick={this.forceValidate(this.props.exportRequest)} >
+        <Button size="small" style={{ fontSize: "20", marginLeft: "2px", }} variant="raised" onClick={this.forceValidate(this.props.exportRequest)} >
           Export request
             <Save style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
         </Button>
-        <Button size="small" style={{ float: "right" }} variant="raised" color="primary" onClick={this.forceValidate(this.props.onComplete)} >
+        <Button size="small" style={{ float: "right", marginRight: '2px' }} variant="raised" color="primary" onClick={this.forceValidate(this.props.onComplete)} >
           Next
             <Next style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
         </Button>
