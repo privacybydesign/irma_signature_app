@@ -35,7 +35,7 @@ class Sent extends Component {
     const { requests } = this.props;
     
     this.setState({
-      checked: Object.keys(requests).reduce((res, id)=>{res[id] = true; return res;}, {}),
+      checked: Object.keys(requests).reduce((res, id)=>{res[id] = checked; return res;}, {}),
     });
   }
 
