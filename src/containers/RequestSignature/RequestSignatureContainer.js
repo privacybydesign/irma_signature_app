@@ -61,7 +61,7 @@ class RequestSignatureContainer extends Component {
       || !(!mail || (mail.from === '' && mail.recipient === '' && mail.subject === '' && mail.body === ''))) && !completed;
     return (
       <div>
-        <Prompt when={inhibitNavigation} message="Leaving will abandon the signature request, are you sure you want to continue?" />,
+        <Prompt when={inhibitNavigation} message="Leaving will abandon the signature request, are you sure you want to continue?" />
         <RequestSignature
           sigrequest={this.state.sigrequest}
           mail={this.state.mail}
