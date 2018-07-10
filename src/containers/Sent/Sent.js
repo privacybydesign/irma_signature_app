@@ -11,9 +11,9 @@ import { Table, TableBody } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 
 import { deleteRequestsElectron } from './../../actions/electron';
-import EnhancedTableHead from './EnhancedTableHead.js';
-import EnhancedTableBody from './EnhancedTableBody.js';
-import EnhancedTableToolbar from './EnhancedTableToolbar.js';
+import EnhancedTableHead from './children/EnhancedTableHead.js';
+import EnhancedTableBody from './children/EnhancedTableBody.js';
+import EnhancedTableToolbar from './children/EnhancedTableToolbar.js';
 
 class Sent extends Component {
   constructor(props) {
