@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Select from 'react-select';
-import Chip  from '@material-ui/core/Chip';
-import Avatar  from '@material-ui/core/Avatar';
 
 import 'react-select/dist/react-select.css';
+
+import AttributeChip from '../../AttributeChip';
 
 class AttributeDropdown extends Component {
   handleSelect = value => {
@@ -36,21 +36,12 @@ class AttributeDropdown extends Component {
       label: `${el.name}   -   ${el.credentialName}`
     }));
   }
-  
+
   renderChips() {
     const { selectedAttributes } = this.props;
-    return Object.keys(selectedAttributes).map((key) => {
-      const value = selectedAttributes[key];
-      const logoUrl = value.logo.substr(3); //Removes the leading go/
-      return (
-        <Chip
-          label={`${value.name} - ${value.credentialName}`}
-          onDelete={this.handleRemove(key)}
-          key={key}
-          avatar={logoUrl ? <Avatar src={logoUrl} /> : null}
-        />
-      )
-    });
+    return Object.keys(selectedAttributes).map((key) =>
+      <AttributeChip key={key} attribute={selectedAttributes[key]} onDelete={this.handleRemove(key)} />
+    );
   }
 
   render() {
