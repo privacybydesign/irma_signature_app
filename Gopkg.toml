@@ -33,6 +33,12 @@
   branch = "master"
   name = "github.com/privacybydesign/irmago"
 
+# Version v1.1 that dep currently fetches without this stanza breaks compilation
+# TODO remove this once a version is released of bolthold that includes e4f6b42
+[[override]]
+  branch = "master"
+  name = "github.com/timshannon/bolthold"
+
 [prune]
   go-tests = true
   unused-packages = true

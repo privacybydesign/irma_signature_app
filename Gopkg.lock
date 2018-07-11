@@ -3,9 +3,51 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/bwesterb/byteswriter"
+  packages = ["."]
+  revision = "c31a76b641f8b94ffccad99eeeabf795e53b1e4a"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/bwesterb/go-atum"
+  packages = ["."]
+  revision = "b79a6b33c09b7b8d49d2454bbde06162fdc0cd70"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/bwesterb/go-pow"
+  packages = ["."]
+  revision = "b53ca488a9ca0a21ee44c6a6b0ad792693214e1a"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/bwesterb/go-xmssmt"
+  packages = ["."]
+  revision = "c7ed6207145b8af6d194cab000796a9c8ffb563a"
+
+[[projects]]
+  name = "github.com/cespare/xxhash"
+  packages = ["."]
+  revision = "5c37fe3735342a2e0d01c87a907579987c8936cc"
+  version = "v1.0.0"
+
+[[projects]]
+  name = "github.com/coreos/bbolt"
+  packages = ["."]
+  revision = "583e8937c61f1af6513608ccc75c97b6abdf4ff9"
+  version = "v1.3.0"
+
+[[projects]]
+  branch = "master"
   name = "github.com/credentials/safeprime"
   packages = ["."]
   revision = "b04afffdb6d92bdfb4b8b7305129c3e39fcd000e"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/edsrzf/mmap-go"
+  packages = ["."]
+  revision = "0bce6a6887123b67a60366d2c9fe2dfb74289d2e"
 
 [[projects]]
   name = "github.com/go-errors/errors"
@@ -15,9 +57,27 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/hashicorp/errwrap"
+  packages = ["."]
+  revision = "7554cd9344cec97297fa6649b055a8c98c2a1e55"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/hashicorp/go-multierror"
+  packages = ["."]
+  revision = "b7773ae218740a7be65057fc60b366a49b538a44"
+
+[[projects]]
+  branch = "master"
   name = "github.com/mhe/gabi"
   packages = ["."]
   revision = "bf5016a5f3005bef1d2416989588cefcf9a73cb7"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/nightlyone/lockfile"
+  packages = ["."]
+  revision = "0ad87eef1443f64d3d8c50da647e2b1552851124"
 
 [[projects]]
   name = "github.com/pkg/errors"
@@ -33,7 +93,7 @@
     "internal/disable_sigpipe",
     "internal/fs"
   ]
-  revision = "f884e0227a25d336a4da3514bf2954dce3b866a9"
+  revision = "6ca9a8fa956e0441db6a6d46366da0b782e287d7"
 
 [[projects]]
   branch = "master"
@@ -41,9 +101,43 @@
   packages = ["."]
   revision = "1b01514224a1a60a6bcbb0b6b9d3a00ec14ae17f"
 
+[[projects]]
+  branch = "master"
+  name = "github.com/templexxx/cpufeat"
+  packages = ["."]
+  revision = "3794dfbfb04749f896b521032f69383f24c3687e"
+
+[[projects]]
+  name = "github.com/templexxx/xor"
+  packages = ["."]
+  revision = "0af8e873c554da75f37f2049cdffda804533d44c"
+  version = "0.1.2"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/timshannon/bolthold"
+  packages = ["."]
+  revision = "525de816b1a2c1cfbb67b5e9936a6b76e0c7f3e6"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/crypto"
+  packages = [
+    "ed25519",
+    "ed25519/internal/edwards25519",
+    "sha3"
+  ]
+  revision = "a49355c7e3f8fe157a85be2f77e6e269a0f89602"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/sys"
+  packages = ["unix"]
+  revision = "1b2967e3c290b7c545b3db0deeda16e9be4f98a2"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "cdd7b7c1063c79909757b4bd7d1dfc35e835f64fcb61ba04c8be7140be4b615f"
+  inputs-digest = "92bc722282caeaa009ce177eabf941fd457c6c70fdb6f49233fa59ef4852a599"
   solver-name = "gps-cdcl"
   solver-version = 1
