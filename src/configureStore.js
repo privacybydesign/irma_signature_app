@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
+import { persistenceMiddleware, persistenceRestore } from './middleware/persistence'
 import rootReducer from './reducers';
 
 const loggerMiddleware = createLogger();
@@ -11,7 +12,8 @@ export default function configureStore(preloadedState) {
     preloadedState,
     applyMiddleware(
       thunkMiddleware,
-      loggerMiddleware
+      loggerMiddleware,
+      persistenceMiddleware,
     )
   );
 
@@ -21,6 +23,8 @@ export default function configureStore(preloadedState) {
   ipcRenderer.on('response', (event, arg) => {
     store.dispatch(JSON.parse(arg));
   });
+
+  persistenceRestore(store);
 
   return store;
 }

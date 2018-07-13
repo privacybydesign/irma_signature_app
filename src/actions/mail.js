@@ -1,16 +1,13 @@
-import { searchMailClientsElectron, setPreferredMailClientElectron, getPreferredMailClientElectron, composeMailElectron } from './electron.js';
+import { searchMailClientsElectron, composeMailElectron } from './electron.js';
 
-export const STORE_MAIL_CLIENTS = 'store-mail-clients';
-// export const SET_PREFERRED_MAIL_CLIENT = 'set-preferred-mail-client';
-export const GET_PREFERRED_MAIL_CLIENT = 'get-preferred-mail-client';
+export const STORE_MAIL_CLIENTS        = 'store-mail-clients';
+export const SET_PREFERRED_MAIL_CLIENT = 'set-preferred-mail-client';
 
 export function setPreferredMailClient(clientName) {
-  return setPreferredMailClientElectron(clientName);
-}
-
-export function getPreferredMailClient() {
-  return dispatch =>
-    getPreferredMailClientElectron();
+  return {
+    type: SET_PREFERRED_MAIL_CLIENT,
+    clientName,
+  };
 }
 
 export function detectMailClients() {

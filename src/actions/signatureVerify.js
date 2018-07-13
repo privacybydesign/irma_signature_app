@@ -10,9 +10,9 @@ function startVerifySignature() {
   };
 }
 
-export function verifySignature(path) {
+export function verifySignature(path, requests) {
   return dispatch => {
     dispatch(startVerifySignature());
-    return verifySignatureElectron(path);
+    return verifySignatureElectron(path, requests);
   };
 }
