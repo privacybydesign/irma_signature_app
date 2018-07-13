@@ -1,7 +1,7 @@
 // Electron event listeners
 const electron = require('electron');
 const fs = require('fs');
-const isDev = require('electron-is-dev')
+const isDev = require('electron-is-dev');
 
 const mail = require('./electron/mail');
 const { verifySignature } = require('./electron/verify');
@@ -12,7 +12,7 @@ const ipcMain = electron.ipcMain;
 
 app.on('ready', () => {
   // Install React developer tools in development
-  if(isDev) {
+  if (isDev) {
     const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
     installExtension(REACT_DEVELOPER_TOOLS)
         .then((name) => console.log(`Added Extension:  ${name}`))
@@ -47,9 +47,9 @@ ipcMain.on('composeMail-req', (event, { sigRequest, mailClientName, mailClientPa
 });
 
 ipcMain.on('saveSignatureRequest-req', (event, { sigRequest, path }) => {
-  if (path !== undefined) {
+  if (path !== undefined)
     fs.writeFileSync(path, JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json
-  }
+
 });
 
 ipcMain.on('verifySignature-req', (event, path, requests) => {

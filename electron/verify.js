@@ -33,7 +33,7 @@ function verifySignatureGo(signature, request) {
 }
 
 function verifySignatureWithNonce(nonce, signature, requests) {
-  const request = requests[`request-${nonce}`]
+  const request = requests[`request-${nonce}`];
 
   if (request === undefined) {
     return verifySignatureWithoutRequestGo(signature)
@@ -42,13 +42,13 @@ function verifySignatureWithNonce(nonce, signature, requests) {
 
   return verifySignatureGo(signature, request.request)
     .then(JSON.parse)
-    .then(signatureResult => (Object.assign({},signatureResult,{
+    .then(signatureResult => (Object.assign({}, signatureResult, {
       request,
     })));
 }
 
 module.exports.verifySignature = function verifySignature(path, requests) {
-  return fs.readFileAsync(path, "utf8")
+  return fs.readFileAsync(path, 'utf8')
     .then(signature => {
       const nonce = getNonceFromSignature(signature);
 
@@ -59,7 +59,7 @@ module.exports.verifySignature = function verifySignature(path, requests) {
       }
 
       return verifySignatureWithNonce(nonce, signature, requests)
-        .then(signatureResult => ({ signatureResult, signature }))
+        .then(signatureResult => ({ signatureResult, signature }));
     })
     .catch(error => ({
         signatureResult: {
@@ -69,6 +69,6 @@ module.exports.verifySignature = function verifySignature(path, requests) {
         error,
       })
     );
-}
+};
 
 setNodePath();

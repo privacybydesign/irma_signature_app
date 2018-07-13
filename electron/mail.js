@@ -4,7 +4,7 @@
 
 const { config, exec, tempdir, which } = require('shelljs');
 const { platform } = require('process');
-const fs = require("fs");
+const fs = require('fs');
 
 const mailClients = {
   win32: [
@@ -42,9 +42,9 @@ function detectMailClientsLinux(candidates) {
     const findResult =
       exec(`find /bin /usr/bin /usr/local/bin -executable -name '${name}' \\( -type f -or -type l \\)`).split('\n')[0];
 
-    if (findResult !== '') {
-      result[name] = {  path: findResult, description };
-    }
+    if (findResult !== '')
+      result[name] = { path: findResult, description };
+
 
     return result;
   }, {});
@@ -63,9 +63,9 @@ function detectMailClientsWindows(candidates) {
         exec(`dir /s/b "c:\\Program Files (x86)" |findstr /I ${name}.exe`).split('\n')[0];
     }
 
-    if (findResult !== '') {
-      result[name] = {  path: findResult, description };
-    }
+    if (findResult !== '')
+      result[name] = { path: findResult, description };
+
 
     return result;
   }, {});
@@ -82,9 +82,9 @@ function detectMailClientsMacOS(candidates) {
     const findResult =
       exec(`find /Applications -maxdepth 2 -type d -name '${name}'`).split('\n')[0];
 
-    if (findResult !== '') {
-      result[name] = {  path: `${findResult}/Contents/MacOS/${binary}`, description };
-    }
+    if (findResult !== '')
+      result[name] = { path: `${findResult}/Contents/MacOS/${binary}`, description };
+
 
     return result;
   }, {});
@@ -94,9 +94,9 @@ function detectMailClientsMacOS(candidates) {
 // See: https://stackoverflow.com/questions/7912973/launch-outlook-to-compose-a-message-with-subject-and-attachment-by-outlooks-com
 function isNewOutlook(path) {
   const officeString = path.match(/Office\d\d/);
-  if (officeString && officeString[0] && officeString[0].match(/\d\d/)) {
+  if (officeString && officeString[0] && officeString[0].match(/\d\d/))
     return officeString[0].match(/\d\d/)[0] > 12;
-  }
+
 
   // Return new outlook by default if we cannot detect it
   return true;
@@ -104,9 +104,9 @@ function isNewOutlook(path) {
 
 function composeMailOutlook(attachmentPath, mailClientPath, mail) {
   setNodePath();
-  if (isNewOutlook(mailClientPath)) {
+  if (isNewOutlook(mailClientPath))
     return exec(`"${mailClientPath}" /c ipm.note /m "${mail.recipient}&subject=${mail.subject}body=${mail.body}" /a "${attachmentPath}"`, { async: true });
-  }
+
 
   return exec(`"${mailClientPath}" /a ${attachmentPath}`, { async: true });
 }
@@ -142,26 +142,26 @@ module.exports.composeMail = function composeMail(sigRequest, mailClientName, ma
 
   save(path, sigRequest); // TODO: async needed?
 
-  if (mailClientName === 'thunderbird' || mailClientName === 'Thunderbird.app') {
+  if (mailClientName === 'thunderbird' || mailClientName === 'Thunderbird.app')
     return composeMailThunderbird(path, mailClientPath, mail);
-  } else if (mailClientName === 'outlook') {
+   else if (mailClientName === 'outlook')
     return composeMailOutlook(path, mailClientPath, mail);
-  } else if (mailClientName === 'Mail.app') {
+   else if (mailClientName === 'Mail.app')
     return composeMailAppleMail(path, mailClientPath, mail);
-  }
-}
+
+};
 
 module.exports.searchMailClients = function searchMailClients() {
   setNodePath();
   const os = detectOs();
-  if (os === 'linux') {
+  if (os === 'linux')
     return Promise.resolve(detectMailClientsLinux(mailClients[os]));
-  } else if (os === 'win32') {
+   else if (os === 'win32')
     return Promise.resolve(detectMailClientsWindows(mailClients[os]));
-  } else if (os === 'darwin') {
+   else if (os === 'darwin')
     return Promise.resolve(detectMailClientsMacOS(mailClients[os]));
-  }
+
   // Currently unsupported OS, fallback to saving message manually
   console.log('OS not supported: ', os);
   return Promise.resolve({});
-}
+};

@@ -15,7 +15,7 @@ function setNodePath() {
 module.exports = function getAllAttributes() {
   return exec('./go/get_all_attributes')
     .then(JSON.parse);
-}
+};
 
 function init() {
   setNodePath();
