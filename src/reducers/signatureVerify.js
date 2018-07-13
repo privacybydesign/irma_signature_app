@@ -5,8 +5,10 @@ import {
 
 export default function signatureVerify(
   state = {
-    verifications: {},
-    verified: '',
+    verifyResult: {
+      signature: '',
+      signatureResult: {},
+    },
     verifyPending: false,
   },
   action
@@ -20,8 +22,7 @@ export default function signatureVerify(
     case SET_VERIFY_RESULT:
       return {
         ...state,
-        verifications: { ...state.verifications, [action.verifyResult.signature]: action.verifyResult},
-        verified: action.verifyResult.signature,
+        verifyResult: action.verifyResult,
         verifyPending: false,
       };
     default:

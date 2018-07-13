@@ -10,26 +10,17 @@ import {
 } from '@material-ui/core';
 
 import AttributeChip from '../../AttributeChip';
-import { verifySignature } from './../../../actions';
 import SignatureDetail from './SignatureDetail';
 
 class RequestDetail extends Component {
-  constructor(props) {
-    super(props);
-    const { request, requests, dispatch } = this.props;
-    if (request.signature !== undefined)
-      dispatch(verifySignature(request.signature, requests));
-
-  }
-
   render() {
-    const { request, attributeInfo, verifyResult } = this.props;
+    const { request, attributeInfo } = this.props;
     if (attributeInfo.length === 0)
       return null;
 
     let signatureDetail;
-    if (request.signature !== undefined && verifyResult !== undefined && verifyResult.signature !== '')
-      signatureDetail = <SignatureDetail request={request} verifyResult={verifyResult} />;
+    if (request.signature !== undefined)
+      signatureDetail = <SignatureDetail request={request} />;
 
     const cellStyle = { color: '#757575' };
     return [
@@ -61,21 +52,14 @@ class RequestDetail extends Component {
 }
 
 RequestDetail.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   request: PropTypes.object.isRequired,
-  requests: PropTypes.arrayOf(PropTypes.object).isRequired,
   attributeInfo: PropTypes.arrayOf(PropTypes.object).isRequired,
-  verifyResult: PropTypes.object,
 };
 
-function mapStateToProps(state, ownProps) {
-  const { attributeSearch, signatureVerify, storage } = state;
-  const verifyResult = ownProps.request.signature !== undefined
-    ? signatureVerify.verifications[ownProps.request.signature] : undefined;
+function mapStateToProps(state) {
+  const { attributeSearch } = state;
   return {
     attributeInfo: attributeSearch.attributeResult,
-    verifyResult,
-    requests: storage.requests,
   };
 }
 

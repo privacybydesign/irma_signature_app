@@ -52,12 +52,12 @@ export default function storage(
               ...action.verifyResult.signatureResult.request,
               state: action.verifyResult.signatureResult.proofStatus,
               signature: action.verifyResult.signature,
+              signatureResult: action.verifyResult.signatureResult,
             },
           },
         };
       }
-        return state;
-
+      return state;
     }
     case LOAD_REQUESTS: {
       return {

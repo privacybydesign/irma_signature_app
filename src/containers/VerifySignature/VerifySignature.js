@@ -11,7 +11,7 @@ import Divider from '@material-ui/core/Divider';
 // Icons
 import IconButton from '@material-ui/core/IconButton';
 
-import { verifyStoredSignature } from './../../actions';
+import { verifySignature } from './../../actions';
 import SignatureResult from './SignatureResult';
 import AttributeResultTable from './AttributeResultTable';
 
@@ -40,7 +40,7 @@ class VerifySignature extends Component {
 
 
     const path = event.file.originFileObj.path;
-    dispatch(verifyStoredSignature(path, requests));
+    dispatch(verifySignature(path, requests));
   });
 
   componentWillReceiveProps(nextProps) {
@@ -125,19 +125,18 @@ class VerifySignature extends Component {
 
 VerifySignature.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  signature: PropTypes.string,
-  signatureResult: PropTypes.object,
+  signature: PropTypes.string.isRequired,
+  signatureResult: PropTypes.object.isRequired,
   requests: PropTypes.object.isRequired,
   verifyPending: PropTypes.bool,
 };
 
 function mapStateToProps(state) {
-  const { signatureVerify, storage } = state;
-  const result = signatureVerify.verifications[signatureVerify.verified];
-  const signatureResult = result !== undefined ? result.signatureResult : undefined;
+  const verifyResult = state.signatureVerify.verifyResult;
+  const requests = state.storage.requests;
   return {
-    signatureResult,
-    requests: storage.requests,
+    ...verifyResult,
+    requests,
   };
 }
 

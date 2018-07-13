@@ -10,13 +10,12 @@ import {
 
 class SignatureDetail extends Component {
   render() {
-    return <div>{JSON.stringify(this.props.verifyResult)}</div>;
+    return <div>{JSON.stringify(this.props.request.signatureResult)}</div>;
   }
 }
 
 SignatureDetail.propTypes = {
   request: PropTypes.object.isRequired,
-  verifyResult: PropTypes.object.isRequired,
 };
 
 export default SignatureDetail;
