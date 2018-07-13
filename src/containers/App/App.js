@@ -60,6 +60,7 @@ const styles = theme => ({
   },
   root: {
     width: '100%',
+    height: 'calc(100vh - 24px)',
     marginTop: theme.spacing.unit * 3,
     zIndex: 1,
     overflow: 'hidden',
