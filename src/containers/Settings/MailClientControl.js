@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Material UI
-import { CardContent } from '@material-ui/core';
-import { Radio, RadioGroup } from '@material-ui/core';
-import { FormLabel, FormControl, FormControlLabel } from '@material-ui/core';
+import {
+  CardContent,
+  Radio,
+  RadioGroup,
+  FormLabel,
+  FormControl,
+  FormControlLabel,
+} from '@material-ui/core';
 
 class MailClientControl extends Component {
   render() {
@@ -37,6 +42,6 @@ MailClientControl.propTypes = {
   handleChange: PropTypes.func.isRequired,
   mailClients: PropTypes.objectOf(PropTypes.object),
   selectedClient: PropTypes.string.isRequired,
-}
+};
 
 export default MailClientControl;

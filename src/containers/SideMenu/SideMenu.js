@@ -29,7 +29,7 @@ export default class SideMenu extends React.Component {
     const linkStyle = {
       color: 'inherit',
       textDecoration: 'none',
-    }
+    };
 
     return (
       <div style={style} >

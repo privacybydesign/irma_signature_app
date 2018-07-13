@@ -13,5 +13,5 @@ export function searchAttributes() {
   return dispatch => {
     dispatch(startAttributeSearch());
     return searchAttributesElectron();
-  }
+  };
 }

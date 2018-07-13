@@ -31,8 +31,6 @@ class ComposeSigrequest extends Component {
   }
 
 
-
-
   addAttribute = (id, value) => {
     this.setState((prevState) => {
       const selected = prevState.selectedAttributes;
@@ -40,8 +38,8 @@ class ComposeSigrequest extends Component {
         selectedAttributes: {
           ...selected,
           [id]: value,
-        }
-      }
+        },
+      };
     });
   }
 
@@ -51,9 +49,9 @@ class ComposeSigrequest extends Component {
       // TODO: better way to delete key from object?
       const newSelected = Object.keys(selected)
         .reduce((acc, val) => {
-          if (val !== id) {
+          if (val !== id)
             acc[val] = selected[val];
-          }
+
           return acc;
         }, {});
       return {
@@ -67,7 +65,7 @@ class ComposeSigrequest extends Component {
   }
 
   validateAttributes() {
-    return Object.keys(this.state.selectedAttributes).length !== 0
+    return Object.keys(this.state.selectedAttributes).length !== 0;
   }
 
   validate() {
@@ -75,23 +73,23 @@ class ComposeSigrequest extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { selectedAttributes, sigMessage } = this.state
+    const { selectedAttributes, sigMessage } = this.state;
     if (prevState.selectedAttributes !== selectedAttributes
         || prevState.sigMessage !== sigMessage) {
       this.props.onChange({
         attributes: selectedAttributes,
-        sigMessage: sigMessage
+        sigMessage: sigMessage,
       });
     }
   }
-  
+
   forceValidate = (continuation) => () => {
     if (!this.validate()) {
       this.setState({validationForced: true});
       return;
     }
-    
-    continuation()
+
+    continuation();
   }
 
   handleSigMessageChange = (event) => {
@@ -118,14 +116,15 @@ class ComposeSigrequest extends Component {
     const errorAttributes = !this.validateAttributes() && validationForced;
     return (
       <div style={{ minWidth: '100%', maxWidth: '500px' }}>
-      <TextField className="tfLabel" style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px' }}
+        <TextField
+          className="tfLabel" style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px' }}
           InputProps={{
             disableUnderline: true,
           }}
           InputLabelProps={{
             shrink: true,
           }}
-          label={errorMessage ? "This field is required" : "Message to be signed"}
+          label={errorMessage ? 'This field is required' : 'Message to be signed'}
           onChange={this.handleSigMessageChange}
           value={sigMessage}
           multiline
@@ -142,30 +141,30 @@ class ComposeSigrequest extends Component {
           addAttribute={this.addAttribute}
           removeAttribute={this.removeAttribute}
         />
-          <TextField
-            required
-            id="from"
-            value={mail.from}
-            onChange={this.handleTextFieldChange}
-            
-            label={error ? "This field is required" : "Return signed message to:"}
-            placeholder={"Email address where you want to receive the signed message."}
-            error={error}
-            fullWidth
-            margin="normal"
+        <TextField
+          required
+          id="from"
+          value={mail.from}
+          onChange={this.handleTextFieldChange}
+
+          label={error ? 'This field is required' : 'Return signed message to:'}
+          placeholder={'Email address where you want to receive the signed message.'}
+          error={error}
+          fullWidth
+          margin="normal"
           />
         <Typography style={{ paddingTop: '20px', paddingBottom: '20px', fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)' }}>You can export this request and share it manually or proceed to share it by email.</Typography>
-        <Button size="small" style={{ float: "left", marginLeft: "2px",  marginRight: "20px" }} variant="raised" onClick={this.props.onDiscard} >
+        <Button size="small" style={{ float: 'left', marginLeft: '2px', marginRight: '20px' }} variant="raised" onClick={this.props.onDiscard} >
           Discard request
-            <Delete style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
+          <Delete style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
         </Button>
-        <Button size="small" style={{ fontSize: "20", marginLeft: "2px", }} variant="raised" onClick={this.forceValidate(this.props.exportRequest)} >
+        <Button size="small" style={{ fontSize: '20', marginLeft: '2px' }} variant="raised" onClick={this.forceValidate(this.props.exportRequest)} >
           Export request
-            <Save style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
+          <Save style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
         </Button>
-        <Button size="small" style={{ float: "right", marginRight: '2px' }} variant="raised" color="primary" onClick={this.forceValidate(this.props.onComplete)} >
+        <Button size="small" style={{ float: 'right', marginRight: '2px' }} variant="raised" color="primary" onClick={this.forceValidate(this.props.onComplete)} >
           Next
-            <Next style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
+          <Next style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
         </Button>
       </div>
     );

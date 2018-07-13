@@ -33,7 +33,7 @@ class AttributeDropdown extends Component {
     const { attributeResult } = this.props;
     return attributeResult.map(el => ({
       value: el.id,
-      label: `${el.name}   -   ${el.credentialName}`
+      label: `${el.name}   -   ${el.credentialName}`,
     }));
   }
 
@@ -48,7 +48,7 @@ class AttributeDropdown extends Component {
     return (
       <div>
         { this.renderChips() }
-        <Select 
+        <Select
           multiple
           id="state-select"
           autoFocus
@@ -66,7 +66,6 @@ class AttributeDropdown extends Component {
 }
 
 AttributeDropdown.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   attributeResult: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedAttributes: PropTypes.objectOf(PropTypes.object).isRequired,
   addAttribute: PropTypes.func.isRequired,

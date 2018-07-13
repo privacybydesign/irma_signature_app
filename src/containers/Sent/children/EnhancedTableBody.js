@@ -15,10 +15,10 @@ import Pending from '@material-ui/icons/HourglassEmpty';
 import RequestDetail from './RequestDetail';
 
 function getIconByState(state) {
-  switch(state) {
+  switch (state) {
     case 'PENDING':
       return <Pending style={{color: blue[500] }} />;
-    case  'VALID':
+    case 'VALID':
       return <CheckCircle style={{color: green[500] }} />;
     default: // We consider everything else as 'invalid', this includes: EXPIRED, INVALID_CRYPTO, UNMATCHED_REQUEST, MISSING_ATTRIBUTES
       return <Error style={{color: red[500] }} />;

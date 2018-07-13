@@ -33,7 +33,7 @@ function verifySignatureGo(signature, request) {
 }
 
 function verifySignatureWithNonce(nonce, signature, requests) {
-  const request = requests[`request-${nonce}`]
+  const request = requests[`request-${nonce}`];
 
   if (request === undefined) {
     return verifySignatureWithoutRequestGo(signature)
@@ -42,7 +42,7 @@ function verifySignatureWithNonce(nonce, signature, requests) {
 
   return verifySignatureGo(signature, request.request)
     .then(JSON.parse)
-    .then(signatureResult => (Object.assign({},signatureResult,{
+    .then(signatureResult => (Object.assign({}, signatureResult, {
       request,
     })));
 }
@@ -53,7 +53,7 @@ function verifySignature(signature, requests) {
   if (nonce === undefined) {
     // Safetycheck so that we're sure that signature is valid json
     // (since we're passing it to exec..)
-    return;
+    return {};
   }
 
   return verifySignatureWithNonce(nonce, signature, requests)
@@ -66,7 +66,7 @@ function verifySignature(signature, requests) {
         error,
       })
     );
-}
+};
 
 module.exports.verifySignature = verifySignature;
 module.exports.verifyStoredSignature = function(path, requests) {

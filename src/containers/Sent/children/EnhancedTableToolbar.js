@@ -12,20 +12,20 @@ import DeleteIcon from '@material-ui/icons/Delete';
 class EnhancedTableToolbar extends Component {
   render() {
     const { num } = this.props;
-    if (num === 0) {
+    if (num === 0)
       return '';
-    }
+
 
     return (
       <Toolbar>
-          <Typography variant="subheading">{num} selected</Typography>
-          <Tooltip title="Delete">
-            <IconButton aria-label="Delete" onClick={this.props.onDelete}>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
+        <Typography variant="subheading">{num} selected</Typography>
+        <Tooltip title="Delete">
+          <IconButton aria-label="Delete" onClick={this.props.onDelete}>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
       </Toolbar>
-    )
+    );
   }
 }
 

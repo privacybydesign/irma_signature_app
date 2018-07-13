@@ -13,7 +13,7 @@ const cardStyle = {
   marginLeft: '40px',
   marginRight: '40px',
   marginBottom: '40px',
-  maxWidth: 240
+  maxWidth: 240,
 };
 
 const Home = () => (
@@ -21,7 +21,7 @@ const Home = () => (
     <Card style={cardStyle}>
       <Link to="/request-signature">
         <Button>
-          <img style={{ width: '99%' }} alt={"Request a signature"} src={requestImg} />
+          <img style={{ width: '99%' }} alt={'Request a signature'} src={requestImg} />
         </Button>
         <CardContent>
           <Typography style={{ fontSize: '18px', textAlign: 'center' }} type="headline" component="h2">
@@ -33,7 +33,7 @@ const Home = () => (
     <Card style={cardStyle}>
       <Link to="/verify-signature">
         <Button>
-          <img style={{ width: '99%' }} alt={"Verify a signature"} src={verifyImg} />
+          <img style={{ width: '99%' }} alt={'Verify a signature'} src={verifyImg} />
         </Button>
         <CardContent>
           <Typography style={{ fontSize: '18px', textAlign: 'center' }} type="headline" component="h2">

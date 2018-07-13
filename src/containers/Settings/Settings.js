@@ -38,10 +38,10 @@ class Settings extends Component {
               subheader="Choose your default mailclient here."
             />
           </CardContent>
-            <MailClientControl
-              mailClients={this.props.mailClients}
-              handleChange={this.updateMailClient}
-              selectedClient={this.props.preferredMailClient}
+          <MailClientControl
+            mailClients={this.props.mailClients}
+            handleChange={this.updateMailClient}
+            selectedClient={this.props.preferredMailClient}
             />
         </Card>
       </div>
@@ -52,6 +52,7 @@ class Settings extends Component {
 Settings.propTypes = {
   dispatch: PropTypes.func.isRequired,
   mailClients: PropTypes.objectOf(PropTypes.object),
+  preferredMailClient: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {

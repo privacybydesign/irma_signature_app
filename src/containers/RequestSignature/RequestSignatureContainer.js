@@ -55,10 +55,10 @@ class RequestSignatureContainer extends Component {
       mail: null,
     });
   }
-  
+
   render() {
     const { sigrequest, mail, completed } = this.state;
-    const inhibitNavigation = 
+    const inhibitNavigation =
       (!(!sigrequest || (Object.keys(sigrequest.attributes).length === 0 && sigrequest.sigMessage === ''))
       || !(!mail || (mail.from === '' && mail.recipient === '' && mail.subject === '' && mail.body === ''))) && !completed;
     return (
@@ -70,8 +70,14 @@ class RequestSignatureContainer extends Component {
           onComplete={this.handleComplete}
           onReset={this.onReset}
           onDiscard={this.onDiscard}
-          onChangeSigrequest={ (sigrequest) => {this.setState({sigrequest});} }
-          onChangeMail={ (mail) => {this.setState({mail});} }
+          onChangeSigrequest={
+            (data) => {
+              this.setState({sigrequest: data});
+            }}
+          onChangeMail={
+            (data) => {
+              this.setState({mail: data});
+            }}
           exportRequest={this.exportRequest}
         />
       </div>

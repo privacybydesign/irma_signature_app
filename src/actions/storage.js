@@ -1,6 +1,6 @@
-export const ADD_REQUEST     = 'add-request';
+export const ADD_REQUEST = 'add-request';
 export const REMOVE_REQUESTS = 'remove-requests';
-export const LOAD_REQUESTS   = 'load-requests';
+export const LOAD_REQUESTS = 'load-requests';
 
 export function addRequest(sigRequest, date, recipient) {
   return {

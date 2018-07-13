@@ -3,9 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // Material UI
-import { Card, CardHeader, CardContent } from '@material-ui/core';
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  Table,
+  TableBody,
+} from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
-import { Table, TableBody } from '@material-ui/core';
 
 // Icons
 import IconButton from '@material-ui/core/IconButton';
@@ -20,22 +25,28 @@ class Sent extends Component {
     super(props);
     const {requests} = props;
     this.state = {
-      checked: Object.keys(requests).reduce((res, id)=>{res[id] = false; return res;}, {}),
+      checked: Object.keys(requests).reduce((res, id) => {
+res[id] = false; return res;
+}, {}),
     };
   }
-  
+
   componentWillReceiveProps(nextProps) {
     const {checked} = this.state;
     this.setState({
-      checked: Object.keys(nextProps.requests).reduce((res, id)=>{res[id] = !!checked[id]; return res}, {}),
+      checked: Object.keys(nextProps.requests).reduce((res, id) => {
+ res[id] = Boolean(checked[id]); return res;
+}, {}),
     });
   }
 
   handleSelectAll = (event, checked) => {
     const { requests } = this.props;
-    
+
     this.setState({
-      checked: Object.keys(requests).reduce((res, id)=>{res[id] = checked; return res;}, {}),
+      checked: Object.keys(requests).reduce((res, id) => {
+res[id] = checked; return res;
+}, {}),
     });
   }
 
@@ -45,17 +56,19 @@ class Sent extends Component {
       checked: {
         ...checked,
         [id]: mark,
-      }
+      },
     });
   }
 
   handleDelete = () => {
     const { dispatch } = this.props;
     const { checked } = this.state;
-    const toBeDeleted = Object.keys(checked).filter((id)=>{return checked[id];});
+    const toBeDeleted = Object.keys(checked).filter((id) => {
+return checked[id];
+});
     dispatch(removeRequests(toBeDeleted));
   }
-  
+
   renderBody() {
     const {requests} = this.props;
     const {checked} = this.state;
@@ -64,7 +77,9 @@ class Sent extends Component {
 
   render() {
     const { checked } = this.state;
-    const numChecked = Object.keys(checked).reduce((res, id)=>{return res + (checked[id]?1:0);}, 0);
+    const numChecked = Object.keys(checked).reduce((res, id) => {
+ return res + (checked[id]?1:0);
+}, 0);
     return (
       <div>
         <Card>

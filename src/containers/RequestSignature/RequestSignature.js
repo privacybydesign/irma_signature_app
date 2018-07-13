@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Material UI
-import { Card,  CardHeader } from '@material-ui/core';
+import { Card, CardHeader } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 
 // Icons
@@ -11,13 +11,6 @@ import IconButton from '@material-ui/core/IconButton';
 import RequestSignatureStepper from './children/RequestSignatureStepper';
 
 class RequestSignature extends Component {
-  onReset = () => {
-    this.setState({
-      sigrequest: null,
-      mail: null,
-    });
-  }
-
   render() {
     return (
       <div>
@@ -48,7 +41,7 @@ class RequestSignature extends Component {
 }
 
 RequestSignature.propTypes = {
-  siqrequest: PropTypes.object,
+  sigrequest: PropTypes.object,
   mail: PropTypes.object,
   onComplete: PropTypes.func.isRequired,
   onReset: PropTypes.func.isRequired,
