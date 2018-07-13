@@ -11,7 +11,7 @@ export function setPreferredMailClient(clientName) {
 }
 
 export function detectMailClients() {
-  return dispatch =>
+  return () =>
     searchMailClientsElectron();
 }
 

@@ -52,6 +52,7 @@ class Settings extends Component {
 Settings.propTypes = {
   dispatch: PropTypes.func.isRequired,
   mailClients: PropTypes.objectOf(PropTypes.object),
+  preferredMailClient: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {

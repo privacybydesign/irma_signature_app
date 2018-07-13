@@ -3,9 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // Material UI
-import { Card, CardHeader, CardContent } from '@material-ui/core';
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  Table,
+  TableBody,
+} from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
-import { Table, TableBody } from '@material-ui/core';
 
 // Icons
 import IconButton from '@material-ui/core/IconButton';

@@ -71,12 +71,12 @@ class RequestSignatureContainer extends Component {
           onReset={this.onReset}
           onDiscard={this.onDiscard}
           onChangeSigrequest={
-            (sigrequest) => {
-              this.setState({sigrequest});
+            (data) => {
+              this.setState({sigrequest: data});
             }}
           onChangeMail={
-            (mail) => {
-              this.setState({mail});
+            (data) => {
+              this.setState({mail: data});
             }}
           exportRequest={this.exportRequest}
         />

@@ -75,7 +75,6 @@ class AttributeDropdown extends Component {
 }
 
 AttributeDropdown.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   attributeResult: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedAttributes: PropTypes.objectOf(PropTypes.object).isRequired,
   addAttribute: PropTypes.func.isRequired,

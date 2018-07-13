@@ -128,6 +128,7 @@ VerifySignature.propTypes = {
   signature: PropTypes.string.isRequired,
   signatureResult: PropTypes.object.isRequired,
   requests: PropTypes.object.isRequired,
+  verifyPending: PropTypes.bool,
 };
 
 function mapStateToProps(state) {

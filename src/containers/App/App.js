@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
@@ -135,13 +134,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showMenu: true,
       open: true,
     };
   }
 
   handleDrawerToggle = () => {
-    this.setState({ open: !this.state.open });
+    this.setState((prevState) => {
+      return { open: !prevState.open };
+    });
   };
 
   render() {
@@ -179,10 +179,6 @@ class App extends Component {
                   </div>
                 </Toolbar>
               </AppBar>
-              {/* {
-                this.state.showMenu &&
-                <SideMenu />
-              } */}
 
               <Drawer
                 variant="permanent"
@@ -218,19 +214,10 @@ class App extends Component {
 }
 
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  mailClientsDetected: PropTypes.bool.isRequired,
+  theme: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 };
-
-function mapStateToProps(state) {
-  const { mail } = state;
-
-  return {
-    mailClientsDetected: mail.mailClientsDetected,
-  };
-}
 
 export default compose(
   withStyles(styles, { withTheme: true }),
-  connect(mapStateToProps),
 )(App);

@@ -12,7 +12,7 @@ export default function mail(
   action
 ) {
   switch (action.type) {
-    case STORE_MAIL_CLIENTS:
+    case STORE_MAIL_CLIENTS: {
       const clientNames = Object.keys(action.mailClients);
       return {
         ...state,
@@ -20,6 +20,7 @@ export default function mail(
         mailClientsDetected: true,
         preferredMailClient: (state.preferredMailClient === '' && clientNames.length > 0) ? clientNames[0] : state.preferredMailClient,
       };
+    }
     case SET_PREFERRED_MAIL_CLIENT:
       return {
         ...state,

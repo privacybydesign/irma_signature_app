@@ -3,8 +3,16 @@ import PropTypes from 'prop-types';
 import flatten from 'flatten';
 
 // Material UI
-import { Card, CardHeader, CardContent } from '@material-ui/core';
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import {
+Card,
+CardHeader,
+CardContent,
+Table,
+TableBody,
+TableCell,
+TableHead,
+TableRow,
+} from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 
 // Icons
