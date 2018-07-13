@@ -2,16 +2,16 @@
   "name": "IRMA_signature_app",
   "version": "1.0.0",
   "description": "An IRMA app to create IRMA signatures",
-  "main": "main.js",
+  "main": "public/electron.js",
   "scripts": {
-    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron ./public/electron\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build-go": "go build -o go/get_all_attributes go/get_all_attributes.go && go build -o go/irma_signature_verify go/irma_signature_verify.go",
     "lint": "./node_modules/.bin/eslint -c .eslintrc src",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "electron": "electron ."
+    "electron": "electron ./public/electron"
   },
   "repository": "https://github.com/privacybydesign/irma_signature_app",
   "keywords": [
