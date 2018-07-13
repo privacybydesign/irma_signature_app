@@ -15,7 +15,8 @@ import MailClientControl from './MailClientControl';
 
 class Settings extends Component {
   updateMailClient = (value) => {
-    setPreferredMailClient(value);
+    const {dispatch} = this.props;
+    dispatch(setPreferredMailClient(value));
   }
 
   render() {

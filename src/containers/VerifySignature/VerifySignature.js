@@ -28,7 +28,7 @@ class VerifySignature extends Component {
   }
 
   handleUpload = (event => {
-    const { dispatch, verifyPending } = this.props;
+    const { dispatch, verifyPending, requests } = this.props;
 
     this.setState({
       message: '',
@@ -40,7 +40,7 @@ class VerifySignature extends Component {
     }
 
     const path = event.file.originFileObj.path;
-    dispatch(verifyStoredSignature(path));
+    dispatch(verifyStoredSignature(path, requests));
   });
 
   componentWillReceiveProps(nextProps) {
@@ -127,14 +127,16 @@ VerifySignature.propTypes = {
   dispatch: PropTypes.func.isRequired,
   signature: PropTypes.string,
   signatureResult: PropTypes.object,
+  requests: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
-  const { signatureVerify } = state;
+  const { signatureVerify, storage } = state;
   const result = signatureVerify.verifications[signatureVerify.verified];
   const signatureResult = result !== undefined ? result.signatureResult : undefined;
   return {
     signatureResult,
+    requests: storage.requests,
   };
 }
 

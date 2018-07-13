@@ -4,8 +4,6 @@ const shelljs = require('shelljs');
 const exec = BPromise.promisify(shelljs.exec);
 const { config, which } = shelljs;
 
-const { getRequest, setSignature } = require('./storage');
-
 // Hack to let this work in electron
 // https://github.com/shelljs/shelljs/wiki/Electron-compatibility
 function setNodePath() {
@@ -34,26 +32,22 @@ function verifySignatureGo(signature, request) {
   return exec(`./go/irma_signature_verify '${signature}' '${requestString}'`);
 }
 
-function verifySignatureWithNonce(nonce, signature) {
-  return getRequest(nonce)
-    .then(request => {
-      if (Object.keys(request).length === 0) {
-        // No matching request found, verifying without request
-        return verifySignatureWithoutRequestGo(signature)
-          .then(JSON.parse);
-      }
+function verifySignatureWithNonce(nonce, signature, requests) {
+  const request = requests[`request-${nonce}`]
 
-      return verifySignatureGo(signature, request.request)
-        .then(JSON.parse)
-        .then(signatureResult => (
-            Object.assign({}, signatureResult, { // TODO: no spread operator?
-              request,
-            })
-        ));
-    });
+  if (request === undefined) {
+    return verifySignatureWithoutRequestGo(signature)
+      .then(JSON.parse);
+  }
+
+  return verifySignatureGo(signature, request.request)
+    .then(JSON.parse)
+    .then(signatureResult => (Object.assign({},signatureResult,{
+      request,
+    })));
 }
 
-function verifySignature(signature) {
+function verifySignature(signature, requests) {
   const nonce = getNonceFromSignature(signature);
 
   if (nonce === undefined) {
@@ -62,8 +56,7 @@ function verifySignature(signature) {
     return;
   }
 
-  return verifySignatureWithNonce(nonce, signature)
-    .tap(signatureResult => setSignature(nonce, signature, signatureResult.proofStatus))
+  return verifySignatureWithNonce(nonce, signature, requests)
     .then(signatureResult => ({ signatureResult, signature }))
     .catch(error => ({
         signatureResult: {
@@ -76,9 +69,9 @@ function verifySignature(signature) {
 }
 
 module.exports.verifySignature = verifySignature;
-module.exports.verifyStoredSignature = function(path) {
+module.exports.verifyStoredSignature = function(path, requests) {
   return fs.readFileAsync(path, "utf8")
-    .then(signature => verifySignature(signature));
+    .then(signature => verifySignature(signature, requests));
 };
 
 setNodePath();

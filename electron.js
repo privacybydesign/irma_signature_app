@@ -4,7 +4,6 @@ const fs = require('fs');
 const isDev = require('electron-is-dev')
 
 const mail = require('./electron/mail');
-const { setRequest, setPreferredMailClient, getPreferredMailClient, getAllRequests, deleteRequests } = require('./electron/storage');
 const { verifySignature, verifyStoredSignature } = require('./electron/verify');
 const getAllAttributes = require('./electron/irma_attribute_list');
 
@@ -53,66 +52,8 @@ ipcMain.on('saveSignatureRequest-req', (event, { sigRequest, path }) => {
   }
 });
 
-ipcMain.on('setRequest-req', (event, request) => {
-  setRequest(request)
-    .then(() => getAllRequests())
-    .then(requests => {
-      const action = {
-        type: 'store-requests',
-        requests,
-      };
-      event.sender.send('response', JSON.stringify(action));
-    }); 
-});
-
-ipcMain.on('setPreferredMailClient-req', (event, clientName) => {
-  setPreferredMailClient(clientName)
-    .then(() => getPreferredMailClient())
-    .then(preferredMailClient => {
-      const action = {
-        type: 'get-preferred-mail-client',
-        preferredMailClient,
-      };
-      event.sender.send('response', JSON.stringify(action));
-    });
-});
-
-ipcMain.on('getPreferredMailClient-req', (event, arg) => {
-  getPreferredMailClient()
-    .then(preferredMailClient => {
-      const action = {
-        type: 'get-preferred-mail-client',
-        preferredMailClient,
-      };
-      event.sender.send('response', JSON.stringify(action));
-    });
-});
-
-ipcMain.on('getAllRequests-req', (event, arg) => {
-  getAllRequests()
-    .then(requests => {
-      const action = {
-        type: 'store-requests',
-        requests,
-      };
-      event.sender.send('response', JSON.stringify(action));
-    });
-});
-
-ipcMain.on('deleteRequests-req', (event, arg) => {
-  deleteRequests(arg)
-    .then(getAllRequests)
-    .then(requests => {
-      const action = {
-        type: 'store-requests',
-        requests,
-      };
-      event.sender.send('response', JSON.stringify(action));
-    });
-});
-
-ipcMain.on('verifySignature-req', (event, arg) => {
-  verifySignature(arg)
+ipcMain.on('verifySignature-req', (event, path, requests) => {
+  verifySignature(path, requests)
     .then(verifyResult => {
       const action = {
         type: 'set-verify-result',
@@ -122,8 +63,8 @@ ipcMain.on('verifySignature-req', (event, arg) => {
     });
 });
 
-ipcMain.on('verifyStoredSignature-req', (event, arg) => {
-  verifyStoredSignature(arg)
+ipcMain.on('verifyStoredSignature-req', (event, arg, requests) => {
+  verifyStoredSignature(arg, requests)
     .then(verifyResult => {
       const action = {
         type: 'set-verify-result',

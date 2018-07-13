@@ -17,10 +17,6 @@ export function saveSignatureRequestElectron(sigRequest, path) {
   ipcRenderer.send('saveSignatureRequest-req', { sigRequest, path });
 }
 
-export function setRequestElectron(sigRequest, date, recipient) {
-  ipcRenderer.send('setRequest-req', { sigRequest, date, recipient });
-}
-
 export function setPreferredMailClientElectron(clientName) {
   ipcRenderer.send('setPreferredMailClient-req', clientName);
 }
@@ -29,20 +25,16 @@ export function getPreferredMailClientElectron() {
   ipcRenderer.send('getPreferredMailClient-req');
 }
 
-export function retrieveRequestsElectron() {
-  ipcRenderer.send('getAllRequests-req');
-}
-
 export function deleteRequestsElectron(keys) {
   ipcRenderer.send('deleteRequests-req', keys);
 }
 
-export function verifySignatureElectron(signature) {
-  ipcRenderer.send('verifySignature-req', signature);
+export function verifySignatureElectron(signature, requests) {
+  ipcRenderer.send('verifySignature-req', signature, requests);
 }
 
-export function verifyStoredSignatureElectron(path) {
-  ipcRenderer.send('verifyStoredSignature-req', path);
+export function verifyStoredSignatureElectron(path, requests) {
+  ipcRenderer.send('verifyStoredSignature-req', path, requests);
 }
 
 export function getSignatureSavePath() {

@@ -16,9 +16,9 @@ import SignatureDetail from './SignatureDetail';
 class RequestDetail extends Component {
   constructor(props) {
     super(props);
-    const { request, dispatch } = this.props;
+    const { request, requests, dispatch } = this.props;
     if (request.signature !== undefined) {
-      dispatch(verifySignature(request.signature));
+      dispatch(verifySignature(request.signature, requests));
     }
   }
 
@@ -63,17 +63,19 @@ class RequestDetail extends Component {
 RequestDetail.propTypes = {
   dispatch: PropTypes.func.isRequired,
   request: PropTypes.object.isRequired,
+  requests: PropTypes.arrayOf(PropTypes.object).isRequired,
   attributeInfo: PropTypes.arrayOf(PropTypes.object).isRequired,
   verifyResult: PropTypes.object,
 };
 
 function mapStateToProps(state, ownProps) {
-  const { attributeSearch, signatureVerify } = state;
+  const { attributeSearch, signatureVerify, storage } = state;
   const verifyResult = ownProps.request.signature !== undefined
     ? signatureVerify.verifications[ownProps.request.signature] : undefined;
   return {
     attributeInfo: attributeSearch.attributeResult,
     verifyResult,
+    requests: storage.requests,
   };
 }
 

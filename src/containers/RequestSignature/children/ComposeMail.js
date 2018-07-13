@@ -62,7 +62,7 @@ class ComposeMail extends Component {
     const error = !this.validate() && validationForced;
     return (
       <div>
-        <div style={{ minWidth: '50%', maxWidth: '500px' }}>
+        <div style={{ minWidth: '100%', maxWidth: '500px' }}>
           <TextField
             required
             id="recipient"
@@ -83,7 +83,7 @@ class ComposeMail extends Component {
             fullWidth
             margin="normal"
           />
-          <TextField style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px', width: 'calc(100% - 34px)' }}
+          <TextField className="tfLabel" style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', marginTop: '30px', padding: '5px 12px'}}
             InputProps={{
               disableUnderline: true,
             }}
@@ -101,26 +101,15 @@ class ComposeMail extends Component {
             fullWidth
             margin="normal"
           />
-           <TextField
-            required
-            id="from"
-            value={mail.from}
-            onChange={this.handleTextFieldChange}
-            
-            label={error ? "This field is required" : "Return signed message to:"}
-            placeholder={"Email address where you want to receive the signature"}
-            error={error}
-            fullWidth
-            margin="normal"
-          />
+          
           <Typography style={{ paddingTop: '20px', paddingBottom: '20px', fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)' }}>You can change your preferred mail client in the settings.</Typography>
           {(mailClientAvailable) ? '' : <div style={{ color: 'red' }}><br />You do not have any mail client installed, please install a mail client first.</div>}
         </div>
-        <Button size="small" variant="raised" style={{ marginLeft: '0px', marginRight: '10px' }} onClick={this.props.onCancel} >
+        <Button size="small" variant="raised" style={{ marginLeft: "2px", marginRight: '10px' }} onClick={this.props.onCancel} >
           <Back style={{ fontSize: "20", marginLeft: "2", marginRight: "10" }} />
           Back
         </Button>
-        <Button disabled={!mailClientAvailable} variant="raised" color="primary" style={{ float: "right" }} onClick={this.handleSend} >
+        <Button disabled={!mailClientAvailable} variant="raised" color="primary" style={{ float: "right", marginRight: '2px' }} onClick={this.handleSend} >
           Send by e-mail
           <Send style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
         </Button>

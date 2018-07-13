@@ -10,7 +10,7 @@ import { Table, TableBody } from '@material-ui/core';
 // Icons
 import IconButton from '@material-ui/core/IconButton';
 
-import { deleteRequestsElectron } from './../../actions/electron';
+import { removeRequests } from './../../actions';
 import EnhancedTableHead from './children/EnhancedTableHead.js';
 import EnhancedTableBody from './children/EnhancedTableBody.js';
 import EnhancedTableToolbar from './children/EnhancedTableToolbar.js';
@@ -50,8 +50,10 @@ class Sent extends Component {
   }
 
   handleDelete = () => {
-    const toBeDeleted = this.state.checked;
-    deleteRequestsElectron(toBeDeleted);
+    const { dispatch } = this.props;
+    const { checked } = this.state;
+    const toBeDeleted = Object.keys(checked).filter((id)=>{return checked[id];});
+    dispatch(removeRequests(toBeDeleted));
   }
   
   renderBody() {

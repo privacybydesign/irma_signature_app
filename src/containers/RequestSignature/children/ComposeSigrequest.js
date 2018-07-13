@@ -18,11 +18,20 @@ class ComposeSigrequest extends Component {
     const initialAttributes = props.initialSigrequest ? props.initialSigrequest.attributes : null;
     const initialMessage = props.initialSigrequest ? props.initialSigrequest.sigMessage : null;
     this.state = {
+      mail: props.initialMail || {
+        from: '',
+        recipient: '',
+        subject: '',
+        body: '',
+      },
       selectedAttributes: initialAttributes || {},
       sigMessage: initialMessage || '',
       validationForced: false,
     };
   }
+
+
+
 
   addAttribute = (id, value) => {
     this.setState((prevState) => {
@@ -91,13 +100,25 @@ class ComposeSigrequest extends Component {
     });
   }
 
+  handleTextFieldChange = (event) => {
+    const id = event.target.id;
+    const value = event.target.value;
+    this.setState((prevState) => ({
+      mail: {
+        ...prevState.mail,
+        [id]: value,
+      },
+    }));
+  }
+
   render() {
-    const { selectedAttributes, sigMessage, validationForced } = this.state;
+    const { mail, selectedAttributes, sigMessage, validationForced } = this.state;
+    const error = !this.validate() && validationForced;
     const errorMessage = !this.validateMessage() && validationForced;
     const errorAttributes = !this.validateAttributes() && validationForced;
     return (
-      <div>
-        <TextField style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px', width: 'calc(100% - 34px)' }}
+      <div style={{ minWidth: '100%', maxWidth: '500px' }}>
+      <TextField className="tfLabel" style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px' }}
           InputProps={{
             disableUnderline: true,
           }}
@@ -109,7 +130,7 @@ class ComposeSigrequest extends Component {
           value={sigMessage}
           multiline
           rows="4"
-          rowsMax="10"
+          rowsMax="16"
           required={true}
           fullWidth
           margin="normal"
@@ -121,16 +142,28 @@ class ComposeSigrequest extends Component {
           addAttribute={this.addAttribute}
           removeAttribute={this.removeAttribute}
         />
+          <TextField
+            required
+            id="from"
+            value={mail.from}
+            onChange={this.handleTextFieldChange}
+            
+            label={error ? "This field is required" : "Return signed message to:"}
+            placeholder={"Email address where you want to receive the signed message."}
+            error={error}
+            fullWidth
+            margin="normal"
+          />
         <Typography style={{ paddingTop: '20px', paddingBottom: '20px', fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)' }}>You can export this request and share it manually or proceed to share it by email.</Typography>
-        <Button size="small" style={{ float: "left", marginRight: "20px" }} variant="raised" onClick={this.props.onDiscard} >
+        <Button size="small" style={{ float: "left", marginLeft: "2px",  marginRight: "20px" }} variant="raised" onClick={this.props.onDiscard} >
           Discard request
             <Delete style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
         </Button>
-        <Button size="small" style={{ fontSize: "20" }} variant="raised" onClick={this.forceValidate(this.props.exportRequest)} >
+        <Button size="small" style={{ fontSize: "20", marginLeft: "2px", }} variant="raised" onClick={this.forceValidate(this.props.exportRequest)} >
           Export request
             <Save style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
         </Button>
-        <Button size="small" style={{ float: "right" }} variant="raised" color="primary" onClick={this.forceValidate(this.props.onComplete)} >
+        <Button size="small" style={{ float: "right", marginRight: '2px' }} variant="raised" color="primary" onClick={this.forceValidate(this.props.onComplete)} >
           Next
             <Next style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
         </Button>
