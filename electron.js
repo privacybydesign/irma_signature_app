@@ -5,7 +5,7 @@ const isDev = require('electron-is-dev')
 
 const mail = require('./electron/mail');
 const { setRequest, setPreferredMailClient, getPreferredMailClient, getAllRequests, deleteRequests } = require('./electron/storage');
-const { verifySignature } = require('./electron/verify');
+const { verifySignature, verifyStoredSignature } = require('./electron/verify');
 const getAllAttributes = require('./electron/irma_attribute_list');
 
 const app = electron.app;
@@ -113,6 +113,17 @@ ipcMain.on('deleteRequests-req', (event, arg) => {
 
 ipcMain.on('verifySignature-req', (event, arg) => {
   verifySignature(arg)
+    .then(verifyResult => {
+      const action = {
+        type: 'set-verify-result',
+        verifyResult,
+      };
+      event.sender.send('response', JSON.stringify(action));
+    });
+});
+
+ipcMain.on('verifyStoredSignature-req', (event, arg) => {
+  verifyStoredSignature(arg)
     .then(verifyResult => {
       const action = {
         type: 'set-verify-result',

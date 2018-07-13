@@ -37,8 +37,12 @@ export function deleteRequestsElectron(keys) {
   ipcRenderer.send('deleteRequests-req', keys);
 }
 
-export function verifySignatureElectron(path) {
-  ipcRenderer.send('verifySignature-req', path);
+export function verifySignatureElectron(signature) {
+  ipcRenderer.send('verifySignature-req', signature);
+}
+
+export function verifyStoredSignatureElectron(path) {
+  ipcRenderer.send('verifyStoredSignature-req', path);
 }
 
 export function getSignatureSavePath() {

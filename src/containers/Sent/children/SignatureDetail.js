@@ -1,0 +1,22 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import {
+  TableCell,
+  TableRow,
+  TableBody,
+  Table,
+  Typography,
+} from '@material-ui/core';
+
+class SignatureDetail extends Component {
+  render() {
+    return <div>{JSON.stringify(this.props.verifyResult)}</div>;
+  }
+}
+
+SignatureDetail.propTypes = {
+  request: PropTypes.object.isRequired,
+  verifyResult: PropTypes.object.isRequired,
+};
+
+export default SignatureDetail;

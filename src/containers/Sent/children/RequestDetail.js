@@ -6,50 +6,74 @@ import {
   TableRow,
   TableBody,
   Table,
+  Typography,
 } from '@material-ui/core';
 
 import AttributeChip from '../../AttributeChip';
+import { verifySignature } from './../../../actions';
+import SignatureDetail from './SignatureDetail';
 
 class RequestDetail extends Component {
+  constructor(props) {
+    super(props);
+    const { request, dispatch } = this.props;
+    if (request.signature !== undefined) {
+      dispatch(verifySignature(request.signature));
+    }
+  }
+
   render() {
-    const {request, attributeInfo} = this.props;
+    const { request, attributeInfo, verifyResult } = this.props;
     if (attributeInfo.length === 0)
       return null;
 
-    const labelColor = '#757575';
-    return (
-      <Table>
+    let signatureDetail;
+    if (request.signature !== undefined && verifyResult !== undefined && verifyResult.signature !== "")
+      signatureDetail = <SignatureDetail request={request} verifyResult={verifyResult} />
+
+    const cellStyle =  { color: '#757575' };
+    return [
+      <Typography key="title" variant="title" style={{ marginTop: 20 }}>
+        Request Details
+      </Typography>,
+      <Table key="table">
         <TableBody>
           <TableRow>
-            <TableCell style={{ color: labelColor, width: 150, }}>Message</TableCell>
+            <TableCell style={{ ...cellStyle, width: 150, }}>Message</TableCell>
             <TableCell>{request.request.message}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell style={{ color: labelColor }}>Date</TableCell>
+            <TableCell style={cellStyle}>Date</TableCell>
             <TableCell>{request.date}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell style={{ color: labelColor }}>Attributes</TableCell>
+            <TableCell style={cellStyle}>Attributes</TableCell>
             <TableCell>{request.request.content.map(el =>
               <AttributeChip key={el.attributes[0]} attribute={attributeInfo.find(i =>  i.id === el.attributes[0])} />
             )}
             </TableCell>
           </TableRow>
         </TableBody>
-      </Table>
-    )
+      </Table>,
+      signatureDetail !== undefined ? signatureDetail : null,
+    ];
   }
 }
 
 RequestDetail.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   request: PropTypes.object.isRequired,
   attributeInfo: PropTypes.arrayOf(PropTypes.object).isRequired,
+  verifyResult: PropTypes.object,
 };
 
-function mapStateToProps(state) {
-  const { attributeSearch } = state;
+function mapStateToProps(state, ownProps) {
+  const { attributeSearch, signatureVerify } = state;
+  const verifyResult = ownProps.request.signature !== undefined
+    ? signatureVerify.verifications[ownProps.request.signature] : undefined;
   return {
     attributeInfo: attributeSearch.attributeResult,
+    verifyResult,
   };
 }
 

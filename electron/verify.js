@@ -29,7 +29,7 @@ function verifySignatureWithoutRequestGo(signature) {
 }
 
 function verifySignatureGo(signature, request) {
-  requestString = JSON.stringify(request);
+  const requestString = JSON.stringify(request);
   console.log('Calling: ', `./go/irma_signature_verify '${signature}' '${requestString}'`);
   return exec(`./go/irma_signature_verify '${signature}' '${requestString}'`);
 }
@@ -53,21 +53,18 @@ function verifySignatureWithNonce(nonce, signature) {
     });
 }
 
-module.exports.verifySignature = function verifySignature(path) {
-  return fs.readFileAsync(path, "utf8")
-    .then(signature => {
-      const nonce = getNonceFromSignature(signature);
+function verifySignature(signature) {
+  const nonce = getNonceFromSignature(signature);
 
-      if (nonce === undefined) {
-        // Safetycheck so that we're sure that signature is valid json
-        // (since we're passing it to exec..)
-        return;
-      }
+  if (nonce === undefined) {
+    // Safetycheck so that we're sure that signature is valid json
+    // (since we're passing it to exec..)
+    return;
+  }
 
-      return verifySignatureWithNonce(nonce, signature)
-        .tap(signatureResult => setSignature(nonce, signature, signatureResult.proofStatus))
-        .then(signatureResult => ({ signatureResult, signature }))
-    })
+  return verifySignatureWithNonce(nonce, signature)
+    .tap(signatureResult => setSignature(nonce, signature, signatureResult.proofStatus))
+    .then(signatureResult => ({ signatureResult, signature }))
     .catch(error => ({
         signatureResult: {
           proofStatus: 'INVALID_SYNTAX',
@@ -77,5 +74,11 @@ module.exports.verifySignature = function verifySignature(path) {
       })
     );
 }
+
+module.exports.verifySignature = verifySignature;
+module.exports.verifyStoredSignature = function(path) {
+  return fs.readFileAsync(path, "utf8")
+    .then(signature => verifySignature(signature));
+};
 
 setNodePath();
