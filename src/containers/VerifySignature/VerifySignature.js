@@ -35,9 +35,9 @@ class VerifySignature extends Component {
       verifyDone: false,
     });
 
-    if (verifyPending) {
+    if (verifyPending)
       return;
-    }
+
 
     const path = event.file.originFileObj.path;
     dispatch(verifySignature(path, requests));
@@ -51,7 +51,7 @@ class VerifySignature extends Component {
     }
 
     try {
-      const { message } = JSON.parse(signature)
+      const { message } = JSON.parse(signature);
       this.setState({
         message,
         verifyDone: true,

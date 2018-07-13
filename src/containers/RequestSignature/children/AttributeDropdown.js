@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Select from 'react-select';
-import Chip  from '@material-ui/core/Chip';
-import Avatar  from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
+import Avatar from '@material-ui/core/Avatar';
 
 import 'react-select/dist/react-select.css';
 
@@ -33,15 +33,15 @@ class AttributeDropdown extends Component {
     const { attributeResult } = this.props;
     return attributeResult.map(el => ({
       value: el.id,
-      label: `${el.name}   -   ${el.credentialName}`
+      label: `${el.name}   -   ${el.credentialName}`,
     }));
   }
-  
+
   renderChips() {
     const { selectedAttributes } = this.props;
     return Object.keys(selectedAttributes).map((key) => {
       const value = selectedAttributes[key];
-      const logoUrl = value.logo.substr(3); //Removes the leading go/
+      const logoUrl = value.logo.substr(3); // Removes the leading go/
       return (
         <Chip
           label={`${value.name} - ${value.credentialName}`}
@@ -49,7 +49,7 @@ class AttributeDropdown extends Component {
           key={key}
           avatar={logoUrl ? <Avatar src={logoUrl} /> : null}
         />
-      )
+      );
     });
   }
 
@@ -57,7 +57,7 @@ class AttributeDropdown extends Component {
     return (
       <div>
         { this.renderChips() }
-        <Select 
+        <Select
           multiple
           id="state-select"
           autoFocus

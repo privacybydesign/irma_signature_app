@@ -36,9 +36,9 @@ class RequestSignatureStepper extends Component {
 
   handlePrev = () => {
     const { stepIndex } = this.state;
-    if (stepIndex > 0) {
+    if (stepIndex > 0)
       this.setState({ stepIndex: stepIndex - 1 });
-    }
+
   }
 
   handleReset = () => {
@@ -82,14 +82,14 @@ class RequestSignatureStepper extends Component {
             <StepLabel>Send mail</StepLabel>
             <StepContent>
               <Typography style={{ paddingTop: '20px', paddingBottom: '20px', fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)' }}>Your email application has opened with an email. The signature request is included as an attachment. Send the mail to share the signature request.<br /></Typography>
-              <Button size="small" variant="raised" style={{  marginLeft: "2px", marginRight: '10px' }} onClick={this.handlePrev} >
-                <Back style={{ fontSize: "20", marginLeft: "2", marginRight: "10" }} />
+              <Button size="small" variant="raised" style={{ marginLeft: '2px', marginRight: '10px' }} onClick={this.handlePrev} >
+                <Back style={{ fontSize: '20', marginLeft: '2', marginRight: '10' }} />
                 Back
               </Button>
               <Link to="/sent">
-                <Button size="small" variant="raised" color="primary" style={{ float: "right", marginRight: '2px'  }} onClick={this.handleReset}>
+                <Button size="small" variant="raised" color="primary" style={{ float: 'right', marginRight: '2px' }} onClick={this.handleReset}>
                   Done
-                  <Done style={{ fontSize: "20", marginLeft: "10", marginRight: "2" }} />
+                  <Done style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
                 </Button>
               </Link>
             </StepContent>

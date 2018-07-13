@@ -37,6 +37,6 @@ MailClientControl.propTypes = {
   handleChange: PropTypes.func.isRequired,
   mailClients: PropTypes.objectOf(PropTypes.object),
   selectedClient: PropTypes.string.isRequired,
-}
+};
 
 export default MailClientControl;

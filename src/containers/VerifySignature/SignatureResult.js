@@ -18,15 +18,15 @@ class SignatureResult extends Component {
   getTitle = () => {
     const { proofStatus, matched, signatureRequest } = this.props;
 
-    if (proofStatus !== 'VALID') {
+    if (proofStatus !== 'VALID')
       return 'This signature is NOT valid!';
-    }
 
-    if (matched) {
+
+    if (matched)
       return `The signature matches your request from ${signatureRequest.date}. All requested signatures have been returned and are valid. You can check the status in the request history.`;
-    }
 
-    return 'This IRMA signature is valid, but doesn\'t match any of your previous requests. You can view the message and included attributes below:'
+
+    return 'This IRMA signature is valid, but doesn\'t match any of your previous requests. You can view the message and included attributes below:';
   }
 
   getAvatar = () => {
@@ -57,18 +57,18 @@ class SignatureResult extends Component {
   render() {
     const { message } = this.props;
     return (
-        <Card style={{ marginTop: '30px' }}>
-          <CardHeader
-            action={
-              <IconButton>
-                <CloseIcon />
-              </IconButton>
+      <Card style={{ marginTop: '30px' }}>
+        <CardHeader
+          action={
+            <IconButton>
+              <CloseIcon />
+            </IconButton>
             }
-            avatar={this.getAvatar()}
-            title={this.getTitle()}
-            subheader={`Message: ${message}`}
+          avatar={this.getAvatar()}
+          title={this.getTitle()}
+          subheader={`Message: ${message}`}
           />
-        </Card>
+      </Card>
     );
   }
 }

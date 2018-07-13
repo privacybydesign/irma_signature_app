@@ -26,20 +26,20 @@ export default function storage(
         requests: {
           ...requests,
           [`request-${action.sigRequest.nonce}`]: newRequest,
-        }
-      }
+        },
+      };
     }
     case REMOVE_REQUESTS: {
       const {requests} = state;
       return {
         ...state,
-        requests: Object.keys(requests).filter((id)=>{
+        requests: Object.keys(requests).filter((id) => {
             return action.ids.indexOf(id) === -1;
-          }).map((res,id)=>{
+          }).map((res, id) => {
             res[id] = requests[id];
             return res;
           }, {}),
-      }
+      };
     }
     case SET_VERIFY_RESULT: {
       if (action.verifyResult.signatureResult.request !== undefined) {
@@ -52,17 +52,17 @@ export default function storage(
               ...action.verifyResult.signatureResult.request,
               state: action.verifyResult.signatureResult.proofStatus,
               signature: action.verifyResult.signature,
-            }
-          }
+            },
+          },
         };
-      } else {
-        return state;
       }
+        return state;
+
     }
     case LOAD_REQUESTS: {
       return {
         ...state,
-        requests: action.requests
+        requests: action.requests,
       };
     }
     default:

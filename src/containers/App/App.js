@@ -17,7 +17,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import Typography from '@material-ui/core/Typography';
 
 import './App.css';
-import logoImg from '../../static/images/logo.png'; //relative path to image
+import logoImg from '../../static/images/logo.png'; // relative path to image
 
 import SideMenu from '../../containers/SideMenu/SideMenu';
 import Home from '../../containers/Home/Home';
@@ -38,15 +38,12 @@ const IrmaTheme = createMuiTheme({
     primary: {
       // light: will be calculated from palette.primary.main,
       main: '#16a085',
-      error: '#E91E63'// dark: will be calculated from palette.primary.main,
+      error: '#E91E63', // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contast with palette.primary.main
     },
     type: 'light', // Switching the dark mode on is a single property value change.
   },
 });
-
-
-
 
 
 const drawerWidth = 250;
@@ -105,7 +102,7 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    overflowX:'hidden',
+    overflowX: 'hidden',
   },
   drawerPaperClose: {
     width: 60,
@@ -156,7 +153,8 @@ class App extends Component {
             <div className={classes.appFrame}>
               <AppBar style={{ position: 'fixed', backgroundColor: '#074487' }} className={classes.appBar}>
                 <Toolbar >
-                  <IconButton style={{ paddingTop: '7px' }}
+                  <IconButton
+                    style={{ paddingTop: '7px' }}
                     color="inherit"
                     aria-label="open drawer"
                     onClick={this.handleDrawerToggle}
@@ -165,7 +163,7 @@ class App extends Component {
                     <MenuIcon />
                   </IconButton >
                   <Link to="/" style={{ color: 'inherit' }}>
-                    <img style={{ width: '56px', padding: '4px', marginTop: '2px' }} alt={"logo"} src={logoImg} />
+                    <img style={{ width: '56px', padding: '4px', marginTop: '2px' }} alt={'logo'} src={logoImg} />
                   </Link>
                   <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
                     <Typography type="title" color="inherit" noWrap style={{ fontSize: '16px' }}>
@@ -198,17 +196,17 @@ class App extends Component {
                     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                   </IconButton>
                 </div>
-                <SideMenu/>
+                <SideMenu />
               </Drawer>
               <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <div className={classes.main}>
-                   <Route exact path="/" component={Home} />
-                <Route path="/request-signature" component={RequestSignature} />
-                <Route path="/verify-signature" component={VerifySignature} />
-                <Route path="/sent" component={Sent} />
-                <Route path="/settings" component={Settings} />
-                <Route path="/about" component={About} /> 
+                  <Route exact path="/" component={Home} />
+                  <Route path="/request-signature" component={RequestSignature} />
+                  <Route path="/verify-signature" component={VerifySignature} />
+                  <Route path="/sent" component={Sent} />
+                  <Route path="/settings" component={Settings} />
+                  <Route path="/about" component={About} />
                 </div>
               </main>
             </div>

@@ -14,12 +14,12 @@ import Error from '@material-ui/icons/Error';
 import Warning from '@material-ui/icons/Warning';
 
 function getIconByProofStatus(proofStatus) {
-  switch(proofStatus) {
-    case  'PRESENT':
+  switch (proofStatus) {
+    case 'PRESENT':
       return <CheckCircle style={{color: green[500] }} />;
-    case  'MISSING': // TODO other icon for missing attributes?
+    case 'MISSING': // TODO other icon for missing attributes?
       return <Error style={{color: red[500] }} />;
-    case  'INVALID_VALUE':
+    case 'INVALID_VALUE':
       return <Error style={{color: red[500] }} />;
     default: // We consider everything else as 'extra, don't know what to do with it'
       return <Warning style={{color: yellow[500] }} />;
@@ -31,9 +31,9 @@ class AttributeResultTable extends Component {
   genUnmatchedTableData = () => {
     const credentialList = this.props.attributes;
 
-    if (credentialList === null) {
+    if (credentialList === null)
       return [];
-    }
+
 
     // TODO: make this less complicated
     return flatten(
@@ -62,9 +62,9 @@ class AttributeResultTable extends Component {
   genTableBody = () => {
     const { matched } = this.props;
 
-    if (this.props.attributes === undefined) {
+    if (this.props.attributes === undefined)
       return <TableBody><TableRow /></TableBody>;
-    }
+
 
     const tableData = (matched ? this.genMatchedTableData() : this.genUnmatchedTableData());
 
@@ -73,9 +73,9 @@ class AttributeResultTable extends Component {
         {tableData
           .map(el => (
             <TableRow key={el.key} >
-                <TableCell>{el.name}</TableCell>
-                <TableCell>{el.value}</TableCell>
-                <TableCell>{el.valid}</TableCell>
+              <TableCell>{el.name}</TableCell>
+              <TableCell>{el.value}</TableCell>
+              <TableCell>{el.valid}</TableCell>
             </TableRow>
           ))
         }

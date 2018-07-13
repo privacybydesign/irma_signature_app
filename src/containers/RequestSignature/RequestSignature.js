@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Material UI
-import { Card,  CardHeader } from '@material-ui/core';
+import { Card, CardHeader } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 
 // Icons
