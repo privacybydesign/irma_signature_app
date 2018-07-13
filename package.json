@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "An IRMA app to create IRMA signatures",
   "main": "public/electron.js",
+  "build": {
+    "appId": "foundation.privacybydesign.irma_signature_app",
+    "extraResources": [
+      "go"
+    ]
+  },
+  "homepage": "./",
   "scripts": {
     "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron ./public/electron\"",
     "start": "react-scripts start",
@@ -24,6 +31,7 @@
     "@material-ui/core": "1.3.1",
     "@material-ui/icons": "1.1.0",
     "electron": "~1.8.2",
+    "electron-builder": "^20.20.4",
     "electron-devtools-installer": "^2.2.4",
     "electron-react-devtools": "^0.5.3",
     "eslint": "5.0.1",
