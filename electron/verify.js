@@ -27,7 +27,7 @@ function verifySignatureWithoutRequestGo(signature) {
 }
 
 function verifySignatureGo(signature, request) {
-  requestString = JSON.stringify(request);
+  const requestString = JSON.stringify(request);
   console.log('Calling: ', `./go/irma_signature_verify '${signature}' '${requestString}'`);
   return exec(`./go/irma_signature_verify '${signature}' '${requestString}'`);
 }
@@ -55,7 +55,7 @@ module.exports.verifySignature = function verifySignature(path, requests) {
       if (nonce === undefined) {
         // Safetycheck so that we're sure that signature is valid json
         // (since we're passing it to exec..)
-        return;
+        return {};
       }
 
       return verifySignatureWithNonce(nonce, signature, requests)

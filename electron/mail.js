@@ -148,7 +148,7 @@ module.exports.composeMail = function composeMail(sigRequest, mailClientName, ma
     return composeMailOutlook(path, mailClientPath, mail);
    else if (mailClientName === 'Mail.app')
     return composeMailAppleMail(path, mailClientPath, mail);
-
+  return {};
 };
 
 module.exports.searchMailClients = function searchMailClients() {

@@ -18,6 +18,9 @@ module.exports = {
   plugins: ['react', 'babel'],
   rules: {
     // Handpicked from list at: https://eslint.org/docs/rules/
+    
+    // Go against recommended for console
+    'no-console': 'off',
 
     // Possible errors
     'no-template-curly-in-string': 'error',

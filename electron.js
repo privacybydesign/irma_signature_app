@@ -20,7 +20,7 @@ app.on('ready', () => {
   }
 });
 
-ipcMain.on('searchMailClients-req', (event, arg) => {
+ipcMain.on('searchMailClients-req', (event) => {
   mail.searchMailClients()
     .then(mailClients => {
       const action = {
@@ -31,7 +31,7 @@ ipcMain.on('searchMailClients-req', (event, arg) => {
     });
 });
 
-ipcMain.on('searchAttributes-req', (event, arg) => {
+ipcMain.on('searchAttributes-req', (event) => {
   getAllAttributes()
     .then(attributeResult => {
       const action = {
