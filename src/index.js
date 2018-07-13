@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import './index.css';
 import App from './containers/App/App';
 
-import { searchAttributes, detectMailClients, getPreferredMailClient } from './actions';
+import { searchAttributes, detectMailClients } from './actions';
 
 import configureStore from './configureStore';
 
@@ -22,4 +22,3 @@ ReactDOM.render(
 
 store.dispatch(searchAttributes());
 store.dispatch(detectMailClients());
-store.dispatch(getPreferredMailClient());

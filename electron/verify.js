@@ -4,8 +4,6 @@ const shelljs = require('shelljs');
 const exec = BPromise.promisify(shelljs.exec);
 const { config, which } = shelljs;
 
-const { getRequest, setSignature } = require('./storage');
-
 // Hack to let this work in electron
 // https://github.com/shelljs/shelljs/wiki/Electron-compatibility
 function setNodePath() {

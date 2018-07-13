@@ -2,6 +2,7 @@ import {
   ADD_REQUEST,
   REMOVE_REQUESTS,
   SET_VERIFY_RESULT,
+  LOAD_REQUESTS,
 } from '../actions';
 
 export default function storage(
@@ -57,6 +58,12 @@ export default function storage(
       } else {
         return state;
       }
+    }
+    case LOAD_REQUESTS: {
+      return {
+        ...state,
+        requests: action.requests
+      };
     }
     default:
       return state;
