@@ -30,16 +30,10 @@ Initialize and update `irma_configuration` submodule:
     git submodule update
 ```
 
-Start the app backend:
+Start the app :
 
 ```
-    yarn start
-```
-
-Start the electron frontend:
-
-```
-    yarn run electron
+    yarn run electron-dev
 ```
 
 Currently the following mail clients are supported / autodetected / tested:
