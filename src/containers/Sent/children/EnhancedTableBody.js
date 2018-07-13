@@ -35,7 +35,7 @@ class EnhancedTableBody extends Component {
   }
 
   onClick = () => {
-    this.setState({expanded: !this.state.expanded});
+    this.setState((oldstate) => ({expanded: !oldstate.expanded}));
   }
 
   render() {
@@ -46,16 +46,16 @@ class EnhancedTableBody extends Component {
         <TableCell padding="checkbox">
           <Checkbox checked={checked} onChange={onCheckbox} />
         </TableCell>
-        <TableCell onClick={this.onClick} style={{ paddingLeft:'0', textAlign: 'left', color: '#757575' }}>{request.recipient}</TableCell>
-        <TableCell onClick={this.onClick} style={{ textAlign: 'left' }}>{request.request.message.substring(0,20)}</TableCell>
+        <TableCell onClick={this.onClick} style={{ paddingLeft: '0', textAlign: 'left', color: '#757575' }}>{request.recipient}</TableCell>
+        <TableCell onClick={this.onClick} style={{ textAlign: 'left' }}>{request.request.message.substring(0, 20)}</TableCell>
         <TableCell onClick={this.onClick} style={{ textAlign: 'left' }} numeric>{request.date}</TableCell>
         <TableCell onClick={this.onClick} style={{ textAlign: 'center' }} numeric>{getIconByState(request.state)}</TableCell>
       </TableRow>,
       !this.state.expanded ? null : <TableRow key="detail">
-        <TableCell/>
+        <TableCell />
         <TableCell colSpan={4}><RequestDetail request={request} /></TableCell>
-      </TableRow>
-    ]
+      </TableRow>,
+    ];
   }
 }
 

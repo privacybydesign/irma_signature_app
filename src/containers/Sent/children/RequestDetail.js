@@ -17,9 +17,9 @@ class RequestDetail extends Component {
   constructor(props) {
     super(props);
     const { request, requests, dispatch } = this.props;
-    if (request.signature !== undefined) {
+    if (request.signature !== undefined)
       dispatch(verifySignature(request.signature, requests));
-    }
+
   }
 
   render() {
@@ -28,10 +28,10 @@ class RequestDetail extends Component {
       return null;
 
     let signatureDetail;
-    if (request.signature !== undefined && verifyResult !== undefined && verifyResult.signature !== "")
-      signatureDetail = <SignatureDetail request={request} verifyResult={verifyResult} />
+    if (request.signature !== undefined && verifyResult !== undefined && verifyResult.signature !== '')
+      signatureDetail = <SignatureDetail request={request} verifyResult={verifyResult} />;
 
-    const cellStyle =  { color: '#757575' };
+    const cellStyle = { color: '#757575' };
     return [
       <Typography key="title" variant="title" style={{ marginTop: 20 }}>
         Request Details
@@ -39,7 +39,7 @@ class RequestDetail extends Component {
       <Table key="table">
         <TableBody>
           <TableRow>
-            <TableCell style={{ ...cellStyle, width: 150, }}>Message</TableCell>
+            <TableCell style={{ ...cellStyle, width: 150 }}>Message</TableCell>
             <TableCell>{request.request.message}</TableCell>
           </TableRow>
           <TableRow>
@@ -49,7 +49,7 @@ class RequestDetail extends Component {
           <TableRow>
             <TableCell style={cellStyle}>Attributes</TableCell>
             <TableCell>{request.request.content.map(el =>
-              <AttributeChip key={el.attributes[0]} attribute={attributeInfo.find(i =>  i.id === el.attributes[0])} />
+              <AttributeChip key={el.attributes[0]} attribute={attributeInfo.find(i => i.id === el.attributes[0])} />
             )}
             </TableCell>
           </TableRow>

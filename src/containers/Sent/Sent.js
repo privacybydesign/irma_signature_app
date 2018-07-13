@@ -72,7 +72,7 @@ return checked[id];
   renderBody() {
     const {requests} = this.props;
     const {checked} = this.state;
-    return Object.keys(requests).map(id => <EnhancedTableBody key={id} request={requests[id]} checked={checked[id]} onCheckbox={this.handleCheckbox(id)}/>);
+    return Object.keys(requests).map(id => <EnhancedTableBody key={id} request={requests[id]} checked={checked[id]} onCheckbox={this.handleCheckbox(id)} />);
   }
 
   render() {
