@@ -42,6 +42,18 @@ const IrmaTheme = createMuiTheme({
     },
     type: 'light', // Switching the dark mode on is a single property value change.
   },
+  overrides: {
+    MuiCard: {
+      root: {
+        overflow: 'visible',
+      },
+    },
+    MuiCollapse: {
+      container: {
+        overflow: 'visible',
+      },
+    },
+  },
 });
 
 
