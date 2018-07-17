@@ -74,6 +74,7 @@ class VerifySignature extends Component {
     try {
       message = JSON.parse(signature).message;
     } catch (e) {
+      // Ignore errors
     }
     return (
       showVerifyResult ? (
