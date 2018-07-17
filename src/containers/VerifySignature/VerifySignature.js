@@ -12,8 +12,8 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 
 import { verifySignature, closeVerifyResult } from './../../actions';
-import SignatureResult from './SignatureResult';
-import AttributeResultTable from './AttributeResultTable';
+import SignatureResult from './children/SignatureResult';
+import AttributeResultTable from './children/AttributeResultTable';
 
 // CSS
 import 'antd/lib/upload/style/css';
