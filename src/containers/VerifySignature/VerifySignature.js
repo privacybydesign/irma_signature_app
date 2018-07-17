@@ -28,12 +28,12 @@ class VerifySignature extends Component {
     const path = event.file.originFileObj.path;
     dispatch(verifySignature(path, requests));
   });
-  
+
   closeResult = () => {
     const { dispatch } = this.props;
     dispatch(closeVerifyResult());
   }
-  
+
   renderUploader() {
     return (
       <Card>
@@ -67,7 +67,7 @@ class VerifySignature extends Component {
       </Card>
     );
   }
-  
+
   renderDone() {
     const { signatureResult, showVerifyResult, signature } = this.props;
     let message = '';
