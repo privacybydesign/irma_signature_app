@@ -2,7 +2,8 @@
 // Util functions to send an e-mail via detected mail clients
 // Works only on desktop apps!
 
-const { config, exec, tempdir, which } = require('shelljs');
+const { tempdir } = require('shelljs');
+const { exec, execSync } = require('child_process');
 const { platform } = require('process');
 const fs = require('fs');
 
@@ -21,13 +22,6 @@ const mailClients = {
   ],
 };
 
-// Hack to let this work in electron
-// https://github.com/shelljs/shelljs/wiki/Electron-compatibility
-function setNodePath() {
-  const nodeLocation = which('node').stdout;
-  config.execPath = nodeLocation;
-}
-
 function detectOs() {
   return platform;
 }
@@ -40,7 +34,7 @@ function detectMailClientsLinux(candidates) {
     // find entries are separated by '\n',
     // we only look at the first one which is (hopefully) the correct one
     const findResult =
-      exec(`find /bin /usr/bin /usr/local/bin -executable -name '${name}' \\( -type f -or -type l \\)`).split('\n')[0];
+      execSync(`find /bin /usr/bin /usr/local/bin -executable -name '${name}' \\( -type f -or -type l \\)`, {encoding: 'ascii'}).split('\n')[0];
 
     if (findResult !== '')
       result[name] = { path: findResult, description };
@@ -55,12 +49,12 @@ function detectMailClientsWindows(candidates) {
     const name = el.name;
     const description = el.description;
     let findResult =
-      exec(`dir /s/b "c:\\Program Files" |findstr /I ${name}.exe`).split('\n')[0];
+      execSync(`dir /s/b "c:\\Program Files" |findstr /I ${name}.exe`, {encoding: 'ascii'}).split('\n')[0];
 
     // Try again in 32bit dir if result is empty
     if (findResult === '') {
       findResult =
-        exec(`dir /s/b "c:\\Program Files (x86)" |findstr /I ${name}.exe`).split('\n')[0];
+        execSync(`dir /s/b "c:\\Program Files (x86)" |findstr /I ${name}.exe`, {encoding: 'ascii'}).split('\n')[0];
     }
 
     if (findResult !== '')
@@ -80,7 +74,7 @@ function detectMailClientsMacOS(candidates) {
     // find entries are separated by '\n'
     // -maxdepth in order not to traverse too deeply into /Applications, which is generally huge
     const findResult =
-      exec(`find /Applications -maxdepth 2 -type d -name '${name}'`).split('\n')[0];
+      execSync(`find /Applications -maxdepth 2 -type d -name '${name}'`, {encoding: 'ascii'}).split('\n')[0];
 
     if (findResult !== '')
       result[name] = { path: `${findResult}/Contents/MacOS/${binary}`, description };
@@ -103,16 +97,15 @@ function isNewOutlook(path) {
 }
 
 function composeMailOutlook(attachmentPath, mailClientPath, mail) {
-  setNodePath();
   if (isNewOutlook(mailClientPath))
-    return exec(`"${mailClientPath}" /c ipm.note /m "${mail.recipient}&subject=${mail.subject}body=${mail.body}" /a "${attachmentPath}"`, { async: true });
+    return exec(`"${mailClientPath}" /c ipm.note /m "${mail.recipient}&subject=${mail.subject}body=${mail.body}" /a "${attachmentPath}"`);
 
 
-  return exec(`"${mailClientPath}" /a ${attachmentPath}`, { async: true });
+  return exec(`"${mailClientPath}" /a ${attachmentPath}`);
 }
 
 function composeMailThunderbird(attachmentPath, mailClientPath, mail) {
-  return exec(`"${mailClientPath}" -compose "to='${mail.recipient}',subject='${mail.subject}',body='${mail.body}',attachment='${attachmentPath}'"`, { async: true });
+  return exec(`"${mailClientPath}" -compose "to='${mail.recipient}',subject='${mail.subject}',body='${mail.body}',attachment='${attachmentPath}'"`);
 }
 
 function composeMailAppleMail(attachmentPath, mailClientPath, mail) {
@@ -123,7 +116,7 @@ function composeMailAppleMail(attachmentPath, mailClientPath, mail) {
       make new attachment with properties {file name:"${attachmentPath}"}
     end tell
   end tell`;
-  return exec(`echo '${script}' | /usr/bin/osascript`);
+  return execSync(`echo '${script}' | /usr/bin/osascript`, {encoding: 'ascii'});
 }
 
 function getTempPath() {
@@ -137,7 +130,6 @@ function save(path, sigRequest) {
 }
 
 module.exports.composeMail = function composeMail(sigRequest, mailClientName, mailClientPath, mail) {
-  setNodePath();
   const path = getTempPath();
 
   save(path, sigRequest); // TODO: async needed?
@@ -152,7 +144,6 @@ module.exports.composeMail = function composeMail(sigRequest, mailClientName, ma
 };
 
 module.exports.searchMailClients = function searchMailClients() {
-  setNodePath();
   const os = detectOs();
   if (os === 'linux')
     return Promise.resolve(detectMailClientsLinux(mailClients[os]));

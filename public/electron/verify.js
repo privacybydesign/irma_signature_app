@@ -1,15 +1,7 @@
 const BPromise = require('bluebird');
 const fs = BPromise.promisifyAll(require('fs'));
-const shelljs = require('shelljs');
-const exec = BPromise.promisify(shelljs.exec);
-const { config, which } = shelljs;
-
-// Hack to let this work in electron
-// https://github.com/shelljs/shelljs/wiki/Electron-compatibility
-function setNodePath() {
-  const nodeLocation = which('node').stdout;
-  config.execPath = nodeLocation;
-}
+const child_process = require('child_process');
+const exec = BPromise.promisify(child_process.exec);
 
 // Adds " to all nummeric bigInts, so that they can be parsed in Javascript
 function convertIntToStringInJson(input) {
@@ -84,5 +76,3 @@ module.exports.verifyStoredSignature = function(path, requests) {
   return fs.readFileAsync(path, "utf8")
     .then(signature => verifySignature(signature, requests));
 };
-
-setNodePath();
