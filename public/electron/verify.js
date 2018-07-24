@@ -18,8 +18,12 @@ function convertIntToStringInJson(input) {
 
 function getNonceFromSignature(signature) {
   const signatureString = convertIntToStringInJson(signature);
-  const parsedSignature = JSON.parse(signatureString);
-  return parsedSignature.nonce;
+  try {
+    const parsedSignature = JSON.parse(signatureString);
+    return parsedSignature.nonce;
+  } catch (e) {
+    return undefined;
+  }
 }
 
 function verifySignatureWithoutRequestGo(signature) {
@@ -47,20 +51,24 @@ function verifySignatureWithNonce(nonce, signature, requests) {
     })));
 }
 
-module.exports.verifySignature = function verifySignature(path, requests) {
-  return fs.readFileAsync(path, 'utf8')
-    .then(signature => {
-      const nonce = getNonceFromSignature(signature);
+function verifySignature(signature, requests) {
+  const nonce = getNonceFromSignature(signature);
 
-      if (nonce === undefined) {
-        // Safetycheck so that we're sure that signature is valid json
-        // (since we're passing it to exec..)
-        return {};
-      }
+  if (nonce === undefined) {
+    // Safetycheck so that we're sure that signature is valid json
+    // (since we're passing it to exec..)
+    return new BPromise.Promise((resolve)=>{
+      resolve({
+        signatureResult: {
+          proofStatus: 'INVALID_SYNTAX',
+        },
+        signature: '',
+      });
+    });
+  }
 
-      return verifySignatureWithNonce(nonce, signature, requests)
-        .then(signatureResult => ({ signatureResult, signature }));
-    })
+  return verifySignatureWithNonce(nonce, signature, requests)
+    .then(signatureResult => ({ signatureResult, signature }))
     .catch(error => ({
         signatureResult: {
           proofStatus: 'INVALID_SYNTAX',
@@ -69,6 +77,12 @@ module.exports.verifySignature = function verifySignature(path, requests) {
         error,
       })
     );
+};
+
+module.exports.verifySignature = verifySignature;
+module.exports.verifyStoredSignature = function(path, requests) {
+  return fs.readFileAsync(path, "utf8")
+    .then(signature => verifySignature(signature, requests));
 };
 
 setNodePath();

@@ -35,7 +35,7 @@ export default function storage(
         ...state,
         requests: Object.keys(requests).filter((id) => {
             return action.ids.indexOf(id) === -1;
-          }).map((res, id) => {
+          }).reduce((res, id) => {
             res[id] = requests[id];
             return res;
           }, {}),
@@ -52,12 +52,12 @@ export default function storage(
               ...action.verifyResult.signatureResult.request,
               state: action.verifyResult.signatureResult.proofStatus,
               signature: action.verifyResult.signature,
+              signatureResult: action.verifyResult.signatureResult,
             },
           },
         };
       }
-        return state;
-
+      return state;
     }
     case LOAD_REQUESTS: {
       return {

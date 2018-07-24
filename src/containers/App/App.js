@@ -42,6 +42,18 @@ const IrmaTheme = createMuiTheme({
     },
     type: 'light', // Switching the dark mode on is a single property value change.
   },
+  overrides: {
+    MuiCard: {
+      root: {
+        overflow: 'visible',
+      },
+    },
+    MuiCollapse: {
+      container: {
+        overflow: 'visible',
+      },
+    },
+  },
 });
 
 
@@ -60,6 +72,7 @@ const styles = theme => ({
   },
   root: {
     width: '100%',
+    height: 'calc(100vh - 24px)',
     marginTop: theme.spacing.unit * 3,
     zIndex: 1,
     overflow: 'hidden',

@@ -66,18 +66,14 @@ res[id] = checked; return res;
     const toBeDeleted = Object.keys(checked).filter((id) => {
 return checked[id];
 });
-    dispatch(removeRequests(toBeDeleted));
+    if (window.confirm("Are you sure you want to delete these requests?"))
+      dispatch(removeRequests(toBeDeleted));
   }
 
   renderBody() {
     const {requests} = this.props;
     const {checked} = this.state;
-    return Object.keys(requests).map(id => {
-      const request = requests[id];
-      return (
-        <EnhancedTableBody key={id} request={request} checked={checked[id]} onCheckbox={this.handleCheckbox(id)} />
-      );
-    });
+    return Object.keys(requests).map(id => <EnhancedTableBody key={id} request={requests[id]} checked={checked[id]} onCheckbox={this.handleCheckbox(id)} />);
   }
 
   render() {
@@ -98,13 +94,13 @@ return checked[id];
           />
           <Divider />
           <CardContent style={{ padding: '0px' }}>
-            <EnhancedTableToolbar num={numChecked} onDelete={this.handleDelete} />
             <Table>
-              <EnhancedTableHead handleSelect={this.handleSelectAll} checked={numChecked === Object.keys(checked).length} />
+              <EnhancedTableHead handleSelect={this.handleSelectAll} checked={numChecked === Object.keys(checked).length && numChecked !== 0} />
               <TableBody>
                 {this.renderBody()}
               </TableBody>
             </Table>
+            <EnhancedTableToolbar num={numChecked} onDelete={this.handleDelete} />
           </CardContent>
         </Card>
       </div>

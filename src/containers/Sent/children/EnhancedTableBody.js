@@ -12,6 +12,8 @@ import CheckCircle from '@material-ui/icons/CheckCircle';
 import Error from '@material-ui/icons/Error';
 import Pending from '@material-ui/icons/HourglassEmpty';
 
+import RequestDetail from './RequestDetail';
+
 function getIconByState(state) {
   switch (state) {
     case 'PENDING':
@@ -23,20 +25,37 @@ function getIconByState(state) {
   }
 }
 
+// This is really a table row, not a table body
 class EnhancedTableBody extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: false,
+    };
+  }
+
+  onClick = () => {
+    this.setState((oldstate) => ({expanded: !oldstate.expanded}));
+  }
+
   render() {
     const {request, checked, onCheckbox} = this.props;
-    return (
-      <TableRow>
+
+    return [
+      <TableRow key="row">
         <TableCell padding="checkbox">
           <Checkbox checked={checked} onChange={onCheckbox} />
         </TableCell>
-        <TableCell style={{ paddingLeft: '0', textAlign: 'left', color: '#757575' }}>{request.recipient}</TableCell>
-        <TableCell style={{ textAlign: 'left' }}>{request.request.message.substring(0, 20)}</TableCell>
-        <TableCell style={{ textAlign: 'left' }} numeric>{request.date}</TableCell>
-        <TableCell style={{ textAlign: 'center' }} numeric>{getIconByState(request.state)}</TableCell>
-      </TableRow>
-    );
+        <TableCell onClick={this.onClick} style={{ paddingLeft: '0', textAlign: 'left', color: '#757575' }}>{request.recipient}</TableCell>
+        <TableCell onClick={this.onClick} style={{ textAlign: 'left' }}>{request.request.message.substring(0, 20)}</TableCell>
+        <TableCell onClick={this.onClick} style={{ textAlign: 'left' }} numeric>{request.date}</TableCell>
+        <TableCell onClick={this.onClick} style={{ textAlign: 'center' }} numeric>{getIconByState(request.state)}</TableCell>
+      </TableRow>,
+      !this.state.expanded ? null : <TableRow key="detail">
+        <TableCell />
+        <TableCell colSpan={4}><RequestDetail request={request} /></TableCell>
+      </TableRow>,
+    ];
   }
 }
 
