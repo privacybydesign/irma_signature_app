@@ -10,17 +10,33 @@ import {
 } from '@material-ui/core';
 
 import AttributeChip from '../../AttributeChip';
-import SignatureDetail from './SignatureDetail';
+import AttributeResultTable from '../../AttributeResultTable';
 
 class RequestDetail extends Component {
   render() {
     const { request, attributeInfo } = this.props;
     if (attributeInfo.length === 0)
       return null;
-
-    let signatureDetail;
+    
+    let attributeDetail;
     if (request.signature !== undefined)
-      signatureDetail = <SignatureDetail request={request} />;
+      attributeDetail = (
+        <TableCell>
+          <AttributeResultTable
+            matched={true}
+            attributes={request.signatureResult.disjunctions}
+            proofStatus={request.signatureResult.proofStatus}
+          />
+        </TableCell>
+      );
+    else
+      attributeDetail = (
+        <TableCell>
+          {request.request.content.map(el =>
+            <AttributeChip key={el.attributes[0]} attribute={attributeInfo.find(i => i.id === el.attributes[0])} />
+          )}
+        </TableCell>
+      );
 
     const cellStyle = { color: '#757575' };
     return [
@@ -39,14 +55,10 @@ class RequestDetail extends Component {
           </TableRow>
           <TableRow>
             <TableCell style={cellStyle}>Attributes</TableCell>
-            <TableCell>{request.request.content.map(el =>
-              <AttributeChip key={el.attributes[0]} attribute={attributeInfo.find(i => i.id === el.attributes[0])} />
-            )}
-            </TableCell>
+            { attributeDetail }
           </TableRow>
         </TableBody>
-      </Table>,
-      signatureDetail !== undefined ? signatureDetail : null,
+      </Table>
     ];
   }
 }

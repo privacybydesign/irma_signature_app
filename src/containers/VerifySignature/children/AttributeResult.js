@@ -10,7 +10,7 @@ CardContent,
 import Divider from '@material-ui/core/Divider';
 
 // Subcomponent
-import AttributeResultTable from './AttributeResultTable';
+import AttributeResultTable from '../../AttributeResultTable';
 
 class AttributeResult extends Component {
   render() {
