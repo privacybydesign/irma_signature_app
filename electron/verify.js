@@ -18,8 +18,12 @@ function convertIntToStringInJson(input) {
 
 function getNonceFromSignature(signature) {
   const signatureString = convertIntToStringInJson(signature);
-  const parsedSignature = JSON.parse(signatureString);
-  return parsedSignature.nonce;
+  try {
+    const parsedSignature = JSON.parse(signatureString);
+    return parsedSignature.nonce;
+  } catch (e) {
+    return undefined;
+  }
 }
 
 function verifySignatureWithoutRequestGo(signature) {
@@ -53,7 +57,14 @@ function verifySignature(signature, requests) {
   if (nonce === undefined) {
     // Safetycheck so that we're sure that signature is valid json
     // (since we're passing it to exec..)
-    return {};
+    return new BPromise.Promise((resolve)=>{
+      resolve({
+        signatureResult: {
+          proofStatus: 'INVALID_SYNTAX',
+        },
+        signature: '',
+      });
+    });
   }
 
   return verifySignatureWithNonce(nonce, signature, requests)
