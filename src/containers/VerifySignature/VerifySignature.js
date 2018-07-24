@@ -11,113 +11,101 @@ import Divider from '@material-ui/core/Divider';
 // Icons
 import IconButton from '@material-ui/core/IconButton';
 
-import { verifySignature } from './../../actions';
-import SignatureResult from './SignatureResult';
-import AttributeResultTable from './AttributeResultTable';
+import { verifySignature, closeVerifyResult } from './../../actions';
+import SignatureResult from './children/SignatureResult';
+import AttributeResultTable from './children/AttributeResultTable';
 
 // CSS
 import 'antd/lib/upload/style/css';
 
 class VerifySignature extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      message: '',
-      verifyDone: false,
-    };
-  }
-
   handleUpload = (event => {
     const { dispatch, verifyPending, requests } = this.props;
 
-    this.setState({
-      message: '',
-      verifyDone: false,
-    });
-
     if (verifyPending)
       return;
-
 
     const path = event.file.originFileObj.path;
     dispatch(verifySignature(path, requests));
   });
 
-  componentWillReceiveProps(nextProps) {
-    const { signature, signatureResult } = nextProps;
-    if (signatureResult === undefined || Object.keys(signatureResult).length === 0) {
-      // No verified response received yet, do nothing
-      return;
-    }
+  closeResult = () => {
+    const { dispatch } = this.props;
+    dispatch(closeVerifyResult());
+  }
 
+  renderUploader() {
+    return (
+      <Card>
+        <CardHeader
+          action={
+            <IconButton>
+              {/* <HelpIcon /> */}
+            </IconButton>
+          }
+          title="Verify a signature"
+        />
+        <Divider />
+
+        <CardContent style={{ paddingLeft: '30px' }}>
+          <div className="dropbox">
+            <Upload.Dragger
+              accept=".irma"
+              name="files"
+              beforeUpload={(() => false)}
+              onChange={this.handleUpload}
+              fileList={[]}
+            >
+              <p className="ant-upload-drag-icon">
+                <Icon type="inbox" />
+              </p>
+              <p className="ant-upload-text">In order to verify a signature, click here or drag the signed message to this area.</p><p> A signed message has the filename extension <i>.irma</i>.</p>
+              <p className="ant-upload-hint"></p>
+            </Upload.Dragger>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  renderDone() {
+    const { signatureResult, showVerifyResult, signature } = this.props;
+    let message = '';
     try {
-      const { message } = JSON.parse(signature);
-      this.setState({
-        message,
-        verifyDone: true,
-      });
+      message = JSON.parse(signature).message;
     } catch (e) {
-      this.setState({
-        verifyDone: true,
-      });
+      // Ignore errors
     }
+    return (
+      showVerifyResult ? (
+        <div>
+          <SignatureResult
+            proofStatus={signatureResult.proofStatus}
+            message={message}
+            matched={signatureResult.request !== undefined}
+            signatureRequest={signatureResult.request}
+            onClose={this.closeResult}
+          />
+          <Divider />
+          <AttributeResultTable
+            attributes={signatureResult.disjunctions
+              ?
+              signatureResult.disjunctions
+              :
+              signatureResult.credentialList}
+            matched={signatureResult.request !== undefined}
+            proofStatus={signatureResult.proofStatus}
+          />
+        </div>
+      ) : null
+    );
   }
 
   render() {
-    const { signatureResult } = this.props;
-    const { verifyDone } = this.state;
     return (
       <div>
-        <Card>
-          <CardHeader
-            action={
-              <IconButton>
-                {/* <HelpIcon /> */}
-              </IconButton>
-            }
-            title="Verify a signature"
-          // subheader="Signature requests are shared via email. Fill in the information below to create a signature request email."
-          />
-          <Divider />
-
-          <CardContent style={{ paddingLeft: '30px' }}>
-            <div className="dropbox">
-              <Upload.Dragger
-                accept=".irma"
-                name="files"
-                beforeUpload={(() => false)}
-                onChange={this.handleUpload}
-              >
-                <p className="ant-upload-drag-icon">
-                  <Icon type="inbox" />
-                </p>
-                <p className="ant-upload-text">In order to verify a signature, click here or drag the signed message to this area.</p><p> A signed message has the filename extension <i>.irma</i>.</p>
-                <p className="ant-upload-hint"></p>
-              </Upload.Dragger>
-            </div>
-          </CardContent>
-        </Card>
-
-        {verifyDone ? (
-          <div>
-            <SignatureResult
-              proofStatus={signatureResult.proofStatus}
-              message={this.state.message}
-              matched={signatureResult.request !== undefined}
-              signatureRequest={signatureResult.request}
-            />
-            <Divider />
-            <AttributeResultTable
-              attributes={signatureResult.disjunctions
-                ?
-                signatureResult.disjunctions
-                :
-                signatureResult.credentialList}
-              matched={signatureResult.request !== undefined}
-              proofStatus={signatureResult.proofStatus}
-            />
-          </div>
-        ) : ''}
+        { this.renderUploader() }
+        { this.renderDone() }
       </div>
     );
   }
@@ -125,17 +113,20 @@ class VerifySignature extends Component {
 
 VerifySignature.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  signature: PropTypes.string.isRequired,
+  signature: PropTypes.object.isRequired,
   signatureResult: PropTypes.object.isRequired,
   requests: PropTypes.object.isRequired,
   verifyPending: PropTypes.bool,
+  showVerifyResult: PropTypes.bool,
 };
 
 function mapStateToProps(state) {
   const verifyResult = state.signatureVerify.verifyResult;
+  const showVerifyResult = state.signatureVerify.showVerifyResult;
   const requests = state.storage.requests;
   return {
     ...verifyResult,
+    showVerifyResult,
     requests,
   };
 }

@@ -55,12 +55,12 @@ class SignatureResult extends Component {
   }
 
   render() {
-    const { message } = this.props;
+    const { message, onClose } = this.props;
     return (
       <Card style={{ marginTop: '30px' }}>
         <CardHeader
           action={
-            <IconButton>
+            <IconButton onClick={onClose}>
               <CloseIcon />
             </IconButton>
             }
@@ -83,6 +83,7 @@ SignatureResult.propTypes = {
     request: PropTypes.object,
     state: PropTypes.string,
   }),
+  onClose: PropTypes.func.isRequired,
 };
 
 export default SignatureResult;

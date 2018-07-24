@@ -1,5 +1,6 @@
 import {
   SET_VERIFY_RESULT,
+  CLOSE_VERIFY_RESULT,
   START_VERIFY_SIGNATURE,
 } from '../actions';
 
@@ -10,6 +11,7 @@ export default function signatureVerify(
       signatureResult: {},
     },
     verifyPending: false,
+    showVerifyResult: false,
   },
   action
 ) {
@@ -18,12 +20,19 @@ export default function signatureVerify(
       return {
         ...state,
         verifyPending: true,
+        showVerifyResult: false,
       };
     case SET_VERIFY_RESULT:
       return {
         ...state,
         verifyResult: action.verifyResult,
         verifyPending: false,
+        showVerifyResult: true,
+      };
+    case CLOSE_VERIFY_RESULT:
+      return {
+        ...state,
+        showVerifyResult: false,
       };
     default:
       return state;

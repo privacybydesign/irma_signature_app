@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import flatten from 'flatten';
 
 // Material UI
@@ -36,6 +37,27 @@ function getIconByProofStatus(proofStatus) {
 
 class AttributeResultTable extends Component {
 
+  getAttributeName(id) {
+    // Binary search for the matching element in the attributeResults array
+    const { attributeResult } = this.props;
+    const N = attributeResult.length;
+    let low = 0;
+    let high = N;
+    while (high - low > 1) {
+      let mid = Math.floor((high + low) / 2);
+      if (attributeResult[mid].id > id)
+        high = mid;
+      else
+        low = mid;
+    }
+
+    // And display result
+    if (attributeResult[low].id !== id)
+      return `Unknown attribute ${id}`;
+    else
+      return `${attributeResult[low].name} - ${attributeResult[low].credentialName}`;
+  }
+
   genUnmatchedTableData = () => {
     const credentialList = this.props.attributes;
 
@@ -49,7 +71,7 @@ class AttributeResultTable extends Component {
         Object.keys(credential.attributes)
           .map(attributeId => ({
             key: attributeId,
-            name: attributeId, // TODO convert to name
+            name: this.getAttributeName(attributeId), // TODO convert to name
             value: credential.attributes[attributeId],
             valid: getIconByProofStatus(this.props.proofStatus),
           }))
@@ -61,7 +83,7 @@ class AttributeResultTable extends Component {
     const { attributes } = this.props;
     return attributes.map(attribute => ({
       key: attribute.disclosedId,
-      name: attribute.label, // TODO use attribute name or label?
+      name: this.getAttributeName(attribute.label), // TODO use attribute name or label?
       value: attribute.disclosedValue,
       valid: getIconByProofStatus(attribute.proofStatus),
     }));
@@ -117,6 +139,16 @@ AttributeResultTable.propTypes = {
   matched: PropTypes.bool.isRequired,
   attributes: PropTypes.arrayOf(PropTypes.object), // Only if there are attributes disclosed
   proofStatus: PropTypes.string, // Only with unmatched requests
+  attributeResult: PropTypes.array.isRequired,
 };
 
-export default AttributeResultTable;
+function mapStateToProps(state) {
+  const { attributeSearch } = state;
+
+  return {
+    attributeResult: attributeSearch.attributeResult,
+  };
+}
+
+
+export default connect(mapStateToProps)(AttributeResultTable);

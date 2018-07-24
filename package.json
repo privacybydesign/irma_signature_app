@@ -4,6 +4,7 @@
   "description": "An IRMA app to create IRMA signatures",
   "main": "main.js",
   "scripts": {
+    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build-go": "go build -o go/get_all_attributes go/get_all_attributes.go && go build -o go/irma_signature_verify go/irma_signature_verify.go",
@@ -36,6 +37,7 @@
   "dependencies": {
     "antd": "3.4.2",
     "big-integer": "1.6.27",
+    "concurrently": "^3.6.0",
     "electron-is-dev": "^0.3.0",
     "flatten": "1.0.2",
     "process": "0.11.10",
@@ -48,6 +50,7 @@
     "redux": "3.7.2",
     "redux-logger": "3.0.6",
     "redux-thunk": "2.2.0",
-    "shelljs": "0.8.1"
+    "shelljs": "0.8.1",
+    "wait-on": "^2.1.0"
   }
 }
