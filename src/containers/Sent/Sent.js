@@ -94,7 +94,7 @@ return checked[id];
           <Divider />
           <CardContent style={{ padding: '0px' }}>
             <Table>
-              <EnhancedTableHead handleSelect={this.handleSelectAll} checked={numChecked === Object.keys(checked).length} />
+              <EnhancedTableHead handleSelect={this.handleSelectAll} checked={numChecked === Object.keys(checked).length && numChecked !== 0} />
               <TableBody>
                 {this.renderBody()}
               </TableBody>
