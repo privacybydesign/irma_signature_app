@@ -66,7 +66,8 @@ res[id] = checked; return res;
     const toBeDeleted = Object.keys(checked).filter((id) => {
 return checked[id];
 });
-    dispatch(removeRequests(toBeDeleted));
+    if (window.confirm("Are you sure you want to delete these requests?"))
+      dispatch(removeRequests(toBeDeleted));
   }
 
   renderBody() {
