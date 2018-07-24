@@ -13,7 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 import { verifyStoredSignature, closeVerifyResult } from './../../actions';
 import SignatureResult from './children/SignatureResult';
-import AttributeResultTable from './children/AttributeResultTable';
+import AttributeResult from './children/AttributeResult';
 
 // CSS
 import 'antd/lib/upload/style/css';
@@ -87,7 +87,7 @@ class VerifySignature extends Component {
             onClose={this.closeResult}
           />
           <Divider />
-          <AttributeResultTable
+          <AttributeResult
             attributes={signatureResult.disjunctions
               ?
               signatureResult.disjunctions
@@ -113,7 +113,7 @@ class VerifySignature extends Component {
 
 VerifySignature.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  signature: PropTypes.object.isRequired,
+  signature: PropTypes.string.isRequired,
   signatureResult: PropTypes.object.isRequired,
   requests: PropTypes.object.isRequired,
   verifyPending: PropTypes.bool,

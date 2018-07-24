@@ -5,16 +5,12 @@ import flatten from 'flatten';
 
 // Material UI
 import {
-Card,
-CardHeader,
-CardContent,
 Table,
 TableBody,
 TableCell,
 TableHead,
 TableRow,
 } from '@material-ui/core';
-import Divider from '@material-ui/core/Divider';
 
 // Icons
 import { green, red, yellow } from '@material-ui/core/colors';
@@ -83,7 +79,7 @@ class AttributeResultTable extends Component {
     const { attributes } = this.props;
     return attributes.map(attribute => ({
       key: attribute.disclosedId,
-      name: this.getAttributeName(attribute.label), // TODO use attribute name or label?
+      name: this.getAttributeName(attribute.disclosedId), // TODO use attribute name or label?
       value: attribute.disclosedValue,
       valid: getIconByProofStatus(attribute.proofStatus),
     }));
@@ -115,22 +111,16 @@ class AttributeResultTable extends Component {
 
   render() {
     return (
-      <Card style={{ marginTop: '30px' }}>
-        <CardHeader
-          title="Attributes" /> <Divider />
-        <CardContent style={{ paddingTop: '0px' }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Attribute</TableCell>
-                <TableCell>Value</TableCell>
-                <TableCell>Valid?</TableCell>
-              </TableRow>
-            </TableHead>
-            {this.genTableBody()}
-          </Table>
-        </CardContent>
-      </Card>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Attribute</TableCell>
+            <TableCell>Value</TableCell>
+            <TableCell>Valid?</TableCell>
+          </TableRow>
+        </TableHead>
+        {this.genTableBody()}
+      </Table>
     );
   }
 }
