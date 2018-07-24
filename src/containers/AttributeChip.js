@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import 'react-select/dist/react-select.css';
 
-const styles = theme => ({
+const styles = () => ({
   img: {
     width: '75%',
     height: '75%',
@@ -23,7 +23,7 @@ class AttributeChip extends Component {
       <Chip
         label={`${attribute.name} - ${attribute.credentialName}`}
         onDelete={onDelete}
-        avatar={logoUrl ? <Avatar src={logoUrl} classes={{img: classes.img}}/> : null}
+        avatar={logoUrl ? <Avatar src={logoUrl} classes={{img: classes.img}} /> : null}
       />
     );
   }

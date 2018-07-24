@@ -21,9 +21,9 @@ class AttributeResult extends Component {
           title="Attributes" /> <Divider />
         <CardContent style={{ paddingTop: '0px' }}>
           <AttributeResultTable
-            matched = { matched }
-            attributes = { attributes }
-            proofStatus = { proofStatus }
+            matched={matched}
+            attributes={attributes}
+            proofStatus={proofStatus}
           />
         </CardContent>
       </Card>

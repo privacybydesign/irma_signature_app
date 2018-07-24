@@ -40,7 +40,7 @@ class AttributeResultTable extends Component {
     let low = 0;
     let high = N;
     while (high - low > 1) {
-      let mid = Math.floor((high + low) / 2);
+      const mid = Math.floor((high + low) / 2);
       if (attributeResult[mid].id > id)
         high = mid;
       else
@@ -50,8 +50,7 @@ class AttributeResultTable extends Component {
     // And display result
     if (attributeResult[low].id !== id)
       return `Unknown attribute ${id}`;
-    else
-      return `${attributeResult[low].name} - ${attributeResult[low].credentialName}`;
+    return `${attributeResult[low].name} - ${attributeResult[low].credentialName}`;
   }
 
   genUnmatchedTableData = () => {

@@ -17,26 +17,27 @@ class RequestDetail extends Component {
     const { request, attributeInfo } = this.props;
     if (attributeInfo.length === 0)
       return null;
-    
+
     let attributeDetail;
-    if (request.signature !== undefined)
-      attributeDetail = (
-        <TableCell>
-          <AttributeResultTable
-            matched={true}
-            attributes={request.signatureResult.disjunctions}
-            proofStatus={request.signatureResult.proofStatus}
+    if (request.signature !== undefined) {
+ attributeDetail = (
+   <TableCell>
+     <AttributeResultTable
+       matched={true}
+       attributes={request.signatureResult.disjunctions}
+       proofStatus={request.signatureResult.proofStatus}
           />
-        </TableCell>
+   </TableCell>
       );
-    else
-      attributeDetail = (
-        <TableCell>
-          {request.request.content.map(el =>
-            <AttributeChip key={el.attributes[0]} attribute={attributeInfo.find(i => i.id === el.attributes[0])} />
+} else {
+ attributeDetail = (
+   <TableCell>
+     {request.request.content.map(el =>
+       <AttributeChip key={el.attributes[0]} attribute={attributeInfo.find(i => i.id === el.attributes[0])} />
           )}
-        </TableCell>
+   </TableCell>
       );
+}
 
     const cellStyle = { color: '#757575' };
     return [
@@ -58,7 +59,7 @@ class RequestDetail extends Component {
             { attributeDetail }
           </TableRow>
         </TableBody>
-      </Table>
+      </Table>,
     ];
   }
 }
