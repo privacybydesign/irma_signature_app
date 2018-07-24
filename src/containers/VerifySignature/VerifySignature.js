@@ -11,7 +11,7 @@ import Divider from '@material-ui/core/Divider';
 // Icons
 import IconButton from '@material-ui/core/IconButton';
 
-import { verifySignature, closeVerifyResult } from './../../actions';
+import { verifyStoredSignature, closeVerifyResult } from './../../actions';
 import SignatureResult from './children/SignatureResult';
 import AttributeResultTable from './children/AttributeResultTable';
 
@@ -26,7 +26,7 @@ class VerifySignature extends Component {
       return;
 
     const path = event.file.originFileObj.path;
-    dispatch(verifySignature(path, requests));
+    dispatch(verifyStoredSignature(path, requests));
   });
 
   closeResult = () => {
