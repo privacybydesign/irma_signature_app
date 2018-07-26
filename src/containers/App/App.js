@@ -5,7 +5,6 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
-import { compose } from 'recompose';
 
 import { createMuiTheme, MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -231,6 +230,4 @@ App.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(
-  withStyles(styles, { withTheme: true }),
-)(App);
+export default withStyles(styles, { withTheme: true })(App);
