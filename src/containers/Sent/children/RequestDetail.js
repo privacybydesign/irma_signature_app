@@ -6,11 +6,10 @@ import {
   TableRow,
   TableBody,
   Table,
-  Typography,
 } from '@material-ui/core';
 
-import AttributeChip from '../../AttributeChip';
 import AttributeResultTable from '../../AttributeResultTable';
+import RequestedAttributeTable from './RequestedAttributeTable';
 
 class RequestDetail extends Component {
   render() {
@@ -20,30 +19,27 @@ class RequestDetail extends Component {
 
     let attributeDetail;
     if (request.signature !== undefined) {
- attributeDetail = (
-   <TableCell>
-     <AttributeResultTable
-       matched={true}
-       attributes={request.signatureResult.disjunctions}
-       proofStatus={request.signatureResult.proofStatus}
+      attributeDetail = (
+        <TableCell>
+          <AttributeResultTable
+            matched={true}
+            attributes={request.signatureResult.disjunctions}
+            proofStatus={request.signatureResult.proofStatus}
           />
-   </TableCell>
+        </TableCell>
       );
-} else {
- attributeDetail = (
-   <TableCell>
-     {request.request.content.map(el =>
-       <AttributeChip key={el.attributes[0]} attribute={attributeInfo.find(i => i.id === el.attributes[0])} />
-          )}
-   </TableCell>
+    } else {
+      attributeDetail = (
+        <TableCell>
+          <RequestedAttributeTable
+            attributes={request.request.content}
+          />
+        </TableCell>
       );
-}
+    }
 
     const cellStyle = { color: '#757575' };
     return [
-      <Typography key="title" variant="title" style={{ marginTop: 20 }}>
-        Request Details
-      </Typography>,
       <Table key="table">
         <TableBody>
           <TableRow>
