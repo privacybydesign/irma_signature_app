@@ -2,6 +2,7 @@
 const electron = require('electron');
 const fs = require('fs');
 const isDev = require('electron-is-dev');
+const path = require('path');
 
 const mail = require('./electron/mail');
 const { verifySignature, verifyStoredSignature } = require('./electron/verify');
@@ -73,3 +74,7 @@ ipcMain.on('verifyStoredSignature-req', (event, arg, requests) => {
       event.sender.send('response', JSON.stringify(action));
     });
 });
+
+// Set cwd correctly
+if (!isDev)
+    process.chdir(path.dirname(app.getPath('exe')));

@@ -5,7 +5,7 @@
   "main": "public/electron.js",
   "build": {
     "appId": "foundation.privacybydesign.irma_signature_app",
-    "extraResources": [
+    "extraFiles": [
       "go"
     ]
   },
