@@ -4,7 +4,6 @@
 
 const { tempdir } = require('shelljs');
 const { exec, execSync } = require('child_process');
-const { platform } = require('process');
 const fs = require('fs');
 
 const mailClients = {
@@ -23,7 +22,7 @@ const mailClients = {
 };
 
 function detectOs() {
-  return platform;
+  return process.platform;
 }
 
 function detectMailClientsLinux(candidates) {
