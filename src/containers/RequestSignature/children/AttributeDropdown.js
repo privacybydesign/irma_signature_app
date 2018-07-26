@@ -47,7 +47,6 @@ class AttributeDropdown extends Component {
   render() {
     return (
       <div>
-        { this.renderChips() }
         <Select
           multiple
           id="state-select"
@@ -60,6 +59,7 @@ class AttributeDropdown extends Component {
           placeholder="Select signature attributes"
           searchable
         />
+        { this.renderChips() }
       </div>
     );
   }
