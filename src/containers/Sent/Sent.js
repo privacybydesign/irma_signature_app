@@ -14,6 +14,7 @@ import Divider from '@material-ui/core/Divider';
 
 // Icons
 import IconButton from '@material-ui/core/IconButton';
+import HelpIcon from '@material-ui/icons/Help';
 
 import { removeRequests } from './../../actions';
 import EnhancedTableHead from './children/EnhancedTableHead.js';
@@ -28,36 +29,37 @@ class Sent extends Component {
       checked: Object.keys(requests).reduce((res, id) => {
 res[id] = false; return res;
 }, {}),
+      showHelp: false,
     };
+  }
+  
+  onHelp = () => {
+    this.setState(state=> ({showHelp: !state.showHelp}));
   }
 
   componentWillReceiveProps(nextProps) {
-    const {checked} = this.state;
-    this.setState({
+    this.setState(state=>({
       checked: Object.keys(nextProps.requests).reduce((res, id) => {
- res[id] = Boolean(checked[id]); return res;
+ res[id] = Boolean(state.checked[id]); return res;
 }, {}),
-    });
+    }));
   }
 
   handleSelectAll = (event, checked) => {
-    const { requests } = this.props;
-
-    this.setState({
-      checked: Object.keys(requests).reduce((res, id) => {
+    this.setState((state, props)=>({
+      checked: Object.keys(props.requests).reduce((res, id) => {
 res[id] = checked; return res;
 }, {}),
-    });
+    }));
   }
 
   handleCheckbox = id => (event, mark) => {
-    const {checked} = this.state;
-    this.setState({
+    this.setState((state) => ({
       checked: {
-        ...checked,
+        ...state.checked,
         [id]: mark,
       },
-    });
+    }));
   }
 
   handleDelete = () => {
@@ -75,33 +77,53 @@ return checked[id];
     const {checked} = this.state;
     return Object.keys(requests).map(id => <EnhancedTableBody key={id} request={requests[id]} checked={checked[id]} onCheckbox={this.handleCheckbox(id)} />);
   }
-
-  render() {
+  
+  renderContent() {
     const { checked } = this.state;
     const numChecked = Object.keys(checked).reduce((res, id) => {
  return res + (checked[id]?1:0);
 }, 0);
     return (
+      <CardContent style={{ padding: '0px' }}>
+        <Table>
+          <EnhancedTableHead handleSelect={this.handleSelectAll} checked={numChecked === Object.keys(checked).length && numChecked !== 0} />
+          <TableBody>
+            {this.renderBody()}
+          </TableBody>
+        </Table>
+        <EnhancedTableToolbar num={numChecked} onDelete={this.handleDelete} />
+      </CardContent>
+    );
+  }
+  
+  renderHelp() {
+    return (
+      <CardContent>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ornare magna magna, dignissim aliquet nunc interdum non. Nullam at bibendum turpis. Aenean interdum, orci ac egestas ultrices, odio eros dapibus ipsum, vel pulvinar magna enim at nulla. Nam ac pulvinar libero, nec feugiat mi. Mauris luctus neque non aliquet tempor. Mauris vulputate velit nisl, vel cursus est tempor non. In hac habitasse platea dictumst.
+        </p>
+
+        <p>
+          Duis interdum venenatis nibh non suscipit. Aenean at nisi lobortis leo lobortis vehicula quis aliquet nisi. Nulla feugiat elit dapibus luctus faucibus. Suspendisse potenti. Pellentesque a lorem mattis, imperdiet arcu ullamcorper, congue elit. Praesent quis lacus nibh. Duis ac est magna. Duis ante mi, sodales et libero pellentesque, egestas pellentesque ligula. Praesent tellus tellus, hendrerit quis lacus malesuada, consectetur placerat risus. Pellentesque arcu ligula, sollicitudin eget fermentum sit amet, elementum sit amet justo. Morbi ut egestas nulla, in vulputate magna.
+        </p>
+      </CardContent>
+    );
+  }
+  render() {
+    
+    return (
       <div>
         <Card>
           <CardHeader
             action={
-              <IconButton>
-                {/* <HelpIcon /> */}
+              <IconButton onClick={this.onHelp}>
+                <HelpIcon />
               </IconButton>
             }
             title="Request History"
           />
           <Divider />
-          <CardContent style={{ padding: '0px' }}>
-            <Table>
-              <EnhancedTableHead handleSelect={this.handleSelectAll} checked={numChecked === Object.keys(checked).length && numChecked !== 0} />
-              <TableBody>
-                {this.renderBody()}
-              </TableBody>
-            </Table>
-            <EnhancedTableToolbar num={numChecked} onDelete={this.handleDelete} />
-          </CardContent>
+          {this.state.showHelp ? this.renderHelp() : this.renderContent()}
         </Card>
       </div>
     );
