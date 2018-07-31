@@ -17,27 +17,32 @@ class LocalInfoBox extends Component {
   render() {
     return (
       <React.Fragment>
-        <IconButton 
-          buttonRef={(ref)=>{this.anchorEl=ref;}}
-          onClick={()=>{this.setState({open:true});}}
+        <div style={{float:'right'}}>
+          <IconButton 
+            buttonRef={(ref)=>{this.anchorEl=ref;}}
+            onClick={()=>{this.setState({open:true});}}
+            >
+            <HelpIcon/>
+          </IconButton>
+          <Popover 
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={this.state.open}
+            anchorEl={this.anchorEl}
+            onClose={()=>{this.setState({open:false});}}
           >
-          <HelpIcon/>
-        </IconButton>
-        <Popover 
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={this.state.open}
-          anchorEl={this.anchorEl}
-          onClose={()=>{this.setState({open:false});}}
-        >
-          <Typography style={{margin:'1em'}}>{this.props.text}</Typography>
-        </Popover>
+            <Typography style={{margin:'1em'}}>{this.props.text}</Typography>
+          </Popover>
+        </div>
+        <div style={{overflow:'auto'}}>
+          {this.props.children}
+        </div>
       </React.Fragment>
     );
   }
@@ -45,6 +50,7 @@ class LocalInfoBox extends Component {
 
 LocalInfoBox.propTypes = {
   text: PropTypes.string.isRequired,
+  children: PropTypes.object,
 };
 
 export default LocalInfoBox
