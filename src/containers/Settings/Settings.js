@@ -16,6 +16,8 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Save from '@material-ui/icons/Save';
 
+import LocalInfoBox from '../LocalInfoBox';
+
 const styles = {
   label: {
     textTransform: 'none',
@@ -82,13 +84,15 @@ class Settings extends Component {
             />
           </CardContent>
           <CardContent>
-            <TextField
-              value={this.state.defaultReturnEmail}
-              onChange={this.onDefaultReturnEmailChange}
+            <LocalInfoBox text="Lorem ipsum">
+              <TextField
+                value={this.state.defaultReturnEmail}
+                onChange={this.onDefaultReturnEmailChange}
 
-              label={'Default return email address'}
-              fullWidth={true}
-              />
+                label={'Default return email address'}
+                fullWidth={true}
+                />
+            </LocalInfoBox>
           </CardContent>
           <CardContent>
             <CardHeader
@@ -97,9 +101,11 @@ class Settings extends Component {
               />
           </CardContent>
           <CardContent>
-            <Button classes={{label: classes.label}} size="small" variant="raised" onClick={this.changeDefaultSaveDirectory}>
-              {this.state.defaultSaveDirectory}
-            </Button>
+            <LocalInfoBox text="Lorem ipsum">
+              <Button classes={{label: classes.label}} size="small" variant="raised" onClick={this.changeDefaultSaveDirectory}>
+                {this.state.defaultSaveDirectory}
+              </Button>
+            </LocalInfoBox>
           </CardContent>
           <CardContent>
             <Button style={{margin: '1em'}} size="small" variant="raised" color="primary" onClick={this.onSubmit} >
