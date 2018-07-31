@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button';
 // Icons
 import IconButton from '@material-ui/core/IconButton';
 import Save from '@material-ui/icons/Save';
+import HelpIcon from '@material-ui/icons/Help';
 
 import LocalInfoBox from '../LocalInfoBox';
 
@@ -30,9 +31,14 @@ class Settings extends Component {
     this.state = {
       defaultReturnEmail: props.defaultReturnEmail || '',
       defaultSaveDirectory: props.defaultSaveDirectory || '',
+      showHelp: false,
     };
     this.forceLeave = false;
   }
+
+  onHelp = () => {
+    this.setState(state => ({showHelp: !state.showHelp}));
+  } 
 
   onNavigate = () => {
     if (!this.forceLeave && 
@@ -61,58 +67,80 @@ class Settings extends Component {
       this.setState({defaultSaveDirectory: openResult[0]});
     }
   }
+  
+  renderContent() {
+    const { classes } = this.props;
+    return (
+      <React.Fragment>
+        <CardContent>
+          <CardHeader
+            title="Mail settings"
+            subheader="Set your default return address here."
+          />
+        </CardContent>
+        <CardContent>
+          <LocalInfoBox text="Lorem ipsum">
+            <TextField
+              value={this.state.defaultReturnEmail}
+              onChange={this.onDefaultReturnEmailChange}
+
+              label={'Default return email address'}
+              fullWidth={true}
+              />
+          </LocalInfoBox>
+        </CardContent>
+        <CardContent>
+          <CardHeader
+            title="Storage settings"
+            subheader="Change the default directory for save dialogs."
+            />
+        </CardContent>
+        <CardContent>
+          <LocalInfoBox text="Lorem ipsum">
+            <Button classes={{label: classes.label}} size="small" variant="raised" onClick={this.changeDefaultSaveDirectory}>
+              {this.state.defaultSaveDirectory}
+            </Button>
+          </LocalInfoBox>
+        </CardContent>
+        <CardContent>
+          <Button style={{margin: '1em'}} size="small" variant="raised" color="primary" onClick={this.onSubmit} >
+            Store settings
+            <Save style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
+          </Button>
+        </CardContent>
+      </React.Fragment>
+    );
+  }
+  
+  renderHelp() {
+    return (
+      <CardContent>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ornare magna magna, dignissim aliquet nunc interdum non. Nullam at bibendum turpis. Aenean interdum, orci ac egestas ultrices, odio eros dapibus ipsum, vel pulvinar magna enim at nulla. Nam ac pulvinar libero, nec feugiat mi. Mauris luctus neque non aliquet tempor. Mauris vulputate velit nisl, vel cursus est tempor non. In hac habitasse platea dictumst.
+        </p>
+        
+        <p>
+          Duis interdum venenatis nibh non suscipit. Aenean at nisi lobortis leo lobortis vehicula quis aliquet nisi. Nulla feugiat elit dapibus luctus faucibus. Suspendisse potenti. Pellentesque a lorem mattis, imperdiet arcu ullamcorper, congue elit. Praesent quis lacus nibh. Duis ac est magna. Duis ante mi, sodales et libero pellentesque, egestas pellentesque ligula. Praesent tellus tellus, hendrerit quis lacus malesuada, consectetur placerat risus. Pellentesque arcu ligula, sollicitudin eget fermentum sit amet, elementum sit amet justo. Morbi ut egestas nulla, in vulputate magna.
+        </p>
+      </CardContent>
+    );
+  }
 
   render() {
-    const { classes } = this.props;
     return (
       <div>
         <Prompt message={this.onNavigate} />
         <Card>
           <CardHeader
             action={
-              <IconButton>
-                {/* <HelpIcon /> */}
+              <IconButton onClick={this.onHelp}>
+                <HelpIcon />
               </IconButton>
             }
             title="Settings"
           />
           <Divider />
-          <CardContent>
-            <CardHeader
-              title="Mail settings"
-              subheader="Set your default return address here."
-            />
-          </CardContent>
-          <CardContent>
-            <LocalInfoBox text="Lorem ipsum">
-              <TextField
-                value={this.state.defaultReturnEmail}
-                onChange={this.onDefaultReturnEmailChange}
-
-                label={'Default return email address'}
-                fullWidth={true}
-                />
-            </LocalInfoBox>
-          </CardContent>
-          <CardContent>
-            <CardHeader
-              title="Storage settings"
-              subheader="Change the default directory for save dialogs."
-              />
-          </CardContent>
-          <CardContent>
-            <LocalInfoBox text="Lorem ipsum">
-              <Button classes={{label: classes.label}} size="small" variant="raised" onClick={this.changeDefaultSaveDirectory}>
-                {this.state.defaultSaveDirectory}
-              </Button>
-            </LocalInfoBox>
-          </CardContent>
-          <CardContent>
-            <Button style={{margin: '1em'}} size="small" variant="raised" color="primary" onClick={this.onSubmit} >
-              Store settings
-              <Save style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
-            </Button>
-          </CardContent>
+          {this.state.showHelp ? this.renderHelp() : this.renderContent()}
         </Card>
       </div>
     );
