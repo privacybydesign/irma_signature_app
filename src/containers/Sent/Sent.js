@@ -32,13 +32,13 @@ res[id] = false; return res;
       showHelp: false,
     };
   }
-  
+
   onHelp = () => {
-    this.setState(state=> ({showHelp: !state.showHelp}));
+    this.setState(state => ({showHelp: !state.showHelp}));
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(state=>({
+    this.setState(state => ({
       checked: Object.keys(nextProps.requests).reduce((res, id) => {
  res[id] = Boolean(state.checked[id]); return res;
 }, {}),
@@ -46,7 +46,7 @@ res[id] = false; return res;
   }
 
   handleSelectAll = (event, checked) => {
-    this.setState((state, props)=>({
+    this.setState((state, props) => ({
       checked: Object.keys(props.requests).reduce((res, id) => {
 res[id] = checked; return res;
 }, {}),
@@ -77,7 +77,7 @@ return checked[id];
     const {checked} = this.state;
     return Object.keys(requests).map(id => <EnhancedTableBody key={id} request={requests[id]} checked={checked[id]} onCheckbox={this.handleCheckbox(id)} />);
   }
-  
+
   renderContent() {
     const { checked } = this.state;
     const numChecked = Object.keys(checked).reduce((res, id) => {
@@ -95,7 +95,7 @@ return checked[id];
       </CardContent>
     );
   }
-  
+
   renderHelp() {
     return (
       <CardContent>
@@ -109,8 +109,9 @@ return checked[id];
       </CardContent>
     );
   }
+
   render() {
-    
+
     return (
       <div>
         <Card>
