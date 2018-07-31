@@ -17,12 +17,20 @@ export function verifyStoredSignatureElectron(path, requests) {
   ipcRenderer.send('verifyStoredSignature-req', path, requests);
 }
 
-export function getSignatureSavePath() {
+export function getSignatureSavePath(path) {
   return electron.remote.dialog.showSaveDialog({
+    defaultPath: path || undefined,
     title: 'Save IRMA signature request',
     filters: [
       { name: 'IRMA Files', extensions: ['irma'] },
       { name: 'All Files', extensions: ['*'] },
     ],
+  });
+}
+
+export function getDefaultSavePath(path) {
+  return electron.remote.dialog.showOpenDialog({
+    title: 'Select default storage directory',
+    properties: ['openDirectory', 'createDirectory', 'noResolveAliases'],
   });
 }

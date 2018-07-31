@@ -20,19 +20,18 @@ class RequestSignatureContainer extends Component {
   }
 
   exportRequest = () => {
-    const { dispatch } = this.props;
+    const { dispatch, defaultSaveDirectory } = this.props;
 
     const exportedRequest = createSigrequestFromInput(this.state.value);
 
-    const savePath = getSignatureSavePath();
+    const savePath = getSignatureSavePath(defaultSaveDirectory);
 
     if (savePath !== undefined) {
       saveSignatureRequestElectron(exportedRequest, savePath);
       dispatch(addRequest(exportedRequest, generateDate(), this.state.value.name));
+      this.allowNavigate = true;
+      this.props.history.push('/sent');
     }
-
-    this.allowNavigate = true;
-    this.props.history.push('/sent');
   }
 
   onDiscard = () => {
@@ -76,9 +75,10 @@ RequestSignatureContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const { defaultReturnEmail } = state.settings;
+  const { defaultReturnEmail, defaultSaveDirectory } = state.settings;
   return {
     defaultReturnEmail,
+    defaultSaveDirectory,
   };
 }
 
