@@ -12,7 +12,9 @@ class RequestSignatureContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: {},
+      value: {
+        from: props.defaultReturnEmail || '',
+      },
     };
     this.allowNavigate = false;
   }
@@ -43,7 +45,7 @@ class RequestSignatureContainer extends Component {
 
   nontrivialValue(value) {
     if (!value) return false;
-    return value.name || value.message || (value.attributes && value.attributes.length !== 0) || value.from;
+    return value.name || value.message || (value.attributes && value.attributes.length !== 0) || (value.from && value.from !== this.props.defaultReturnEmail);
   }
 
   onNavigate = () => {
@@ -70,10 +72,13 @@ class RequestSignatureContainer extends Component {
 RequestSignatureContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.object,
+  defaultReturnEmail: PropTypes.string,
 };
 
 function mapStateToProps(state) {
+  const { defaultReturnEmail } = state.settings;
   return {
+    defaultReturnEmail,
   };
 }
 
