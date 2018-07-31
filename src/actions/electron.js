@@ -28,7 +28,7 @@ export function getSignatureSavePath(path) {
   });
 }
 
-export function getDefaultSavePath(path) {
+export function getDefaultSavePath() {
   return electron.remote.dialog.showOpenDialog({
     title: 'Select default storage directory',
     properties: ['openDirectory', 'createDirectory', 'noResolveAliases'],

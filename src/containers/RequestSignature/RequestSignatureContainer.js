@@ -72,6 +72,7 @@ RequestSignatureContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.object,
   defaultReturnEmail: PropTypes.string,
+  defaultSaveDirectory: PropTypes.string,
 };
 
 function mapStateToProps(state) {

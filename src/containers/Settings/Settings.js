@@ -38,10 +38,10 @@ class Settings extends Component {
 
   onHelp = () => {
     this.setState(state => ({showHelp: !state.showHelp}));
-  } 
+  }
 
   onNavigate = () => {
-    if (!this.forceLeave && 
+    if (!this.forceLeave &&
         (this.state.defaultReturnEmail !== this.props.defaultReturnEmail ||
         this.state.defaultSaveDirectory !== this.props.defaultSaveDirectory))
       return 'Leaving will discard setting changes, continue?';
@@ -60,14 +60,14 @@ class Settings extends Component {
     const defaultReturnEmail = event.target.value;
     this.setState({defaultReturnEmail});
   }
-  
+
   changeDefaultSaveDirectory = () => {
     const openResult = getDefaultSavePath();
-    if (openResult && openResult.length > 0 && openResult[0]) {  
+    if (openResult && openResult.length > 0 && openResult[0])
       this.setState({defaultSaveDirectory: openResult[0]});
-    }
+
   }
-  
+
   renderContent() {
     const { classes } = this.props;
     return (
@@ -111,14 +111,14 @@ class Settings extends Component {
       </React.Fragment>
     );
   }
-  
+
   renderHelp() {
     return (
       <CardContent>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ornare magna magna, dignissim aliquet nunc interdum non. Nullam at bibendum turpis. Aenean interdum, orci ac egestas ultrices, odio eros dapibus ipsum, vel pulvinar magna enim at nulla. Nam ac pulvinar libero, nec feugiat mi. Mauris luctus neque non aliquet tempor. Mauris vulputate velit nisl, vel cursus est tempor non. In hac habitasse platea dictumst.
         </p>
-        
+
         <p>
           Duis interdum venenatis nibh non suscipit. Aenean at nisi lobortis leo lobortis vehicula quis aliquet nisi. Nulla feugiat elit dapibus luctus faucibus. Suspendisse potenti. Pellentesque a lorem mattis, imperdiet arcu ullamcorper, congue elit. Praesent quis lacus nibh. Duis ac est magna. Duis ante mi, sodales et libero pellentesque, egestas pellentesque ligula. Praesent tellus tellus, hendrerit quis lacus malesuada, consectetur placerat risus. Pellentesque arcu ligula, sollicitudin eget fermentum sit amet, elementum sit amet justo. Morbi ut egestas nulla, in vulputate magna.
         </p>
