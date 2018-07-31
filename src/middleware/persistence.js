@@ -1,4 +1,4 @@
-import {loadRequests, setPreferredMailClient} from '../actions';
+import {loadRequests} from '../actions';
 
 export const persistenceMiddleware = store => next => action => {
   const oldState = store.getState();
@@ -7,10 +7,6 @@ export const persistenceMiddleware = store => next => action => {
 
   if (oldState.storage.requests !== newState.storage.requests)
     window.localStorage.setItem('requests', JSON.stringify(newState.storage.requests));
-
-
-  if (oldState.mail.preferredMailClient !== newState.mail.preferredMailClient)
-    window.localStorage.setItem('preferredMailClient', newState.mail.preferredMailClient);
 
   return result;
 };
@@ -23,10 +19,4 @@ export function persistenceRestore(store) {
 
   if (requests)
     store.dispatch(loadRequests(requests));
-
-
-  const preferredMailClient = window.localStorage.getItem('preferredMailClient');
-  if (preferredMailClient)
-    store.dispatch(setPreferredMailClient(preferredMailClient));
-
 }

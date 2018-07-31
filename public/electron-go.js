@@ -4,7 +4,6 @@ const fs = require('fs');
 const isDev = require('electron-is-dev');
 const path = require('path');
 
-const mail = require('./electron/mail');
 const { verifySignature, verifyStoredSignature } = require('./electron/verify');
 const getAllAttributes = require('./electron/irma_attribute_list');
 
@@ -21,17 +20,6 @@ app.on('ready', () => {
   }
 });
 
-ipcMain.on('searchMailClients-req', (event) => {
-  mail.searchMailClients()
-    .then(mailClients => {
-      const action = {
-        type: 'store-mail-clients',
-        mailClients,
-      };
-      event.sender.send('response', JSON.stringify(action));
-    });
-});
-
 ipcMain.on('searchAttributes-req', (event) => {
   getAllAttributes()
     .then(attributeResult => {
@@ -41,10 +29,6 @@ ipcMain.on('searchAttributes-req', (event) => {
       };
       event.sender.send('response', JSON.stringify(action));
     });
-});
-
-ipcMain.on('composeMail-req', (event, { sigRequest, mailClientName, mailClientPath, mailInfo }) => {
-  mail.composeMail(sigRequest, mailClientName, mailClientPath, mailInfo);
 });
 
 ipcMain.on('saveSignatureRequest-req', (event, { sigRequest, path }) => {
