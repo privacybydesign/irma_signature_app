@@ -16,8 +16,13 @@ class LocalInfoBox extends Component {
   
   render() {
     return (
-      <React.Fragment>
-        <div style={{float:'right'}}>
+      <div style={{display:'flex'}}>
+        <div style={{'flex-grow':'100', display:'inline-flex'}}>
+          <div style={{width: '100%'}}>
+            {this.props.children}
+          </div>
+        </div>
+        <div style={{display:'inline-flex'}}>
           <IconButton 
             buttonRef={(ref)=>{this.anchorEl=ref;}}
             onClick={()=>{this.setState({open:true});}}
@@ -40,10 +45,7 @@ class LocalInfoBox extends Component {
             <Typography style={{margin:'1em'}}>{this.props.text}</Typography>
           </Popover>
         </div>
-        <div style={{overflow:'auto'}}>
-          {this.props.children}
-        </div>
-      </React.Fragment>
+      </div>
     );
   }
 }
