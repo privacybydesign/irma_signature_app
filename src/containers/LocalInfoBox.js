@@ -17,7 +17,7 @@ class LocalInfoBox extends Component {
   render() {
     return (
       <div style={{display:'flex'}}>
-        <div style={{'flex-grow':'100', display:'inline-flex'}}>
+        <div style={{flexGrow:'100', display:'inline-flex'}}>
           <div style={{width: '100%'}}>
             {this.props.children}
           </div>
