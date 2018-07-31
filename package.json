@@ -56,7 +56,6 @@
   },
   "dependencies": {
     "bluebird": "3.5.1",
-    "electron-is-dev": "0.3.0",
-    "shelljs": "0.8.1"
+    "electron-is-dev": "0.3.0"
   }
 }
