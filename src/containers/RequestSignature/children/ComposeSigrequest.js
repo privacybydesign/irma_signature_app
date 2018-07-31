@@ -4,179 +4,171 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import CardContent from '@material-ui/core/CardContent';
 
 // Icons
 import Delete from '@material-ui/icons/Delete';
 import Save from '@material-ui/icons/Save';
-import Next from '@material-ui/icons/NavigateNext';
 
 import AttributeDropdown from './AttributeDropdown';
+import LocalInfoBox from '../../LocalInfoBox';
 
 class ComposeSigrequest extends Component {
   constructor(props) {
     super(props);
-    const initialAttributes = props.initialSigrequest ? props.initialSigrequest.attributes : null;
-    const initialMessage = props.initialSigrequest ? props.initialSigrequest.sigMessage : null;
     this.state = {
-      mail: props.initialMail || {
-        from: '',
-        recipient: '',
-        subject: '',
-        body: '',
-      },
-      selectedAttributes: initialAttributes || {},
-      sigMessage: initialMessage || '',
       validationForced: false,
     };
   }
 
+  validateFull(value) {
+    const { name, message, attributes } = value;
+
+    return {
+      errorName: !name,
+      errorMessage: !message,
+      errorAttributes: !attributes || attributes.length === 0,
+    };
+  }
+
+  validate(value) {
+    const { errorName, errorMessage, errorAttributes } = this.validateFull(value);
+    return errorName || errorMessage || errorAttributes;
+  }
+
+  onChangeName = event => {
+    const name = event.target.value;
+    this.props.onChange({
+      ...this.props.value,
+      name,
+    });
+  }
+
+  onChangeMessage = event => {
+    const message = event.target.value;
+    this.props.onChange({
+      ...this.props.value,
+      message,
+    });
+  }
+
+  onChangeFrom = event => {
+    const from = event.target.value;
+    this.props.onChange({
+      ...this.props.value,
+      from,
+    });
+  }
 
   addAttribute = (id, value) => {
-    this.setState((prevState) => {
-      const selected = prevState.selectedAttributes;
-      return {
-        selectedAttributes: {
-          ...selected,
-          [id]: value,
-        },
-      };
+    this.props.onChange({
+      ...this.props.value,
+      attributes: {
+        ...this.props.value.attributes,
+        [id]: value,
+      },
     });
   }
 
   removeAttribute = (id) => {
-    this.setState((prevState) => {
-      const selected = prevState.selectedAttributes;
-      // TODO: better way to delete key from object?
-      const newSelected = Object.keys(selected)
-        .reduce((acc, val) => {
-          if (val !== id)
-            acc[val] = selected[val];
-
-          return acc;
-        }, {});
-      return {
-        selectedAttributes: newSelected,
-      };
+    this.props.onChange({
+      ...this.props.value,
+      attributes: (
+        Object.keys(this.props.value.attributes)
+          .reduce((acc, val) => {
+            if (val !== id)
+              acc[val] = this.props.value.attributes[val];
+            return acc;
+          }, {})),
     });
   }
 
-  validateMessage() {
-    return this.state.sigMessage.length !== 0;
-  }
-
-  validateAttributes() {
-    return Object.keys(this.state.selectedAttributes).length !== 0;
-  }
-
-  validate() {
-    return this.validateMessage() && this.validateAttributes();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { selectedAttributes, sigMessage } = this.state;
-    if (prevState.selectedAttributes !== selectedAttributes
-        || prevState.sigMessage !== sigMessage) {
-      this.props.onChange({
-        attributes: selectedAttributes,
-        sigMessage: sigMessage,
-      });
-    }
-  }
-
-  forceValidate = (continuation) => () => {
-    if (!this.validate()) {
-      this.setState({validationForced: true});
+  onSubmit = () => {
+    if (this.validate(this.props.value)) {
+      this.setState((state) => ({...state, validationForced: true}));
       return;
     }
 
-    continuation();
-  }
-
-  handleSigMessageChange = (event) => {
-    this.setState({
-      sigMessage: event.target.value,
-    });
-  }
-
-  handleTextFieldChange = (event) => {
-    const id = event.target.id;
-    const value = event.target.value;
-    this.setState((prevState) => ({
-      mail: {
-        ...prevState.mail,
-        [id]: value,
-      },
-    }));
+    this.props.onSubmit();
   }
 
   render() {
-    const { mail, selectedAttributes, sigMessage, validationForced } = this.state;
-    const error = !this.validate() && validationForced;
-    const errorMessage = !this.validateMessage() && validationForced;
-    const errorAttributes = !this.validateAttributes() && validationForced;
+    const { validationForced } = this.state;
+    const { value } = this.props;
+    const { errorName, errorMessage, errorAttributes } = this.validateFull(value);
     return (
-      <div style={{ minWidth: '100%', maxWidth: '500px' }}>
-        <TextField
-          className="tfLabel" style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px' }}
-          InputProps={{
-            disableUnderline: true,
-          }}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          label={errorMessage ? 'This field is required' : 'Message to be signed'}
-          onChange={this.handleSigMessageChange}
-          value={sigMessage}
-          multiline
-          rows="4"
-          rowsMax="16"
-          required={true}
-          fullWidth
-          margin="normal"
-          error={errorMessage}
-        />
-        {(errorAttributes ? <Typography style={{ paddingTop: '20px', fontSize: '14px', color: 'red', paddingBottom: '6px' }}>You should select at least one attribute!</Typography> : '')}
-        <AttributeDropdown
-          selectedAttributes={selectedAttributes}
-          addAttribute={this.addAttribute}
-          removeAttribute={this.removeAttribute}
-        />
-        <TextField
-          required
-          id="from"
-          value={mail.from}
-          onChange={this.handleTextFieldChange}
+      <CardContent>
+        <LocalInfoBox text="Lorem ipsum">
+          <TextField
+            value={value.name || ''}
+            onChange={this.onChangeName}
 
-          label={error ? 'This field is required' : 'Return signed message to:'}
-          placeholder={'Email address where you want to receive the signed message.'}
-          error={error}
-          fullWidth
-          margin="normal"
+            label={errorName && validationForced ? 'This field is required' : 'Name:'}
+            placeholder={'Name of the signature request'}
+            error={errorName && validationForced}
+            required
+            fullWidth
+            margin="normal"
+            />
+        </LocalInfoBox>
+        <LocalInfoBox text="Lorem ipsum">
+          <TextField
+            className="tfLabel" style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px' }}
+            InputProps={{
+              disableUnderline: true,
+            }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            label={errorMessage && validationForced ? 'This field is required' : 'Message to be signed'}
+            onChange={this.onChangeMessage}
+            value={value.message || ''}
+            multiline
+            rows="4"
+            rowsMax="16"
+            required
+            fullWidth
+            margin="normal"
+            error={errorMessage && validationForced}
           />
-        <Typography style={{ paddingTop: '20px', paddingBottom: '20px', fontSize: '14px', color: 'rgba(0, 0, 0, 0.54)' }}>You can export this request and share it manually or proceed to share it by email.</Typography>
-        <Button size="small" style={{ float: 'left', marginLeft: '2px', marginRight: '20px' }} variant="raised" onClick={this.props.onDiscard} >
+        </LocalInfoBox>
+        {(errorAttributes && validationForced ? <Typography style={{ paddingTop: '20px', fontSize: '14px', color: 'red', paddingBottom: '6px' }}>You should select at least one attribute!</Typography> : '')}
+        <LocalInfoBox text="Lorem ipsum">
+          <AttributeDropdown
+            selectedAttributes={value.attributes || {}}
+            addAttribute={this.addAttribute}
+            removeAttribute={this.removeAttribute}
+          />
+        </LocalInfoBox>
+        <LocalInfoBox text="Lorem ipsum">
+          <TextField
+            value={value.from || ''}
+            onChange={this.onChangeFrom}
+
+            label={'Return signed message to:'}
+            placeholder={'Email address where you want to receive the signed message.'}
+            fullWidth
+            margin="normal"
+            />
+        </LocalInfoBox>
+        <Button size="small" style={{ marginLeft: '2px', marginRight: '20px' }} variant="raised" onClick={this.props.onDiscard} >
           Discard request
           <Delete style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
         </Button>
-        <Button size="small" style={{ fontSize: '20', marginLeft: '2px' }} variant="raised" onClick={this.forceValidate(this.props.exportRequest)} >
+        <Button size="small" style={{ float: 'right', marginRight: '2px' }} variant="raised" color="primary" onClick={this.onSubmit} >
           Export request
           <Save style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
         </Button>
-        <Button size="small" style={{ float: 'right', marginRight: '2px' }} variant="raised" color="primary" onClick={this.forceValidate(this.props.onComplete)} >
-          Next
-          <Next style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
-        </Button>
-      </div>
+      </CardContent>
     );
   }
 }
 
 ComposeSigrequest.propTypes = {
-  onComplete: PropTypes.func.isRequired,
-  onDiscard: PropTypes.func.isRequired,
-  exportRequest: PropTypes.func.isRequired,
+  value: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  initialSigrequest: PropTypes.object,
+  onDiscard: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default ComposeSigrequest;

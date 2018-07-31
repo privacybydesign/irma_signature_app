@@ -12,13 +12,13 @@ function attributeMapToContent(attributeMap) {
     }));
 }
 
-export function createSigrequestFromInput(from, sigrequest) {
+export function createSigrequestFromInput(input) {
   return {
     nonce: generateNonce(),
     context: '0',
-    message: sigrequest.sigMessage,
-    content: attributeMapToContent(sigrequest.attributes),
-    from,
+    message: input.message,
+    content: attributeMapToContent(input.attributes),
+    from: input.from,
   };
 }
 

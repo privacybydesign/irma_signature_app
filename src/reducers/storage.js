@@ -17,7 +17,7 @@ export default function storage(
         request: action.sigRequest,
         signature: undefined,
         state: 'PENDING',
-        recipient: action.recipient,
+        name: action.name,
         date: action.date,
       };
       const {requests} = state;

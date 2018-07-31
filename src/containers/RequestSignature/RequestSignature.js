@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 // Material UI
 import { Card, CardHeader } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
-
-// Icons
 import IconButton from '@material-ui/core/IconButton';
 
-import RequestSignatureStepper from './children/RequestSignatureStepper';
+import ComposeSigrequest from './children/ComposeSigrequest';
 
 class RequestSignature extends Component {
   render() {
@@ -24,16 +22,12 @@ class RequestSignature extends Component {
             title="Request a signature"
           />
           <Divider />
-          <RequestSignatureStepper
-            sigrequest={this.props.sigrequest}
-            mail={this.props.mail}
-            onComplete={this.props.onComplete}
-            onReset={this.props.onReset}
-            onChangeSigrequest={this.props.onChangeSigrequest}
-            onChangeMail={this.props.onChangeMail}
+          <ComposeSigrequest
+            value={this.props.value}
+            onChange={this.props.onChange}
             onDiscard={this.props.onDiscard}
-            exportRequest={this.props.exportRequest}
-          />
+            onSubmit={this.props.onSubmit}
+            />
         </Card>
       </div>
     );
@@ -41,14 +35,10 @@ class RequestSignature extends Component {
 }
 
 RequestSignature.propTypes = {
-  sigrequest: PropTypes.object,
-  mail: PropTypes.object,
-  onComplete: PropTypes.func.isRequired,
-  onReset: PropTypes.func.isRequired,
-  onChangeSigrequest: PropTypes.func.isRequired,
-  onChangeMail: PropTypes.func.isRequired,
+  value: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
   onDiscard: PropTypes.func.isRequired,
-  exportRequest: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default RequestSignature;

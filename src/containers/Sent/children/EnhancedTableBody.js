@@ -46,7 +46,7 @@ class EnhancedTableBody extends Component {
         <TableCell padding="checkbox">
           <Checkbox checked={checked} onChange={onCheckbox} />
         </TableCell>
-        <TableCell onClick={this.onClick} style={{ paddingLeft: '0', textAlign: 'left', color: '#757575' }}>{request.recipient}</TableCell>
+        <TableCell onClick={this.onClick} style={{ paddingLeft: '0', textAlign: 'left', color: '#757575' }}>{request.name}</TableCell>
         <TableCell onClick={this.onClick} style={{ textAlign: 'left' }}>{request.request.message.substring(0, 20)}</TableCell>
         <TableCell onClick={this.onClick} style={{ textAlign: 'left' }} numeric>{request.date}</TableCell>
         <TableCell onClick={this.onClick} style={{ textAlign: 'center' }} numeric>{getIconByState(request.state)}</TableCell>

@@ -2,12 +2,12 @@ export const ADD_REQUEST = 'add-request';
 export const REMOVE_REQUESTS = 'remove-requests';
 export const LOAD_REQUESTS = 'load-requests';
 
-export function addRequest(sigRequest, date, recipient) {
+export function addRequest(sigRequest, date, name) {
   return {
     type: ADD_REQUEST,
     sigRequest,
     date,
-    recipient,
+    name,
   };
 }
 

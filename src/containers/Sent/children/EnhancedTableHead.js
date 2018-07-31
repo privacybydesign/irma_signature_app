@@ -16,7 +16,7 @@ class EnhancedTableHead extends Component {
           <TableCell padding="checkbox">
             <Checkbox checked={this.props.checked} onChange={this.props.handleSelect} />
           </TableCell>
-          <TableCell padding="none">Recipient</TableCell>
+          <TableCell padding="none">Name</TableCell>
           <TableCell>Message</TableCell>
           <TableCell>Date</TableCell>
           <TableCell style={{textAlign: 'center'}}>Verified</TableCell>

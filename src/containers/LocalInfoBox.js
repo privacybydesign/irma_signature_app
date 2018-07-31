@@ -13,23 +13,27 @@ class LocalInfoBox extends Component {
       open: false,
     };
   }
-  
+
   render() {
     return (
-      <div style={{display:'flex'}}>
-        <div style={{flexGrow:'100', display:'inline-flex'}}>
+      <div style={{display: 'flex'}}>
+        <div style={{flexGrow: '100', display: 'inline-flex'}}>
           <div style={{width: '100%'}}>
             {this.props.children}
           </div>
         </div>
-        <div style={{display:'inline-flex'}}>
-          <IconButton 
-            buttonRef={(ref)=>{this.anchorEl=ref;}}
-            onClick={()=>{this.setState({open:true});}}
+        <div style={{display: 'inline-flex'}}>
+          <IconButton
+            buttonRef={(ref) => {
+ this.anchorEl=ref;
+}}
+            onClick={() => {
+this.setState({open: true});
+}}
             >
-            <HelpIcon/>
+            <HelpIcon />
           </IconButton>
-          <Popover 
+          <Popover
             anchorOrigin={{
               vertical: 'bottom',
               horizontal: 'right',
@@ -40,9 +44,11 @@ class LocalInfoBox extends Component {
             }}
             open={this.state.open}
             anchorEl={this.anchorEl}
-            onClose={()=>{this.setState({open:false});}}
+            onClose={() => {
+ this.setState({open: false});
+}}
           >
-            <Typography style={{margin:'1em'}}>{this.props.text}</Typography>
+            <Typography style={{margin: '1em'}}>{this.props.text}</Typography>
           </Popover>
         </div>
       </div>
@@ -55,4 +61,4 @@ LocalInfoBox.propTypes = {
   children: PropTypes.object,
 };
 
-export default LocalInfoBox
+export default LocalInfoBox;
