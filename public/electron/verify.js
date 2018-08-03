@@ -50,7 +50,7 @@ function verifySignature(signature, requests) {
   if (nonce === undefined) {
     // Safetycheck so that we're sure that signature is valid json
     // (since we're passing it to exec..)
-    return new BPromise.Promise((resolve)=>{
+    return new BPromise.Promise((resolve) => {
       resolve({
         signatureResult: {
           proofStatus: 'INVALID_SYNTAX',
@@ -70,10 +70,10 @@ function verifySignature(signature, requests) {
         error,
       })
     );
-};
+}
 
 module.exports.verifySignature = verifySignature;
 module.exports.verifyStoredSignature = function(path, requests) {
-  return fs.readFileAsync(path, "utf8")
+  return fs.readFileAsync(path, 'utf8')
     .then(signature => verifySignature(signature, requests));
 };

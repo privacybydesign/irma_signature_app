@@ -63,7 +63,7 @@ ipcMain.on('verifyStoredSignature-req', (event, arg, requests) => {
 // Set cwd correctly
 if (!isDev) {
   let postfix = null;
-  switch(process.platform) {
+  switch (process.platform) {
   case 'darwin':
     postfix='..';
   }
