@@ -42,8 +42,10 @@ class Settings extends Component {
 
   onNavigate = () => {
     if (!this.forceLeave &&
-        (this.state.defaultReturnEmail !== this.props.defaultReturnEmail ||
-        this.state.defaultSaveDirectory !== this.props.defaultSaveDirectory))
+        ((this.state.defaultReturnEmail !== this.props.defaultReturnEmail && 
+          !this.state.defaultReturnEmail !== !this.props.defaultReturnEmail) ||
+         (this.state.defaultSaveDirectory !== this.props.defaultSaveDirectory &&
+          !this.state.defaultSaveDirectory !== !this.props.defaultSaveDirectory)))
       return 'Leaving will discard setting changes, continue?';
     return true;
   }
