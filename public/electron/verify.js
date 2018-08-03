@@ -2,6 +2,7 @@ const BPromise = require('bluebird');
 const fs = BPromise.promisifyAll(require('fs'));
 const child_process = require('child_process');
 const exec = BPromise.promisify(child_process.exec);
+const { irmaSignatureVerifyExec } = require('./execNames');
 
 // Adds " to all nummeric bigInts, so that they can be parsed in Javascript
 function convertIntToStringInJson(input) {
@@ -19,13 +20,13 @@ function getNonceFromSignature(signature) {
 }
 
 function verifySignatureWithoutRequestGo(signature) {
-  return exec(`./go/irma_signature_verify '${signature}'`);
+  return exec(`${irmaSignatureVerifyExec} '${signature}'`);
 }
 
 function verifySignatureGo(signature, request) {
   const requestString = JSON.stringify(request);
-  console.log('Calling: ', `./go/irma_signature_verify '${signature}' '${requestString}'`);
-  return exec(`./go/irma_signature_verify '${signature}' '${requestString}'`);
+  console.log('Calling: ', `${irmaSignatureVerifyExec} '${signature}' '${requestString}'`);
+  return exec(`${irmaSignatureVerifyExec} '${signature}' '${requestString}'`);
 }
 
 function verifySignatureWithNonce(nonce, signature, requests) {

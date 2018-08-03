@@ -3,6 +3,7 @@ const electron = require('electron');
 const fs = require('fs');
 const isDev = require('electron-is-dev');
 const path = require('path');
+const process = require('process');
 
 const { verifySignature, verifyStoredSignature } = require('./electron/verify');
 const getAllAttributes = require('./electron/irma_attribute_list');
@@ -60,5 +61,11 @@ ipcMain.on('verifyStoredSignature-req', (event, arg, requests) => {
 });
 
 // Set cwd correctly
-if (!isDev)
-    process.chdir(path.dirname(app.getPath('exe')));
+if (!isDev) {
+  let postfix = null;
+  switch(process.platform) {
+  case 'darwin':
+    postfix='..';
+  }
+  process.chdir(path.dirname(app.getPath('exe')));
+}
