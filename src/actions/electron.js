@@ -17,6 +17,10 @@ export function verifyStoredSignatureElectron(path, requests) {
   ipcRenderer.send('verifyStoredSignature-req', path, requests);
 }
 
+export function dragSignatureRequestElectron(request) {
+  ipcRenderer.send('dragSignatureRequest-req', request);
+}
+
 export function getSignatureSavePath(path) {
   return electron.remote.dialog.showSaveDialog({
     defaultPath: path || undefined,

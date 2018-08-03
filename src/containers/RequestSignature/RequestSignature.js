@@ -28,6 +28,7 @@ class RequestSignature extends Component {
         onChange={this.props.onChange}
         onDiscard={this.props.onDiscard}
         onSubmit={this.props.onSubmit}
+        onDrag={this.props.onDrag}
         />
     );
   }
@@ -71,6 +72,7 @@ RequestSignature.propTypes = {
   onChange: PropTypes.func.isRequired,
   onDiscard: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  onDrag: PropTypes.func.isRequired,
 };
 
 export default RequestSignature;

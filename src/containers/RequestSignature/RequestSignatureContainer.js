@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import RequestSignature from './RequestSignature';
 import { addRequest } from './../../actions';
-import { getSignatureSavePath, saveSignatureRequestElectron } from './../../actions/electron';
+import { getSignatureSavePath, saveSignatureRequestElectron, dragSignatureRequestElectron } from './../../actions/electron';
 import { createSigrequestFromInput, generateDate } from './../../utils/requestUtils';
 
 class RequestSignatureContainer extends Component {
@@ -32,6 +32,14 @@ class RequestSignatureContainer extends Component {
       this.allowNavigate = true;
       this.props.history.push('/sent');
     }
+  }
+  
+  onDrag = () => {
+    const { dispatch } = this.props;
+    const exportedRequest = createSigrequestFromInput(this.state.value);
+    dragSignatureRequestElectron(exportedRequest);
+    dispatch(addRequest(exportedRequest, generateDate(), this.state.value.name));
+    this.allowNavigate = true;
   }
 
   onDiscard = () => {
@@ -62,6 +70,7 @@ class RequestSignatureContainer extends Component {
           onChange={this.onChange}
           onDiscard={this.onDiscard}
           onSubmit={this.exportRequest}
+          onDrag={this.onDrag}
         />
       </div>
     );

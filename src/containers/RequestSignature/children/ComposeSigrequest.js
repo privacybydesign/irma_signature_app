@@ -85,11 +85,21 @@ class ComposeSigrequest extends Component {
 
   onSubmit = () => {
     if (this.validate(this.props.value)) {
-      this.setState((state) => ({...state, validationForced: true}));
+      this.setState({validationForced: true});
       return;
     }
 
     this.props.onSubmit();
+  }
+
+  onDrag = event => {
+    event.preventDefault();
+    if (this.validate(this.props.value)) {
+      this.setState({validationForced: true});
+      return;
+    }
+
+    this.props.onDrag();
   }
 
   render() {
@@ -155,10 +165,12 @@ class ComposeSigrequest extends Component {
           Discard request
           <Delete style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
         </Button>
-        <Button size="small" style={{ float: 'right', marginRight: '2px' }} variant="raised" color="primary" onClick={this.onSubmit} >
-          Export request
-          <Save style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
-        </Button>
+        <div draggable={true} style={{ float: 'right', marginRight: '2px' }} onDragStart={this.onDrag}>
+          <Button size="small" variant="raised" color="primary" onClick={this.onSubmit}>
+            Export request
+            <Save style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
+          </Button>
+        </div>
       </CardContent>
     );
   }
@@ -169,6 +181,7 @@ ComposeSigrequest.propTypes = {
   onChange: PropTypes.func.isRequired,
   onDiscard: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  onDrag: PropTypes.func.isRequired,
 };
 
 export default ComposeSigrequest;
