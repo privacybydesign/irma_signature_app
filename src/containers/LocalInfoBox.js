@@ -30,6 +30,7 @@ class LocalInfoBox extends Component {
             onClick={() => {
 this.setState({open: true});
 }}
+            tabIndex={-1}
             >
             <HelpIcon />
           </IconButton>
