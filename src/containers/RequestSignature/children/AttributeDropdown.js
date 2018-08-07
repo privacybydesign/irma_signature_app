@@ -50,7 +50,6 @@ class AttributeDropdown extends Component {
         <Select
           multiple
           id="state-select"
-          autoFocus
           simpleValue
           clearable
           options={this.getOptions()}

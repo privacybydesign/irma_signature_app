@@ -108,6 +108,7 @@ class ComposeSigrequest extends Component {
             error={errorName && validationForced}
             required
             fullWidth
+            autoFocus
             margin="normal"
             />
         </LocalInfoBox>
@@ -151,13 +152,13 @@ class ComposeSigrequest extends Component {
             margin="normal"
             />
         </LocalInfoBox>
-        <Button size="small" style={{ marginLeft: '2px', marginRight: '20px' }} variant="raised" onClick={this.props.onDiscard} >
-          Discard request
-          <Delete style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
-        </Button>
         <Button size="small" style={{ float: 'right', marginRight: '2px' }} variant="raised" color="primary" onClick={this.onSubmit} >
           Export request
           <Save style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
+        </Button>
+        <Button size="small" style={{ marginLeft: '2px', marginRight: '20px' }} variant="raised" onClick={this.props.onDiscard} >
+          Discard request
+          <Delete style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
         </Button>
       </CardContent>
     );
