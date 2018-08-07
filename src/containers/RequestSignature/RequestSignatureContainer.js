@@ -15,30 +15,40 @@ class RequestSignatureContainer extends Component {
       value: {
         from: props.defaultReturnEmail || '',
       },
+      cachedRequest: null,
     };
     this.allowNavigate = false;
   }
+  
+  createRequest() {
+    if (this.state.cachedRequest)
+      return this.state.cachedRequest;
+  
+    const input = this.state.value;
+    const { dispatch } = this.props;
+    
+    const exportedRequest = createSigrequestFromInput(input);
+    dispatch(addRequest(exportedRequest, generateDate(), this.state.value.name));
+    this.setState({cachedRequest: exportedRequest});
+    return exportedRequest;
+  }
 
   exportRequest = () => {
-    const { dispatch, defaultSaveDirectory } = this.props;
-
-    const exportedRequest = createSigrequestFromInput(this.state.value);
+    const { defaultSaveDirectory } = this.props;
 
     const savePath = getSignatureSavePath(defaultSaveDirectory);
 
     if (savePath !== undefined) {
+      const exportedRequest = this.createRequest();
       saveSignatureRequestElectron(exportedRequest, savePath);
-      dispatch(addRequest(exportedRequest, generateDate(), this.state.value.name));
       this.allowNavigate = true;
       this.props.history.push('/sent');
     }
   }
   
   onDrag = () => {
-    const { dispatch } = this.props;
-    const exportedRequest = createSigrequestFromInput(this.state.value);
+    const exportedRequest = this.createRequest();
     dragSignatureRequestElectron(exportedRequest);
-    dispatch(addRequest(exportedRequest, generateDate(), this.state.value.name));
     this.allowNavigate = true;
   }
 
@@ -47,7 +57,7 @@ class RequestSignatureContainer extends Component {
   }
 
   onChange = (value) => {
-    this.setState({value});
+    this.setState({value, cachedRequest: null});
   }
 
   nontrivialValue(value) {
