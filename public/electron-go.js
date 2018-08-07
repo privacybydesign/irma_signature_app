@@ -7,6 +7,7 @@ const process = require('process');
 
 const { verifySignature, verifyStoredSignature } = require('./electron/verify');
 const getAllAttributes = require('./electron/irma_attribute_list');
+const { saveTempSignatureRequest } = require('./electron/drag');
 
 const app = electron.app;
 const ipcMain = electron.ipcMain;
@@ -36,6 +37,13 @@ ipcMain.on('saveSignatureRequest-req', (event, { sigRequest, path }) => {
   if (path !== undefined)
     fs.writeFileSync(path, JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json
 
+});
+
+ipcMain.on('dragSignatureRequest-req', (event, signatureRequest) => {
+  event.sender.startDrag({
+    file: saveTempSignatureRequest(signatureRequest),
+    icon: './src/static/images/logo.png',
+  });
 });
 
 ipcMain.on('verifySignature-req', (event, path, requests) => {
