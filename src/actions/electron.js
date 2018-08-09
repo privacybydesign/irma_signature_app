@@ -1,5 +1,6 @@
 const electron = window.require('electron');
 const ipcRenderer = electron.ipcRenderer;
+const shell = electron.shell;
 
 export function searchAttributesElectron() {
   ipcRenderer.send('searchAttributes-req');
@@ -37,4 +38,8 @@ export function getDefaultSavePath() {
     title: 'Select default storage directory',
     properties: ['openDirectory', 'createDirectory', 'noResolveAliases'],
   });
+}
+
+export function openExtern(url) {
+  return shell.openExternal(url);
 }
