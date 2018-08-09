@@ -36,8 +36,18 @@ Start the app :
     yarn run electron-dev
 ```
 
-Currently the following mail clients are supported / autodetected / tested:
+### Note on windows
 
-- Thunderbird
-- Mail.app (OSX)
-- Outlook 2007, Outlook 2010, Outlook 365 (Windows)
+For windows, copy go\\irma\_configuration to public\\irma\_configuration to compensate for the fact that windows does not support symlinks.
+
+## Building distributable binaries
+
+Follow the setup instructions above. Then build optimized javascript
+```
+    yarn build
+```
+
+And build the desired distribution using electron-builder
+```
+    ./node\_modules/node\_modules/.bin/electron-builder
+```

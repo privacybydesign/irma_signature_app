@@ -1,5 +1,5 @@
 {
-  "name": "IRMA_signature_app",
+  "name": "IRMASignatureApp",
   "version": "1.0.0",
   "description": "An IRMA app to create IRMA signatures",
   "main": "public/electron.js",
