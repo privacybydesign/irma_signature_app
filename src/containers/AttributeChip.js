@@ -21,6 +21,7 @@ class AttributeChip extends Component {
     const logoUrl = attribute.logo.substr(0, 3) === 'go/' ? attribute.logo.substr(3) : attribute.logo;
     return (
       <Chip
+        style={{margin: '0.5em'}}
         label={`${attribute.name} - ${attribute.credentialName}`}
         onDelete={onDelete}
         avatar={logoUrl ? <Avatar src={logoUrl} classes={{img: classes.img}} /> : null}
