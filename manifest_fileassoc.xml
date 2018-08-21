@@ -1,15 +1,17 @@
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
    <Applications>
       <Application Id="AssociationLaunching.App">
+         <!-- Copy from here -->
          <Extensions>
-            <Extension Category="windows.fileTypeAssociation">
-               <FileTypeAssociation Name="irmatypes">
-                  <SupportedFileTypes>
-                     <FileType>.irmasignature</FileType>
-                  </SupportedFileTypes>
-               </FileTypeAssociation>
-            </Extension>
+            <uap:Extension Category="windows.fileTypeAssociation">
+               <uap:FileTypeAssociation Name="irmatypes">
+                  <uap:SupportedFileTypes>
+                     <uap:FileType>.irmasignature</uap:FileType>
+                  </uap:SupportedFileTypes>
+               </uap:FileTypeAssociation>
+            </uap:Extension>
          </Extensions>
+         <!-- To here -->
       </Application>
    </Applications>
 </Package>
