@@ -7,7 +7,7 @@ export function searchAttributesElectron() {
 }
 
 export function saveSignatureRequestElectron(sigRequest, path) {
-  ipcRenderer.send('saveSignatureRequest-req', { sigRequest, path });
+  ipcRenderer.send('saveSignatureRequest-req', sigRequest, path);
 }
 
 export function verifySignatureElectron(signature, requests) {
@@ -27,7 +27,7 @@ export function getSignatureSavePath(path) {
     defaultPath: path || undefined,
     title: 'Save IRMA signature request',
     filters: [
-      { name: 'IRMA Files', extensions: ['irma'] },
+      { name: 'IRMA Signature requests', extensions: ['irmarequest'] },
       { name: 'All Files', extensions: ['*'] },
     ],
   });

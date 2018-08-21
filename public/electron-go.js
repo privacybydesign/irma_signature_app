@@ -33,7 +33,7 @@ ipcMain.on('searchAttributes-req', (event) => {
     });
 });
 
-ipcMain.on('saveSignatureRequest-req', (event, { sigRequest, sigPath }) => {
+ipcMain.on('saveSignatureRequest-req', (event, sigRequest, sigPath) => {
   if (sigPath !== undefined)
     fs.writeFileSync(sigPath, JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json
 
@@ -70,7 +70,7 @@ ipcMain.on('verifyStoredSignature-req', (event, arg, requests) => {
 
 // Set cwd correctly
 if (!isDev) {
-  let postfix = null;
+  let postfix = '.';
   switch (process.platform) {
   case 'darwin':
     postfix='..';
