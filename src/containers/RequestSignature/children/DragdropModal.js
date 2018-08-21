@@ -15,7 +15,7 @@ class DragdropModal extends Component {
           <IconButton style={{position: 'absolute', top: '10px', right: '10px'}} onClick={this.props.onClose}>
             <CloseIcon/>
           </IconButton>
-          <div draggable={true} style={{draggable: 'true', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}} onDrag={this.props.onDrag}>
+          <div draggable={true} style={{draggable: 'true', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}} onDragStart={this.props.onDragStart}>
             <img style={{maxWidth: '40vw', maxHeight: '40vh'}}alt={'Request a signature'} src={requestImg} />
           </div>
         </Paper>
@@ -26,7 +26,7 @@ class DragdropModal extends Component {
 
 DragdropModal.propTypes = {
   open: PropTypes.bool.isRequired,
-  onDrag: PropTypes.func.isRequired,
+  onDragStart: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired
 };
 

@@ -48,7 +48,7 @@ class RequestSignatureContainer extends Component {
     }
   }
 
-  onDrag = (event) => {
+  onDragStart = (event) => {
     event.preventDefault();
     const exportedRequest = this.createRequest();
     dragSignatureRequestElectron(exportedRequest);
@@ -89,7 +89,7 @@ class RequestSignatureContainer extends Component {
         <DragdropModal
           open={this.state.dragdropOpen}
           onClose={this.onDragdropClose}
-          onDrag={this.onDrag}
+          onDragStart={this.onDragStart}
         />
         <RequestSignature
           value={this.state.value}
