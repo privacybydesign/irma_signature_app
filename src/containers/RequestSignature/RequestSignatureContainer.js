@@ -21,14 +21,14 @@ class RequestSignatureContainer extends Component {
     };
     this.allowNavigate = false;
   }
-  
+
   createRequest() {
     if (this.state.cachedRequest)
       return this.state.cachedRequest;
-  
+
     const input = this.state.value;
     const { dispatch } = this.props;
-    
+
     const exportedRequest = createSigrequestFromInput(input);
     dispatch(addRequest(exportedRequest, generateDate(), this.state.value.name));
     this.setState({cachedRequest: exportedRequest});

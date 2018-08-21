@@ -7,4 +7,4 @@ module.exports.saveTempSignatureRequest = function(signatureRequest) {
   const filepath = path.join(tmpdir, 'signatureRequest.irma');
   fs.writeFileSync(filepath, JSON.stringify(signatureRequest));
   return filepath;
-}
+};

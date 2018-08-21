@@ -33,9 +33,9 @@ ipcMain.on('searchAttributes-req', (event) => {
     });
 });
 
-ipcMain.on('saveSignatureRequest-req', (event, { sigRequest, path }) => {
-  if (path !== undefined)
-    fs.writeFileSync(path, JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json
+ipcMain.on('saveSignatureRequest-req', (event, { sigRequest, sigPath }) => {
+  if (sigPath !== undefined)
+    fs.writeFileSync(sigPath, JSON.stringify(sigRequest, null, 4)); // 4 = 4 spaces in json
 
 });
 
@@ -46,8 +46,8 @@ ipcMain.on('dragSignatureRequest-req', (event, signatureRequest) => {
   });
 });
 
-ipcMain.on('verifySignature-req', (event, path, requests) => {
-  verifySignature(path, requests)
+ipcMain.on('verifySignature-req', (event, sigPath, requests) => {
+  verifySignature(sigPath, requests)
     .then(verifyResult => {
       const action = {
         type: 'set-verify-result',
@@ -75,5 +75,5 @@ if (!isDev) {
   case 'darwin':
     postfix='..';
   }
-  process.chdir(path.dirname(app.getPath('exe')));
+  process.chdir(path.join(path.dirname(app.getPath('exe')), postfix));
 }
