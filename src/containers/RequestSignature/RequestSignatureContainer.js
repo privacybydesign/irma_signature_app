@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import RequestSignature from './RequestSignature';
+import DragdropModal from './children/DragdropModal';
 import { addRequest } from './../../actions';
 import { getSignatureSavePath, saveSignatureRequestElectron, dragSignatureRequestElectron } from './../../actions/electron';
 import { createSigrequestFromInput, generateDate } from './../../utils/requestUtils';
@@ -16,6 +17,7 @@ class RequestSignatureContainer extends Component {
         from: props.defaultReturnEmail || '',
       },
       cachedRequest: null,
+      dragdropOpen: false,
     };
     this.allowNavigate = false;
   }
@@ -45,11 +47,20 @@ class RequestSignatureContainer extends Component {
       this.props.history.push('/sent');
     }
   }
-  
-  onDrag = () => {
+
+  onDrag = (event) => {
+    event.preventDefault();
     const exportedRequest = this.createRequest();
     dragSignatureRequestElectron(exportedRequest);
     this.allowNavigate = true;
+  }
+
+  onDragdropClose = () => {
+    this.setState({dragdropOpen: false});
+  }
+
+  onDragdropOpen = () => {
+    this.setState({dragdropOpen: true});
   }
 
   onDiscard = () => {
@@ -75,12 +86,17 @@ class RequestSignatureContainer extends Component {
     return (
       <div>
         <Prompt message={this.onNavigate} />
+        <DragdropModal
+          open={this.state.dragdropOpen}
+          onClose={this.onDragdropClose}
+          onDrag={this.onDrag}
+        />
         <RequestSignature
           value={this.state.value}
           onChange={this.onChange}
           onDiscard={this.onDiscard}
           onSubmit={this.exportRequest}
-          onDrag={this.onDrag}
+          onDrag={this.onDragdropOpen}
         />
       </div>
     );

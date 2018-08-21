@@ -9,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 // Icons
 import Delete from '@material-ui/icons/Delete';
 import Save from '@material-ui/icons/Save';
+import Launch from '@material-ui/icons/Launch';
 
 import AttributeDropdown from './AttributeDropdown';
 import LocalInfoBox from '../../LocalInfoBox';
@@ -92,8 +93,7 @@ class ComposeSigrequest extends Component {
     this.props.onSubmit();
   }
 
-  onDrag = event => {
-    event.preventDefault();
+  onDrag = () => {
     if (this.validate(this.props.value)) {
       this.setState({validationForced: true});
       return;
@@ -162,7 +162,11 @@ class ComposeSigrequest extends Component {
             margin="normal"
             />
         </LocalInfoBox>
-        <div draggable={true} style={{ float: 'right', marginRight: '2px' }} onDragStart={this.onDrag}>
+        <div style={{ float: 'right', marginRight: '2px' }}>
+          <Button size="small" variant="raised" style={{ marginRight: '20px' }} onClick={this.onDrag}>
+            Drag request
+            <Launch style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
+          </Button>
           <Button size="small" variant="raised" color="primary" onClick={this.onSubmit}>
             Export request
             <Save style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
