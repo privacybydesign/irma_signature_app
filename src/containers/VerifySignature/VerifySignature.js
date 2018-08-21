@@ -105,11 +105,17 @@ class VerifySignature extends Component {
     return (
       <CardContent>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ornare magna magna, dignissim aliquet nunc interdum non. Nullam at bibendum turpis. Aenean interdum, orci ac egestas ultrices, odio eros dapibus ipsum, vel pulvinar magna enim at nulla. Nam ac pulvinar libero, nec feugiat mi. Mauris luctus neque non aliquet tempor. Mauris vulputate velit nisl, vel cursus est tempor non. In hac habitasse platea dictumst.
-        </p>
-
-        <p>
-          Duis interdum venenatis nibh non suscipit. Aenean at nisi lobortis leo lobortis vehicula quis aliquet nisi. Nulla feugiat elit dapibus luctus faucibus. Suspendisse potenti. Pellentesque a lorem mattis, imperdiet arcu ullamcorper, congue elit. Praesent quis lacus nibh. Duis ac est magna. Duis ante mi, sodales et libero pellentesque, egestas pellentesque ligula. Praesent tellus tellus, hendrerit quis lacus malesuada, consectetur placerat risus. Pellentesque arcu ligula, sollicitudin eget fermentum sit amet, elementum sit amet justo. Morbi ut egestas nulla, in vulputate magna.
+	    On this page you can verify a digital signature. Such a
+	signature must have been created first, by a signer, in
+	her/his IRMA app.  This yields a file with extension
+	<em>.irma</em>. On the current page you can load such a file,
+	either by dragging it to the designated area or by selecting
+	it in a file browser. The cryptographic verification of the
+	signature then starts automatically and the result is
+	displayed. If it succeeds, it tells you which message was
+	signed, when, and with which attributes of the signer. Such a
+	successful verification gives a proof of the commitment of the
+	signer to the content of the message.
         </p>
       </CardContent>
     );

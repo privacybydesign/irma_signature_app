@@ -99,13 +99,16 @@ return checked[id];
   renderHelp() {
     return (
       <CardContent>
-        <p>
-        On this page, you see an overview of earlier signature requests that you have created with this application. 
-        For each request, you can see the file name, the message itself, the requested attributes and the status of the signature (verfied or not).       
-        </p>
+            <p>
+            On this page, you see an overview of earlier signature
+        requests that you have created with this application.  For
+        each request, you can see the file name, the message itself,
+        the requested attributes and the status of the signature
+        (verfied or not).  </p>
 
-         <p>
-You can select one or more entries to view details or to delete them from the list.        </p>
+            <p> You can select one or more of these entries to view
+	    details or to delete them from the list.
+	    </p>
       </CardContent>
     );
   }

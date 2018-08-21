@@ -77,16 +77,19 @@ class Settings extends Component {
         <CardContent>
           <CardHeader
             title="Mail settings"
-            subheader="Set your default return address here."
+            subheader="Set your default delivery address here."
           />
         </CardContent>
         <CardContent>
-          <LocalInfoBox text="Lorem ipsum">
+          <LocalInfoBox text="The e-mail address that you set here will be the pre-filled delivery
+address on the `Request a signature' page of this
+application. For instance, you can put your own e-mail address here,
+so that all your signature requests are returned to you by default.">
             <TextField
               value={this.state.defaultReturnEmail}
               onChange={this.onDefaultReturnEmailChange}
 
-              label={'Default return email address'}
+              label={'Default delivery e-mail address'}
               fullWidth={true}
               />
           </LocalInfoBox>
@@ -98,7 +101,7 @@ class Settings extends Component {
             />
         </CardContent>
         <CardContent>
-          <LocalInfoBox text="Lorem ipsum">
+          <LocalInfoBox text="Here you can select a local directory on your computer. Then, all your signature requests will be stored there.">
             <Button classes={{label: classes.label}} size="small" variant="raised" onClick={this.changeDefaultSaveDirectory}>
               {this.state.defaultSaveDirectory}
             </Button>
@@ -117,13 +120,10 @@ class Settings extends Component {
   renderHelp() {
     return (
       <CardContent>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ornare magna magna, dignissim aliquet nunc interdum non. Nullam at bibendum turpis. Aenean interdum, orci ac egestas ultrices, odio eros dapibus ipsum, vel pulvinar magna enim at nulla. Nam ac pulvinar libero, nec feugiat mi. Mauris luctus neque non aliquet tempor. Mauris vulputate velit nisl, vel cursus est tempor non. In hac habitasse platea dictumst.
-        </p>
-
-        <p>
-          Duis interdum venenatis nibh non suscipit. Aenean at nisi lobortis leo lobortis vehicula quis aliquet nisi. Nulla feugiat elit dapibus luctus faucibus. Suspendisse potenti. Pellentesque a lorem mattis, imperdiet arcu ullamcorper, congue elit. Praesent quis lacus nibh. Duis ac est magna. Duis ante mi, sodales et libero pellentesque, egestas pellentesque ligula. Praesent tellus tellus, hendrerit quis lacus malesuada, consectetur placerat risus. Pellentesque arcu ligula, sollicitudin eget fermentum sit amet, elementum sit amet justo. Morbi ut egestas nulla, in vulputate magna.
-        </p>
+            <p> On this page you can set some preferred settings for
+	    this application. After saving, they will be used
+	    throughout. They can be changed again at any later moment.
+	    </p>
       </CardContent>
     );
   }

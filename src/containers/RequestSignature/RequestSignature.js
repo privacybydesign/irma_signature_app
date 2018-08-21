@@ -37,46 +37,53 @@ class RequestSignature extends Component {
     return (
       <CardContent>
         <p>
-          On this page you can create a request for a digital signature. Such a request is used for instance in the following way.
-          Suppose Bob wants to borrow the car of Alice and Alice wants to have a binding confirmation from Bob that he will 
-          be responsible for damages and fines etc. Alice can then compose a signature request for Bob with this application.
-          Subsequently she sends this request by e-mail to Bob, who can sign it in his IRMA app on his phone. He
-          can then return the signed message to Alice. Then, Alice can again use this application to verify the response of Bob, 
-          to see that it is indeed a valid signature on her original message. She can keep it as proof.
+           On this page you can create a request for a digital
+          signature. Such a request is used for instance in the
+          following way.  Suppose Bob wants to borrow the car of Alice
+          and Alice wants to have a binding confirmation from Bob that
+          he will be responsible for damages and fines etc. Alice can
+          then compose a signature request for Bob with this
+          application.  Subsequently she sends this request by e-mail
+          to Bob, who can sign it in his IRMA app on his phone. He can
+          then return the signed message to Alice. Then, Alice can
+          again use this application to verify the response of Bob, to
+          see that it is indeed a valid signature on her original
+          message. She can keep it as proof.
         </p>
 
         <p>
-          In general, IRMA allows you to require that the signer signs with certain personal properties, 
-          called attributes. Examples are the name of the signer, her/his e-mail address, phone number, or bank
-          account number, or also her/his profession (like medical doctor, possibly including registration number).
-          Below you can select these attributes yourself, from a list of available IRMA attributes. In this way
-          you determine the attributes of the signer that are relevant for the message.
+          In general, IRMA allows you to require that the signer signs
+          with certain personal properties, called
+          attributes. Examples are the name of the signer, her/his
+          e-mail address, phone number, or bank account number, or
+          also her/his profession (like medical doctor, possibly
+          including registration number).  Below you can select these
+          attributes yourself, from a list of available IRMA
+          attributes. In this way you determine the attributes of the
+          signer that are relevant for the message.
         </p>
         <p>
-          The signature itself is not produced with this application, but with the IRMA app of the signer. Here,
-          you only produce the signature request, which needs to be sent separately to the signer, for the actual signing.
-          This page helps you to produce the request. It allows you to store this request on your computer,
-          as a special file with <em>.irmareq</em> extension.
-          It is up to you to send this file to the (phone of the) intended signer, for instance by e-mail. There, the 
-          actual signing happens, with the IRMA app. Thereafter, the signer can 
-          return the signed message as an <em>.irmasig</em> file to you as requester, or can send it to others.
+          The signature itself is not produced with this application,
+          but with the IRMA app of the signer. Here, you only produce
+          a preparatory signature request, which needs to be sent
+          separately to the signer, for the actual signing.  This page
+          helps you to produce the request. It allows you to store
+          this request on your computer, as a special file with
+          <em>.irmarequest</em> extension.  It is up to you to send
+          this file to the (phone of the) intended signer, for
+          instance by e-mail. There, the actual signing happens, with
+          the IRMA app. Thereafter, the signer can return the signed
+          message as an <em>.irma</em> file to you as requester, or
+          can send it to others. Such signatures can be checked on a
+          separate <em>Verify a signature</em> page of this
+          application.
         </p>
         <p>
-        You can also send a signature request to yourself, and sign it on your phone. In this way you can produce
-        a signed statement and give it as commitment to others.
+        You can also send a signature request to yourself, and sign it
+        with your IRMA app on your own phone. In this way you can
+        produce a signed statement and give it as commitment to
+        others.
       </p>
-
-        <p>
-          Technically, only plain text message, of arbitrary length, can be signed with the IRMA app. 
-          Hence, signing of pdf files is not supported. Only a single person can sign a signature request,
-          as produced below: multiple successive signing of the
-          same message by multiple people is not supported. Of course, the same request can be sent to several people, giving multiple 
-          separate signature files for the same message. Also, it is not possible to sign several messages at the same time 
-          (batch signing) by the same signer.
-        </p>
-        <p>
-          The verification of signed messages is done via a separate page of this application [link].
-        </p>
       </CardContent>
     );
   }
