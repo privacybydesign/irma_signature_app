@@ -51,7 +51,7 @@ class VerifySignature extends Component {
       <CardContent style={{ paddingLeft: '30px' }}>
         <div className="dropbox">
           <Upload.Dragger
-            accept=".irma"
+            accept=".irmasignature"
             name="files"
             beforeUpload={(() => false)}
             onChange={this.handleUpload}
