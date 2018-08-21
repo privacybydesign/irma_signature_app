@@ -1,0 +1,15 @@
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+   <Applications>
+      <Application Id="AssociationLaunching.App">
+         <Extensions>
+            <Extension Category="windows.fileTypeAssociation">
+               <FileTypeAssociation Name="irmatypes">
+                  <SupportedFileTypes>
+                     <FileType>.irmasignature</FileType>
+                  </SupportedFileTypes>
+               </FileTypeAssociation>
+            </Extension>
+         </Extensions>
+      </Application>
+   </Applications>
+</Package>

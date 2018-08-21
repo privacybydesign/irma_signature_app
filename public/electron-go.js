@@ -77,3 +77,5 @@ if (!isDev) {
   }
   process.chdir(path.join(path.dirname(app.getPath('exe')), postfix));
 }
+
+console.log(process.argv);
