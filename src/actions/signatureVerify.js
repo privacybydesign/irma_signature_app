@@ -4,6 +4,7 @@ import { verifySignatureElectron, verifyStoredSignatureElectron} from './electro
 export const SET_VERIFY_RESULT = 'set-verify-result';
 export const CLOSE_VERIFY_RESULT = 'close-verify-result';
 export const START_VERIFY_SIGNATURE = 'start-verify-signature';
+export const SET_COMMANDLINE_DONE = 'set-commandline-done';
 
 function startVerifySignature() {
   return {
@@ -28,5 +29,11 @@ export function verifyStoredSignature(path, requests) {
 export function closeVerifyResult() {
   return {
     type: CLOSE_VERIFY_RESULT,
+  };
+}
+
+export function setCommandlineDone() {
+  return {
+    type: SET_COMMANDLINE_DONE,
   };
 }

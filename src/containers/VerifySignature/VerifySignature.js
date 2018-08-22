@@ -12,7 +12,8 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import HelpIcon from '@material-ui/icons/Help';
 
-import { verifyStoredSignature, closeVerifyResult } from './../../actions';
+import { verifyStoredSignature, closeVerifyResult, setCommandlineDone } from './../../actions';
+import { getCommandlineArgument } from './../../actions/electron';
 import SignatureResult from './children/SignatureResult';
 import AttributeResult from './children/AttributeResult';
 
@@ -25,6 +26,16 @@ class VerifySignature extends Component {
     this.state = {
       showHelp: false,
     };
+  }
+  
+  componentDidMount() {
+    const { commandlineDone, dispatch, requests } = this.props;
+    if (!commandlineDone) {
+      dispatch(setCommandlineDone());
+      const arg = getCommandlineArgument()
+      if (arg)
+        dispatch(verifyStoredSignature(arg, requests));
+    }
   }
 
   onHelp = () => {
@@ -154,11 +165,13 @@ VerifySignature.propTypes = {
 function mapStateToProps(state) {
   const verifyResult = state.signatureVerify.verifyResult;
   const showVerifyResult = state.signatureVerify.showVerifyResult;
+  const commandlineDone = state.signatureVerify.commandlineDone;
   const requests = state.storage.requests;
   return {
     ...verifyResult,
     showVerifyResult,
     requests,
+    commandlineDone,
   };
 }
 
