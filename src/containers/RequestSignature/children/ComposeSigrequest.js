@@ -108,7 +108,7 @@ class ComposeSigrequest extends Component {
     const { errorName, errorMessage, errorAttributes } = this.validateFull(value);
     return (
       <CardContent>
-        <LocalInfoBox text="Lorem ipsum">
+        <LocalInfoBox text="In this field you write a self-chosen name for the signature request that you are producing. It will be used as name of the file in which this signature request is stored. It will also be used in the history overview of all earlier signature requests. This name is not be part of what will be signed.">
           <TextField
             value={value.name || ''}
             onChange={this.onChangeName}
@@ -122,7 +122,10 @@ class ComposeSigrequest extends Component {
             margin="normal"
             />
         </LocalInfoBox>
-        <LocalInfoBox text="Lorem ipsum">
+        <LocalInfoBox text="This is the exact message that you wish to be signed. 
+        You can only use plain text to formulate this message. 
+        Please note that the intended signer can not change this message.
+        Note that the time of signing is automatically added in the signature and need not be part of this message field.">
           <TextField
             className="tfLabel" style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px' }}
             InputProps={{
@@ -144,20 +147,27 @@ class ComposeSigrequest extends Component {
           />
         </LocalInfoBox>
         {(errorAttributes && validationForced ? <Typography style={{ paddingTop: '20px', fontSize: '14px', color: 'red', paddingBottom: '6px' }}>You should select at least one attribute!</Typography> : '')}
-        <LocalInfoBox text="Lorem ipsum">
+        <LocalInfoBox text="Here you select one or more attributes of the intended signer, such as name, (e-mail) address, or profession, etc. 
+        These attributes need to be valid for the intended signer at the moment the signature is created. 
+        Ultimately, when this signature has been created and is then verified, the validity of these attributes is checked and shown.
+        ">
           <AttributeDropdown
             selectedAttributes={value.attributes || {}}
             addAttribute={this.addAttribute}
             removeAttribute={this.removeAttribute}
           />
         </LocalInfoBox>
-        <LocalInfoBox text="Lorem ipsum">
+        <LocalInfoBox text="In this field you write the e-mail address to which the signed message can be delivered. 
+        Typically, this is your own e-mail address.  
+        The signer can send the message after signing it in the IRMA app on her/his phone.
+        For convenience, you can set a default address for this field in the settings section.
+        This delivery address is not part of the message that will be signed."> 
           <TextField
             value={value.from || ''}
             onChange={this.onChangeFrom}
 
-            label={'Return signed message to:'}
-            placeholder={'Email address where you want to receive the signed message.'}
+            label={'Deliver signed message to:'}
+            placeholder={'Email address where you wish the signed message to be delivered.'}
             fullWidth
             margin="normal"
             />
