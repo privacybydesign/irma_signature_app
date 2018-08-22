@@ -73,7 +73,7 @@ class RequestSignature extends Component {
           this file to the (phone of the) intended signer, for
           instance by e-mail. There, the actual signing happens, with
           the IRMA app. Thereafter, the signer can return the signed
-          message as an <em>.irma</em> file to you as requester, or
+          message as an <em>.irmasignature</em> file to you as requester, or
           can send it to others. Such signatures can be checked on a
           separate <em>Verify a signature</em> page of this
           application.

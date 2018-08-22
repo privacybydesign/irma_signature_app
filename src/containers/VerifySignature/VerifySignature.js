@@ -60,7 +60,7 @@ class VerifySignature extends Component {
             <p className="ant-upload-drag-icon">
               <Icon type="inbox" />
             </p>
-            <p className="ant-upload-text">In order to verify a signature, click here or drag the signed message to this area.</p><p> A signed message has the filename extension <i>.irma</i>.</p>
+            <p className="ant-upload-text">In order to verify a signature, click here or drag the signed message to this area.</p><p> A signed message has the filename extension <i>.irmasignature</i>.</p>
             <p className="ant-upload-hint"></p>
           </Upload.Dragger>
         </div>
@@ -107,7 +107,7 @@ class VerifySignature extends Component {
         <p>
 	    On this page you can verify a digital signature. Such a
 	signature must have been created first, by a signer, in
-	her/his IRMA app.  This yields a file with extension <em>.irma</em>. 
+	her/his IRMA app.  This yields a file with extension <em>.irmasignature</em>. 
   On the current page you can load such a file,
 	either by dragging it to the designated area or by selecting
 	it in a file browser. The cryptographic verification of the
