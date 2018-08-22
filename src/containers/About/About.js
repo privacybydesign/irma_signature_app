@@ -54,8 +54,7 @@ attributes for signing can be found at:</p>
 	This application plays a different, auxiliary role in the
 	whole signing process. It provides two basic functions, which
 	are useful <em>before</em> and <em>after</em> the digital
-	signing itself, namely to <em>prepare</em> a signature and to
-	<em>check</em> a signature.</p>
+	signing itself, namely to <em>prepare</em> a signature and to <em>check</em> a signature.</p>
 
         <p>
           <ol>

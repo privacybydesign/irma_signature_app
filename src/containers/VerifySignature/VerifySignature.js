@@ -107,8 +107,8 @@ class VerifySignature extends Component {
         <p>
 	    On this page you can verify a digital signature. Such a
 	signature must have been created first, by a signer, in
-	her/his IRMA app.  This yields a file with extension
-	<em>.irma</em>. On the current page you can load such a file,
+	her/his IRMA app.  This yields a file with extension <em>.irma</em>. 
+  On the current page you can load such a file,
 	either by dragging it to the designated area or by selecting
 	it in a file browser. The cryptographic verification of the
 	signature then starts automatically and the result is
