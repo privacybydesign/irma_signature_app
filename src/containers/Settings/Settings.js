@@ -82,7 +82,7 @@ class Settings extends Component {
         </CardContent>
         <CardContent>
           <LocalInfoBox text="The e-mail address that you set here will be the pre-filled delivery
-address on the `Request a signature' page of this
+address on the `Request a signature' [LINK] page of this
 application. For instance, you can put your own e-mail address here,
 so that all your signature requests are returned to you by default.">
             <TextField

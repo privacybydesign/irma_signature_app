@@ -13,26 +13,26 @@ const About = () => (
       <Divider />
 
       <CardContent>
-        <p>This application is part of the identity platform IRMA,
+        <p>This desktop application is part of the identity platform IRMA,
 developed and maintained by the non-for-profit foundation called
 Privacy by Design, see: <a onClick={() => {
 openExtern('https://privacybydesign.foundation/en/');
 }}>https://privacybydesign.foundation/en/</a>. It supplements
-the IRMA app that is freely avialable in Google&apos;s and
+the IRMA mobile app that is freely avialable in Google&apos;s and
 Apple&apos;s app stores.</p>
 
         <p>The IRMA platform is attribute-based and thereby very flexible and
 powerful. Attributes are personal properties, like: name, gender,
 date-of-birth, address, e-mail, phone number, memberships, etc. IRMA
-offers both attribute-based authentication and attribute-based signing.</p>
+offers both attribute-based <em>authentication</em> and attribute-based <em>signing</em>. </p>
 
-        <p>With IRMA&apos;s attribute-based authentication you can log
+        <p>With the IRMA mobile app you can do IRMA&apos;s attribute-based <em>authentication</em> in order to log
 into a website or get access on the basis of only relevant attributes.
 For instance, in order to watch a certain movie or play a game online,
 with IRMA you disclose only the attribute that you are older than 16
 (say), and nothing else.</p>
 
-        <p>With IRMA&apos;s attribute-based signing you can digitally
+        <p>With the IRMA mobile app you can also create attribute-based <em>signatures</em> in order to digitally
 sign a message with attributes that hold for you. This allows you to
 sign in a certain role. Typically you use your name attribute to sign
 as yourself; but in another situation you may sign as a medical doctor
@@ -43,22 +43,22 @@ to the authorities; in another situation you may sign as the owner of
 a certain bank account attribute, to authorise a payment.</p>
 
         <p>Attribute-based signing provides much more flexibility than
-traditional PKI-based signing. Illustrations of how to use IRMA
+traditional (PKI-based) signing. Illustrations of how to use IRMA
 attributes for signing can be found at:</p>
 
         <p><a onClick={() => {
  openExtern('https://privacybydesign.foundation/demo-en/signature/');
 }}>https://privacybydesign.foundation/demo-en/signature/</a></p>
 
-        <p>IRMA signatures are produced in the IRMA app on a phone.
-	This application plays a different, auxiliary role in the
+        <p>IRMA signatures are produced in the IRMA mobile app on a phone.
+	This desktop application plays a different, auxiliary role in the
 	whole signing process. It provides two basic functions, which
 	are useful <em>before</em> and <em>after</em> the digital
-	signing itself, namely to <em>prepare</em> a signature and to <em>check</em> a signature.</p>
+	signing itself, namely to <em>prepare</em> a message or document that needs to be signed and to <em>check</em> a signature on such a document.</p>
 
         <p>
           <ol>
-            <li>This application allows you to compose a
+            <li>This desktop application allows you to compose a
    &quot;signature request&quot;, that is, a message that you want
    someone to sign using certain attributes. The application allows
    you to write this message (as plain text), to add the attributes
@@ -66,8 +66,8 @@ attributes for signing can be found at:</p>
    store the resulting signature request.  You then have to send the
    request yourself, for instance by e-mail to the intended
    signer. The actual signature is produced on the phone of the
-   signer, via the IRMA app. Of course, you can also use this
-   application to send such a signature request to yourself, so that
+   signer, via the IRMA mobile app. Of course, you can also use this
+   desktop application to send such a signature request to yourself, so that
    you can produce a signed statement yourself.</li>
 
             <li>This application also allows you to verify a digitally
@@ -93,7 +93,7 @@ offers ease-of-installation and is updated automatically.</p>
 that you sign.  Whatever you sign with the IRMA technology is your own
 personal responsibility. By using the IRMA platform you agree that the
 Privacy by Design foundation is no party in whatever agreement you
-entern into by via an IRMA signature. In particular, the Privacy by
+enter into via an IRMA signature. In particular, the Privacy by
 Design foundation is not responsible or liable.</p>
 
         <p>The Privacy by Design foundation does not collect
@@ -123,9 +123,7 @@ but it does <em>not</em>, at this stage offer: </p>
 
 	<li> 
 	Successive signing of the same message by multiple people,
-    resulting in one signature file. This is useful for instance in
-    order to create one contract document that is signed by all the
-    parties involved. In the current set-up it is possible however
+    resulting in one signature file. In the current set-up it is possible however
     that the same signature request is separately signed by multiple
     people, creating multiple signature files. </li>
 
