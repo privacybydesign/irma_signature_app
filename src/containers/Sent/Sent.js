@@ -68,7 +68,8 @@ res[id] = checked; return res;
     const toBeDeleted = Object.keys(checked).filter((id) => {
 return checked[id];
 });
-    if (window.confirm('Are you sure you want to delete these requests?'))
+    const message = toBeDeleted.length > 1 ? 'Are you sure you want to delete these requests?' : 'Are you sure you want to delete this requests?'
+    if (window.confirm(message))
       dispatch(removeRequests(toBeDeleted));
   }
 
