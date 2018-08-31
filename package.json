@@ -10,6 +10,9 @@
     ],
     "fileAssociations": {
       "ext": "irmasignature"
+    },
+    "win": {
+      "icon": "icon.ico"
     }
   },
   "homepage": "./",
