@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider';
 
 // Icons
 import IconButton from '@material-ui/core/IconButton';
-import HelpIcon from '@material-ui/icons/Help';
+import HelpIcon from '@material-ui/icons/Info';
 
 import { verifyStoredSignature, closeVerifyResult, setCommandlineDone } from './../../actions';
 import { getCommandlineArgument } from './../../actions/electron';

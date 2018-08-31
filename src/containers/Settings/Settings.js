@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button';
 // Icons
 import IconButton from '@material-ui/core/IconButton';
 import Save from '@material-ui/icons/Save';
-import HelpIcon from '@material-ui/icons/Help';
+import HelpIcon from '@material-ui/icons/Info';
 
 import LocalInfoBox from '../LocalInfoBox';
 

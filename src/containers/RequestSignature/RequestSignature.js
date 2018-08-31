@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Card, CardHeader, CardContent } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import HelpIcon from '@material-ui/icons/Help';
+import HelpIcon from '@material-ui/icons/Info';
 
 import ComposeSigrequest from './children/ComposeSigrequest';
 
