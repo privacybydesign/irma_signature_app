@@ -2,6 +2,7 @@ import {
   SET_VERIFY_RESULT,
   CLOSE_VERIFY_RESULT,
   START_VERIFY_SIGNATURE,
+  SET_COMMANDLINE_DONE,
 } from '../actions';
 
 export default function signatureVerify(
@@ -12,6 +13,7 @@ export default function signatureVerify(
     },
     verifyPending: false,
     showVerifyResult: false,
+    commandlineDone: false,
   },
   action
 ) {
@@ -33,6 +35,11 @@ export default function signatureVerify(
       return {
         ...state,
         showVerifyResult: false,
+      };
+    case SET_COMMANDLINE_DONE:
+      return {
+        ...state,
+        commandlineDone:true,
       };
     default:
       return state;

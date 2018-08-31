@@ -43,3 +43,8 @@ export function getDefaultSavePath() {
 export function openExtern(url) {
   return shell.openExternal(url);
 }
+
+export function getCommandlineArgument() {
+  if (window.location.hostname !== "localhost" && electron.remote.process.argv.length > 1)
+    return electron.remote.process.argv[1];
+}

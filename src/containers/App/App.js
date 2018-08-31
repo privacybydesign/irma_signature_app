@@ -30,6 +30,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import classNames from 'classnames';
 
+import { getCommandlineArgument } from '../../actions/electron';
+
 
 const IrmaTheme = createMuiTheme({
   palette: {
@@ -158,8 +160,11 @@ class App extends Component {
 
   render() {
     const { theme, classes } = this.props;
+    const arg = getCommandlineArgument();
     return (
-      <Router>
+      <Router
+        initialEntries={[ arg ? '/verify-signature' : '/' ]}
+        >
         <MuiThemeProvider theme={IrmaTheme}>
           <div className={classes.root}>
             <div className={classes.appFrame}>
