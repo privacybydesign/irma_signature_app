@@ -49,7 +49,9 @@ this.setState({open: true});
  this.setState({open: false});
 }}
           >
-            { this.props.renderMessage ? this.props.renderMessage() : <Typography style={{margin: '1em'}}>{this.props.text}</Typography> }
+            <div style={{maxWidth: '30em'}}>
+              { this.props.renderMessage ? this.props.renderMessage() : <Typography style={{margin: '1em'}}>{this.props.text}</Typography> }
+            </div>
           </Popover>
         </div>
       </div>
