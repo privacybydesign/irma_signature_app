@@ -55,7 +55,7 @@ class SignatureResult extends Component {
   }
 
   render() {
-    const { message, onClose } = this.props;
+    const { message, onClose, proofStatus } = this.props;
     return (
       <Card style={{ marginTop: '30px' }}>
         <CardHeader
@@ -66,7 +66,7 @@ class SignatureResult extends Component {
             }
           avatar={this.getAvatar()}
           title={this.getTitle()}
-          subheader={`Message: ${message}`}
+          subheader={proofStatus === "VALID" ? `Message: ${message}` : null}
           />
       </Card>
     );

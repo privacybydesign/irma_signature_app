@@ -15,6 +15,7 @@ import AttributeResultTable from '../../AttributeResultTable';
 class AttributeResult extends Component {
   render() {
     const { matched, attributes, proofStatus } = this.props;
+    if (proofStatus !== "VALID") return null;
     return (
       <Card style={{ marginTop: '30px' }}>
         <CardHeader
@@ -23,7 +24,6 @@ class AttributeResult extends Component {
           <AttributeResultTable
             matched={matched}
             attributes={attributes}
-            proofStatus={proofStatus}
           />
         </CardContent>
       </Card>

@@ -11,9 +11,6 @@ TableHead,
 TableRow,
 } from '@material-ui/core';
 
-// Icons
-import { blue } from '@material-ui/core/colors';
-import Pending from '@material-ui/icons/HourglassEmpty';
 
 class RequestedAttributeTable extends Component {
   getAttributeName(id) {
@@ -46,7 +43,6 @@ class RequestedAttributeTable extends Component {
       key: index,
       name: this.getAttributeName(el.attributes[0]),
       value: '',
-      valid: <Pending style={{color: blue[500] }} />,
     }));
   }
 
@@ -63,7 +59,6 @@ class RequestedAttributeTable extends Component {
             <TableRow key={el.key} >
               <TableCell>{el.name}</TableCell>
               <TableCell>{el.value}</TableCell>
-              <TableCell>{el.valid}</TableCell>
             </TableRow>
           ))
         }
@@ -78,7 +73,6 @@ class RequestedAttributeTable extends Component {
           <TableRow>
             <TableCell>Attribute</TableCell>
             <TableCell>Value</TableCell>
-            <TableCell>Valid?</TableCell>
           </TableRow>
         </TableHead>
         {this.genTableBody()}

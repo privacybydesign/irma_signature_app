@@ -12,25 +12,6 @@ TableHead,
 TableRow,
 } from '@material-ui/core';
 
-// Icons
-import { green, red, yellow } from '@material-ui/core/colors';
-import CheckCircle from '@material-ui/icons/CheckCircle';
-import Error from '@material-ui/icons/Error';
-import Warning from '@material-ui/icons/Warning';
-
-function getIconByProofStatus(proofStatus) {
-  switch (proofStatus) {
-    case 'PRESENT':
-      return <CheckCircle style={{color: green[500] }} />;
-    case 'MISSING': // TODO other icon for missing attributes?
-      return <Error style={{color: red[500] }} />;
-    case 'INVALID_VALUE':
-      return <Error style={{color: red[500] }} />;
-    default: // We consider everything else as 'extra, don't know what to do with it'
-      return <Warning style={{color: yellow[500] }} />;
-  }
-}
-
 class AttributeResultTable extends Component {
 
   getAttributeName(id) {
@@ -68,7 +49,6 @@ class AttributeResultTable extends Component {
             key: attributeId,
             name: this.getAttributeName(attributeId), // TODO convert to name
             value: credential.attributes[attributeId],
-            valid: getIconByProofStatus(this.props.proofStatus),
           }))
       ))
     );
@@ -80,7 +60,6 @@ class AttributeResultTable extends Component {
       key: attribute.disclosedId,
       name: this.getAttributeName(attribute.disclosedId), // TODO use attribute name or label?
       value: attribute.disclosedValue,
-      valid: getIconByProofStatus(attribute.proofStatus),
     }));
   }
 
@@ -99,8 +78,7 @@ class AttributeResultTable extends Component {
           .map(el => (
             <TableRow key={el.key} >
               <TableCell>{el.name}</TableCell>
-              <TableCell>{el.value}</TableCell>
-              <TableCell>{el.valid}</TableCell>
+              <TableCell style={{fontWeight: 'bold'}}>{el.value}</TableCell>
             </TableRow>
           ))
         }
@@ -115,7 +93,6 @@ class AttributeResultTable extends Component {
           <TableRow>
             <TableCell>Attribute</TableCell>
             <TableCell>Value</TableCell>
-            <TableCell>Valid?</TableCell>
           </TableRow>
         </TableHead>
         {this.genTableBody()}
@@ -127,7 +104,6 @@ class AttributeResultTable extends Component {
 AttributeResultTable.propTypes = {
   matched: PropTypes.bool.isRequired,
   attributes: PropTypes.arrayOf(PropTypes.object), // Only if there are attributes disclosed
-  proofStatus: PropTypes.string, // Only with unmatched requests
   attributeResult: PropTypes.array.isRequired,
 };
 
