@@ -9,7 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 // Icons
 import Delete from '@material-ui/icons/Delete';
 import Save from '@material-ui/icons/Save';
-import Launch from '@material-ui/icons/Launch';
+import Description from '@material-ui/icons/Description';
 
 import AttributeDropdown from './AttributeDropdown';
 import LocalInfoBox from '../../LocalInfoBox';
@@ -93,13 +93,13 @@ class ComposeSigrequest extends Component {
     this.props.onSubmit();
   }
 
-  onDrag = () => {
+  onDrag = (event) => {
     if (this.validate(this.props.value)) {
       this.setState({validationForced: true});
       return;
     }
 
-    this.props.onDrag();
+    this.props.onDrag(event);
   }
 
   render() {
@@ -173,9 +173,9 @@ class ComposeSigrequest extends Component {
             />
         </LocalInfoBox>
         <div style={{ float: 'right', marginRight: '48px' }}>
-          <Button size="small" variant="raised" style={{ marginRight: '20px' }} onClick={this.onDrag}>
-            Drag request
-            <Launch style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
+          <Button size="small" style={{ marginRight: '20px' }} draggable={true} disabled={this.validate(this.props.value)} onDragStart={this.onDrag}>
+            <Description style={{ fontSize: '20', marginLeft: '2', marginRight: '10' }} />
+            {this.props.value.name}.irmasignature
           </Button>
           <Button size="small" variant="raised" color="primary" onClick={this.onSubmit}>
             Export request
