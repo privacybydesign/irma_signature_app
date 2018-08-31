@@ -15,6 +15,7 @@ class LocalInfoBox extends Component {
   }
 
   render() {
+    const vertStyle = this.props.vertAdjust ? {top: this.props.vertAdjust} : {};
     return (
       <div style={{display: 'flex'}}>
         <div style={{flexGrow: '100', display: 'inline-flex'}}>
@@ -22,7 +23,7 @@ class LocalInfoBox extends Component {
             {this.props.children}
           </div>
         </div>
-        <div style={{display: 'inline-flex', position: 'relative', left:'16px'}}>
+        <div style={{...vertStyle, display: 'inline-flex', position: 'relative', left:'16px'}}>
           <IconButton
             buttonRef={(ref) => {
  this.anchorEl=ref;
@@ -62,6 +63,7 @@ this.setState({open: true});
 LocalInfoBox.propTypes = {
   renderMessage: PropTypes.func,
   text: PropTypes.string,
+  vertAdjust: PropTypes.string,
   children: PropTypes.object,
 };
 

@@ -108,7 +108,7 @@ class ComposeSigrequest extends Component {
     const { errorName, errorMessage, errorAttributes } = this.validateFull(value);
     return (
       <CardContent>
-        <LocalInfoBox text="In this field you write a self-chosen name for the signature request that you are producing. It will be used as name of the file in which this signature request is stored. It will also be used in the history overview of all earlier signature requests. This name is not be part of what will be signed.">
+        <LocalInfoBox text="In this field you write a self-chosen name for the signature request that you are producing. It will be used as name of the file in which this signature request is stored. It will also be used in the history overview of all earlier signature requests. This name is not be part of what will be signed." vertAdjust="27px">
           <TextField
             value={value.name || ''}
             onChange={this.onChangeName}
@@ -125,7 +125,7 @@ class ComposeSigrequest extends Component {
         <LocalInfoBox text="This is the exact message that you wish to be signed. 
         You can only use plain text to formulate this message. 
         Please note that the intended signer can not change this message.
-        Note that the time of signing is automatically added in the signature and need not be part of this message field.">
+        Note that the time of signing is automatically added in the signature and need not be part of this message field." vertAdjust="3em">
           <TextField
             className="tfLabel" style={{ backgroundColor: '#f5f5f5', border: '1px solid #16a085', padding: '5px 12px' }}
             InputProps={{
@@ -150,7 +150,7 @@ class ComposeSigrequest extends Component {
         <LocalInfoBox text="Here you select one or more attributes of the intended signer, such as name, (e-mail) address, or profession, etc. 
         These attributes need to be valid for the intended signer at the moment the signature is created. 
         Ultimately, when this signature has been created and is then verified, the validity of these attributes is checked and shown.
-        ">
+        " vertAdjust="-6px">
           <AttributeDropdown
             selectedAttributes={value.attributes || {}}
             addAttribute={this.addAttribute}
@@ -161,7 +161,7 @@ class ComposeSigrequest extends Component {
         Typically, this is your own e-mail address.  
         The signer can send the message after signing it in the IRMA app on her/his phone.
         For convenience, you can set a default address for this field in the settings section.
-        This delivery address is not part of the message that will be signed."> 
+        This delivery address is not part of the message that will be signed." vertAdjust="25px"> 
           <TextField
             value={value.from || ''}
             onChange={this.onChangeFrom}
@@ -172,7 +172,7 @@ class ComposeSigrequest extends Component {
             margin="normal"
             />
         </LocalInfoBox>
-        <div style={{ float: 'right', marginRight: '2px' }}>
+        <div style={{ float: 'right', marginRight: '48px' }}>
           <Button size="small" variant="raised" style={{ marginRight: '20px' }} onClick={this.onDrag}>
             Drag request
             <Launch style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
