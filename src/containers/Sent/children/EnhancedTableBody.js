@@ -13,6 +13,7 @@ import Error from '@material-ui/icons/Error';
 import Pending from '@material-ui/icons/HourglassEmpty';
 
 import RequestDetail from './RequestDetail';
+import { formatTimestamp } from '../../../utils/requestUtils';
 
 function getIconByState(state) {
   switch (state) {
@@ -48,7 +49,7 @@ class EnhancedTableBody extends Component {
         </TableCell>
         <TableCell onClick={this.onClick} style={{ paddingLeft: '0', textAlign: 'left', color: '#757575' }}>{request.name}</TableCell>
         <TableCell onClick={this.onClick} style={{ textAlign: 'left' }}>{request.request.message.substring(0, 20)}</TableCell>
-        <TableCell onClick={this.onClick} style={{ textAlign: 'left' }} numeric>{request.date}</TableCell>
+        <TableCell onClick={this.onClick} style={{ textAlign: 'left' }} numeric>{formatTimestamp(request.date)}</TableCell>
         <TableCell onClick={this.onClick} style={{ textAlign: 'center' }} numeric>{getIconByState(request.state)}</TableCell>
       </TableRow>,
       !this.state.expanded ? null : <TableRow key="detail">

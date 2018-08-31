@@ -23,7 +23,11 @@ export function createSigrequestFromInput(input) {
 }
 
 export function generateDate() {
-    const date = new Date();
+    return Date.now();
+}
+
+export function formatTimestamp(ts) {
+    const date = new Date(ts);
     const minutes = date.getMinutes() > 9 ? `${date.getMinutes()}` : `0${date.getMinutes()}`;
     const hours = date.getHours() > 9 ? `${date.getHours()}` : `0${date.getHours()}`;
     return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()} ${hours}:${minutes}`;
