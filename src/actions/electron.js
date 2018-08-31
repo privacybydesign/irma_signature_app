@@ -45,6 +45,6 @@ export function openExtern(url) {
 }
 
 export function getCommandlineArgument() {
-  if (electron.remote.process.argv.length > 1)
+  if (window.location.hostname !== "localhost" && electron.remote.process.argv.length > 1)
     return electron.remote.process.argv[1];
 }
