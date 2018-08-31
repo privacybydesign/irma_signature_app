@@ -22,7 +22,7 @@ class LocalInfoBox extends Component {
             {this.props.children}
           </div>
         </div>
-        <div style={{display: 'inline-flex'}}>
+        <div style={{display: 'inline-flex', position: 'relative', left:'16px'}}>
           <IconButton
             buttonRef={(ref) => {
  this.anchorEl=ref;
