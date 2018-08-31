@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter, Prompt } from 'react-router-dom';
+import { withRouter, Prompt, Link } from 'react-router-dom';
 
 import { setDefaultReturnEmail, setDefaultSaveDirectory } from '../../actions';
 import { getDefaultSavePath } from '../../actions/electron';
 
 // Material UI
-import { withStyles, Card, CardHeader, CardContent } from '@material-ui/core';
+import { withStyles, Card, CardHeader, CardContent, Typography} from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -70,6 +70,17 @@ class Settings extends Component {
 
   }
 
+  renderEmailInfoBox = () => {
+    return (
+      <Typography style={{margin: '1em'}}>
+        The e-mail address that you set here will be the pre-filled delivery
+        address on the <Link to="/request-signature">`Request a signature' page</Link> of this
+        application. For instance, you can put your own e-mail address here,
+        so that all your signature requests are returned to you by default.
+      </Typography>
+    );
+  }
+
   renderContent() {
     const { classes } = this.props;
     return (
@@ -81,10 +92,7 @@ class Settings extends Component {
           />
         </CardContent>
         <CardContent>
-          <LocalInfoBox text="The e-mail address that you set here will be the pre-filled delivery
-address on the `Request a signature' [LINK] page of this
-application. For instance, you can put your own e-mail address here,
-so that all your signature requests are returned to you by default.">
+          <LocalInfoBox renderMessage={this.renderEmailInfoBox}>
             <TextField
               value={this.state.defaultReturnEmail}
               onChange={this.onDefaultReturnEmailChange}

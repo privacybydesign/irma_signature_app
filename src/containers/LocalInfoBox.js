@@ -49,7 +49,7 @@ this.setState({open: true});
  this.setState({open: false});
 }}
           >
-            <Typography style={{margin: '1em'}}>{this.props.text}</Typography>
+            { this.props.renderMessage ? this.props.renderMessage() : <Typography style={{margin: '1em'}}>{this.props.text}</Typography> }
           </Popover>
         </div>
       </div>
@@ -58,7 +58,8 @@ this.setState({open: true});
 }
 
 LocalInfoBox.propTypes = {
-  text: PropTypes.string.isRequired,
+  renderMessage: PropTypes.func,
+  text: PropTypes.string,
   children: PropTypes.object,
 };
 
