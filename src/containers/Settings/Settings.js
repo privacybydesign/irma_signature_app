@@ -97,7 +97,7 @@ class Settings extends Component {
             inputRef={this.ref}
           />
         </LocalInfoBox>
-        <Button style={{margin: '1em'}} size="small" variant="raised" color="primary" onClick={this.onSubmit} >
+        <Button style={{ marginLeft: '2px', marginRight: '20px' }} size="small" variant="raised" color="primary" onClick={this.onSubmit} >
           Store settings
           <Save style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
         </Button>
