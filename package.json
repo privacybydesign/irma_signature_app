@@ -13,6 +13,9 @@
     },
     "win": {
       "icon": "icon.ico"
+    },
+    "appx": {
+      "backgroundColor": "#074487"
     }
   },
   "homepage": "./",

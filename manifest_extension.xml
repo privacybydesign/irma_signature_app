@@ -1,6 +1,15 @@
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
    <Applications>
       <Application Id="AssociationLaunching.App">
+         <uap:VisualElements/>
+           <!-- Copy from here -->
+           <uap:DefaultTile
+             Wide310x150Logo="assets/Wide310x150Logo.png"
+             Square310x310Logo="assets/Square310x310Logo.png"
+             Square71x71Logo="assets/Square71x71Logo.png"
+             />
+           <!-- To here -->
+         </uap:VisualElements>
          <!-- Copy from here -->
          <Extensions>
             <uap:Extension Category="windows.fileTypeAssociation">
