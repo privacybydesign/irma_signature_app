@@ -12,7 +12,7 @@ import CheckCircle from '@material-ui/icons/CheckCircle';
 import Error from '@material-ui/icons/Error';
 import Pending from '@material-ui/icons/HourglassEmpty';
 
-import RequestDetail from './RequestDetail';
+import DetailWindow from './DetailWindow';
 import { formatTimestamp } from '../../../utils/requestUtils';
 
 function getIconByState(state) {
@@ -36,27 +36,34 @@ class EnhancedTableBody extends Component {
   }
 
   onClick = () => {
-    this.setState((oldstate) => ({expanded: !oldstate.expanded}));
+    this.setState({expanded: true});
+  }
+  
+  onClose = () => {
+    this.setState({expanded: false});
   }
 
   render() {
     const {request, checked, onCheckbox} = this.props;
 
-    return [
-      <TableRow key="row">
-        <TableCell padding="checkbox">
-          <Checkbox checked={checked} onChange={onCheckbox} />
-        </TableCell>
-        <TableCell onClick={this.onClick} style={{ paddingLeft: '0', textAlign: 'left', color: '#757575' }}>{request.name}</TableCell>
-        <TableCell onClick={this.onClick} style={{ textAlign: 'left' }}>{request.request.message.substring(0, 20)}</TableCell>
-        <TableCell onClick={this.onClick} style={{ textAlign: 'left' }} numeric>{formatTimestamp(request.date)}</TableCell>
-        <TableCell onClick={this.onClick} style={{ textAlign: 'center' }} numeric>{getIconByState(request.state)}</TableCell>
-      </TableRow>,
-      !this.state.expanded ? null : <TableRow key="detail">
-        <TableCell />
-        <TableCell colSpan={4}><RequestDetail request={request} /></TableCell>
-      </TableRow>,
-    ];
+    return (
+      <React.Fragment>
+        <TableRow>
+          <TableCell padding="checkbox">
+            <Checkbox checked={checked} onChange={onCheckbox} />
+          </TableCell>
+          <TableCell onClick={this.onClick} style={{ paddingLeft: '0', textAlign: 'left', color: '#757575' }}>{request.name}</TableCell>
+          <TableCell onClick={this.onClick} style={{ textAlign: 'left' }}>{request.request.message.substring(0, 20)}</TableCell>
+          <TableCell onClick={this.onClick} style={{ textAlign: 'left' }} numeric>{formatTimestamp(request.date)}</TableCell>
+          <TableCell onClick={this.onClick} style={{ textAlign: 'center' }} numeric>{getIconByState(request.state)}</TableCell>
+        </TableRow>
+        <DetailWindow
+          request={request}
+          open={this.state.expanded}
+          onClose={this.onClose}
+        />
+      </React.Fragment>
+    );
   }
 }
 
