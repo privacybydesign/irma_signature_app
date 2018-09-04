@@ -18,12 +18,12 @@ developed and maintained by the non-for-profit foundation called
 Privacy by Design, see: <a onClick={() => {
 openExtern('https://privacybydesign.foundation/en/');
 }}>https://privacybydesign.foundation/en/</a>. It supplements
-the IRMA mobile app that is freely avialable in Google&apos;s and
+the IRMA mobile app that is freely available in Google&apos;s and
 Apple&apos;s app stores.</p>
 
-        <p>The IRMA platform is attribute-based and thereby very flexible and
+        <p>The IRMA platform is attribute-based, making it very flexible and
 powerful. Attributes are personal properties, like: name, gender,
-date-of-birth, address, e-mail, phone number, memberships, etc. IRMA
+date-of-birth, address, email, phone number, memberships, etc. IRMA
 offers both attribute-based <em>authentication</em> and attribute-based <em>signing</em>. </p>
 
         <p>With the IRMA mobile app you can do IRMA&apos;s attribute-based <em>authentication</em> in order to log
@@ -76,7 +76,7 @@ attributes for signing can be found at:</p>
    cryptographic checks.</li>
           </ol></p>
 
-        <p>The software of this application is openly available (it&apos;s open
+        <p>The software of this application is openly available (it is open
 source), see:</p>
 
         <p><a onClick={() => {
