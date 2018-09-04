@@ -25,18 +25,18 @@ class EnhancedTableToolbar extends Component {
     return (
       <Toolbar>
         { num === 0 ? null :
-          <React.Fragment>
-            <Typography variant="subheading">{num} selected</Typography>
-            <Tooltip title="Delete">
-              <IconButton aria-label="Delete" onClick={onDelete}>
-                <DeleteIcon />
-              </IconButton>
-            </Tooltip>
-          </React.Fragment>
+        <React.Fragment>
+          <Typography variant="subheading">{num} selected</Typography>
+          <Tooltip title="Delete">
+            <IconButton aria-label="Delete" onClick={onDelete}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </React.Fragment>
         }
         <TablePagination
           component="div"
-          style={{flex: 1, align:'right'}}
+          style={{flex: 1, align: 'right'}}
           count={count}
           page={page}
           rowsPerPage={rowsPerPage}

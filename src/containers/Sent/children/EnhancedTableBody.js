@@ -38,7 +38,7 @@ class EnhancedTableBody extends Component {
   onClick = () => {
     this.setState({expanded: true});
   }
-  
+
   onClose = () => {
     this.setState({expanded: false});
   }

@@ -15,7 +15,7 @@ import AttributeResultTable from '../../AttributeResultTable';
 class AttributeResult extends Component {
   render() {
     const { matched, attributes, proofStatus } = this.props;
-    if (proofStatus !== "VALID") return null;
+    if (proofStatus !== 'VALID') return null;
     return (
       <Card style={{ marginTop: '30px' }}>
         <CardHeader

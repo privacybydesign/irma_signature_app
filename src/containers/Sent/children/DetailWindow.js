@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { 
+import {
   Modal,
   Card,
   CardHeader,
@@ -11,7 +11,7 @@ import {
   Table,
   TableBody,
   TableRow,
-  TableCell
+  TableCell,
 } from '@material-ui/core';
 import AttributeResultTable from '../../AttributeResultTable';
 import RequestedAttributeTable from './RequestedAttributeTable';
@@ -20,11 +20,11 @@ import CloseIcon from '@material-ui/icons/Close';
 
 class DetailWindow extends Component {
   render() {
-    const { 
+    const {
       request,
       attributeInfo,
       open,
-      onClose
+      onClose,
     } = this.props;
     if (attributeInfo.length === 0)
       return null;
@@ -45,7 +45,7 @@ class DetailWindow extends Component {
         />
       );
     }
-    
+
     const cellStyle = { color: '#757575' };
     return (
       <Modal open={open} onClose={onClose}>
@@ -53,7 +53,7 @@ class DetailWindow extends Component {
           <CardHeader
             action={
               <IconButton onClick={onClose}>
-                <CloseIcon/>
+                <CloseIcon />
               </IconButton>
             }
             title="Request details"
@@ -83,7 +83,7 @@ DetailWindow.propTypes = {
   request: PropTypes.object.isRequired,
   attributeInfo: PropTypes.arrayOf(PropTypes.object).isRequired,
   open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {

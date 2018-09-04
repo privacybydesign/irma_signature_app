@@ -163,7 +163,7 @@ class App extends Component {
     const arg = getCommandlineArgument();
     return (
       <Router
-        initialEntries={[ arg ? '/verify-signature' : '/' ]}
+        initialEntries={[arg ? '/verify-signature' : '/']}
         >
         <MuiThemeProvider theme={IrmaTheme}>
           <div className={classes.root}>

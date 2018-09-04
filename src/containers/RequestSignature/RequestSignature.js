@@ -83,7 +83,7 @@ class RequestSignature extends Component {
         with your IRMA app on your own phone. In this way you can
         produce a signed statement and give it as commitment to
         others.
-      </p>
+        </p>
       </CardContent>
     );
   }

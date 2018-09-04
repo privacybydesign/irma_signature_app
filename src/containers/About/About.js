@@ -108,31 +108,31 @@ ordinary, non-encrypted e-mail, the contents of your request has the
 same (limited) level of protection as ordinary e-mail messages. It is
 advised to use encrypted mail if you wish to protect the content.</p>
 
-	<p>
+        <p>
 	IRMA&apos;s signature mechanism offers basic functionality,
-but it does <em>not</em>, at this stage offer: </p> 
-	<p> 
-	<ul> 
-	<li>
+but it does <em>not</em>, at this stage offer: </p>
+        <p>
+          <ul>
+            <li>
 	Signing of pdf documents, or of other formats than plain text. </li>
 
-	<li>
+            <li>
 	Batch signing, whereby multiple messages are signed at the same
     time.
-	</li>
+            </li>
 
-	<li> 
+            <li>
 	Successive signing of the same message by multiple people,
     resulting in one signature file. In the current set-up it is possible however
     that the same signature request is separately signed by multiple
     people, creating multiple signature files. </li>
 
-	<li> 
+            <li>
 	Signature requests which are digitally signed themselves, by
 	the requester, so that the intended signer gets certainty
-	about the origin of the request.</li> 
+	about the origin of the request.</li>
 
-</ul> </p>
+          </ul> </p>
 
         <p>For comments, questions, feedback or support, send an e-mail to:</p>
 

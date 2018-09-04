@@ -128,10 +128,10 @@ class Settings extends Component {
   renderHelp() {
     return (
       <CardContent>
-            <p> On this page you can set some preferred settings for
+        <p> On this page you can set some preferred settings for
 	    this application. After saving, they will be used
 	    throughout. They can be changed again at any later moment.
-	    </p>
+        </p>
       </CardContent>
     );
   }

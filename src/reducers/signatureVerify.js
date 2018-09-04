@@ -39,7 +39,7 @@ export default function signatureVerify(
     case SET_COMMANDLINE_DONE:
       return {
         ...state,
-        commandlineDone:true,
+        commandlineDone: true,
       };
     default:
       return state;

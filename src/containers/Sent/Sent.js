@@ -70,7 +70,7 @@ res[id] = checked; return res;
     const toBeDeleted = Object.keys(checked).filter((id) => {
 return checked[id];
 });
-    const message = toBeDeleted.length > 1 ? 'Are you sure you want to delete these requests?' : 'Are you sure you want to delete this requests?'
+    const message = toBeDeleted.length > 1 ? 'Are you sure you want to delete these requests?' : 'Are you sure you want to delete this requests?';
     if (window.confirm(message))
       dispatch(removeRequests(toBeDeleted));
   }
@@ -79,7 +79,9 @@ return checked[id];
     const {requests} = this.props;
     const {checked, page, rowsPerPage} = this.state;
     return (Object.keys(requests)
-                 .sort((a,b)=> {return requests[b].date - requests[a].date;})
+                 .sort((a, b) => {
+ return requests[b].date - requests[a].date;
+})
                  .slice(page*rowsPerPage, (page+1)*rowsPerPage)
                  .map(id => <EnhancedTableBody key={id} request={requests[id]} checked={checked[id]} onCheckbox={this.handleCheckbox(id)} />));
   }
@@ -121,16 +123,16 @@ return checked[id];
   renderHelp() {
     return (
       <CardContent>
-            <p>
+        <p>
             On this page, you see an overview of earlier signature
         requests that you have created with this application.  For
         each request, you can see the file name, the message itself,
         the requested attributes and the status of the signature
         (verfied or not).  </p>
 
-            <p> You can select one or more of these entries to view
-	    details or to delete them from the list.
-	    </p>
+        <p> You can select one or more of these entries to view
+        details or to delete them from the list.
+        </p>
       </CardContent>
     );
   }

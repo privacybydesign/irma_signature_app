@@ -27,12 +27,12 @@ class VerifySignature extends Component {
       showHelp: false,
     };
   }
-  
+
   componentDidMount() {
     const { commandlineDone, dispatch, requests } = this.props;
     if (!commandlineDone) {
       dispatch(setCommandlineDone());
-      const arg = getCommandlineArgument()
+      const arg = getCommandlineArgument();
       if (arg)
         dispatch(verifyStoredSignature(arg, requests));
     }
@@ -116,9 +116,9 @@ class VerifySignature extends Component {
     return (
       <CardContent>
         <p>
-	    On this page you can verify a digital signature. Such a
+        On this page you can verify a digital signature. Such a
 	signature must have been created first, by a signer, in
-	her/his IRMA app.  This yields a file with extension <em>.irmasignature</em>. 
+	her/his IRMA app.  This yields a file with extension <em>.irmasignature</em>.
   On the current page you can load such a file,
 	either by dragging it to the designated area or by selecting
 	it in a file browser. The cryptographic verification of the
@@ -158,6 +158,7 @@ VerifySignature.propTypes = {
   signature: PropTypes.string.isRequired,
   signatureResult: PropTypes.object.isRequired,
   requests: PropTypes.object.isRequired,
+  commandlineDone: PropTypes.bool.isRequired,
   verifyPending: PropTypes.bool,
   showVerifyResult: PropTypes.bool,
 };

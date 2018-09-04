@@ -122,8 +122,9 @@ class ComposeSigrequest extends Component {
             margin="normal"
             />
         </LocalInfoBox>
-        <LocalInfoBox text="This is the exact message that you wish to be signed. 
-        You can only use plain text to formulate this message. 
+        <LocalInfoBox
+          text="This is the exact message that you wish to be signed.
+        You can only use plain text to formulate this message.
         Please note that the intended signer can not change this message.
         Note that the time of signing is automatically added in the signature and need not be part of this message field." vertAdjust="3em">
           <TextField
@@ -147,8 +148,9 @@ class ComposeSigrequest extends Component {
           />
         </LocalInfoBox>
         {(errorAttributes && validationForced ? <Typography style={{ paddingTop: '20px', fontSize: '14px', color: 'red', paddingBottom: '6px' }}>You should select at least one attribute!</Typography> : '')}
-        <LocalInfoBox text="Here you select one or more attributes of the intended signer, such as name, (e-mail) address, or profession, etc. 
-        These attributes need to be valid for the intended signer at the moment the signature is created. 
+        <LocalInfoBox
+          text="Here you select one or more attributes of the intended signer, such as name, (e-mail) address, or profession, etc.
+        These attributes need to be valid for the intended signer at the moment the signature is created.
         Ultimately, when this signature has been created and is then verified, the validity of these attributes is checked and shown.
         " vertAdjust="-6px">
           <AttributeDropdown
@@ -157,11 +159,12 @@ class ComposeSigrequest extends Component {
             removeAttribute={this.removeAttribute}
           />
         </LocalInfoBox>
-        <LocalInfoBox text="In this field you write the e-mail address to which the signed message can be delivered. 
-        Typically, this is your own e-mail address.  
+        <LocalInfoBox
+          text="In this field you write the e-mail address to which the signed message can be delivered.
+        Typically, this is your own e-mail address.
         The signer can send the message after signing it in the IRMA app on her/his phone.
         For convenience, you can set a default address for this field in the settings section.
-        This delivery address is not part of the message that will be signed." vertAdjust="25px"> 
+        This delivery address is not part of the message that will be signed." vertAdjust="25px">
           <TextField
             value={value.from || ''}
             onChange={this.onChangeFrom}

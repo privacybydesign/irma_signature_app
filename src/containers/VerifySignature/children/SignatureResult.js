@@ -66,7 +66,7 @@ class SignatureResult extends Component {
             }
           avatar={this.getAvatar()}
           title={this.getTitle()}
-          subheader={proofStatus === "VALID" ? `Message: ${message}` : null}
+          subheader={proofStatus === 'VALID' ? `Message: ${message}` : null}
           />
       </Card>
     );
