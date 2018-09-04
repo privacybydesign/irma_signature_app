@@ -30,6 +30,8 @@ class Sent extends Component {
 res[id] = false; return res;
 }, {}),
       showHelp: false,
+      page: 0,
+      rowsPerPage: 5,
     };
   }
 
@@ -75,10 +77,19 @@ return checked[id];
 
   renderBody() {
     const {requests} = this.props;
-    const {checked} = this.state;
+    const {checked, page, rowsPerPage} = this.state;
     return (Object.keys(requests)
                  .sort((a,b)=> {return requests[b].date - requests[a].date;})
+                 .slice(page*rowsPerPage, (page+1)*rowsPerPage)
                  .map(id => <EnhancedTableBody key={id} request={requests[id]} checked={checked[id]} onCheckbox={this.handleCheckbox(id)} />));
+  }
+
+  onChangePage = (event, page) => {
+    this.setState({page});
+  }
+
+  onChangeRowsPerPage = (event) => {
+    this.setState({rowsPerPage: event.target.value});
   }
 
   renderContent() {
@@ -94,7 +105,15 @@ return checked[id];
             {this.renderBody()}
           </TableBody>
         </Table>
-        <EnhancedTableToolbar num={numChecked} onDelete={this.handleDelete} />
+        <EnhancedTableToolbar
+          num={numChecked}
+          onDelete={this.handleDelete}
+          count={Object.keys(this.props.requests).length}
+          page={this.state.page}
+          rowsPerPage={this.state.rowsPerPage}
+          onChangePage={this.onChangePage}
+          onChangeRowsPerPage={this.onChangeRowsPerPage}
+        />
       </CardContent>
     );
   }
