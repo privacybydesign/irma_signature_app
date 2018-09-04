@@ -16,6 +16,7 @@ import { verifyStoredSignature, closeVerifyResult, setCommandlineDone } from './
 import { getCommandlineArgument } from './../../actions/electron';
 import SignatureResult from './children/SignatureResult';
 import AttributeResult from './children/AttributeResult';
+import ProcessingIndicator from './children/ProcessingIndicator';
 
 // CSS
 import 'antd/lib/upload/style/css';
@@ -132,6 +133,10 @@ class VerifySignature extends Component {
     );
   }
 
+  renderProcessing() {
+    return <ProcessingIndicator show={!this.state.showHelp && this.props.verifyPending} />;
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -147,6 +152,7 @@ class VerifySignature extends Component {
           <Divider />
           { this.state.showHelp ? this.renderHelp() : this.renderUploader() }
         </Card>
+        { this.renderProcessing() }
         { this.renderDone() }
       </React.Fragment>
     );
@@ -159,17 +165,19 @@ VerifySignature.propTypes = {
   signatureResult: PropTypes.object.isRequired,
   requests: PropTypes.object.isRequired,
   commandlineDone: PropTypes.bool.isRequired,
-  verifyPending: PropTypes.bool,
+  verifyPending: PropTypes.bool.isRequired,
   showVerifyResult: PropTypes.bool,
 };
 
 function mapStateToProps(state) {
   const verifyResult = state.signatureVerify.verifyResult;
+  const verifyPending = state.signatureVerify.verifyPending;
   const showVerifyResult = state.signatureVerify.showVerifyResult;
   const commandlineDone = state.signatureVerify.commandlineDone;
   const requests = state.storage.requests;
   return {
     ...verifyResult,
+    verifyPending,
     showVerifyResult,
     requests,
     commandlineDone,
