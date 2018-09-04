@@ -7,6 +7,7 @@ import RequestSignature from './RequestSignature';
 import { addRequest } from './../../actions';
 import { getSignatureSavePath, saveSignatureRequestElectron, dragSignatureRequestElectron } from './../../actions/electron';
 import { createSigrequestFromInput, generateDate } from './../../utils/requestUtils';
+import path from 'path';
 
 class RequestSignatureContainer extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class RequestSignatureContainer extends Component {
   exportRequest = () => {
     const { defaultSaveDirectory } = this.props;
 
-    const savePath = getSignatureSavePath(defaultSaveDirectory);
+    const savePath = getSignatureSavePath(path.join(defaultSaveDirectory?defaultSaveDirectory:'', `${this.state.value.name}.irmarequest`));
 
     if (savePath !== undefined) {
       const exportedRequest = this.createRequest();
@@ -49,7 +50,7 @@ class RequestSignatureContainer extends Component {
   onDragStart = (event) => {
     event.preventDefault();
     const exportedRequest = this.createRequest();
-    dragSignatureRequestElectron(exportedRequest);
+    dragSignatureRequestElectron(exportedRequest, `${this.state.value.name}.irmarequest`);
     this.allowNavigate = true;
   }
 

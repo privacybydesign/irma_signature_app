@@ -18,8 +18,8 @@ export function verifyStoredSignatureElectron(path, requests) {
   ipcRenderer.send('verifyStoredSignature-req', path, requests);
 }
 
-export function dragSignatureRequestElectron(request) {
-  ipcRenderer.send('dragSignatureRequest-req', request);
+export function dragSignatureRequestElectron(request, filename) {
+  ipcRenderer.send('dragSignatureRequest-req', request, filename);
 }
 
 export function getSignatureSavePath(path) {

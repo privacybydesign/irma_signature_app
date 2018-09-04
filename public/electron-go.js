@@ -39,9 +39,9 @@ ipcMain.on('saveSignatureRequest-req', (event, sigRequest, sigPath) => {
 
 });
 
-ipcMain.on('dragSignatureRequest-req', (event, signatureRequest) => {
+ipcMain.on('dragSignatureRequest-req', (event, signatureRequest, filename) => {
   event.sender.startDrag({
-    file: saveTempSignatureRequest(signatureRequest),
+    file: saveTempSignatureRequest(signatureRequest, filename),
     icon: path.join(__dirname, 'assets', 'draglogo.png'),
   });
 });
