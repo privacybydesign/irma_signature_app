@@ -7,7 +7,7 @@ import { setDefaultReturnEmail, setDefaultSaveDirectory } from '../../actions';
 import { getDefaultSavePath } from '../../actions/electron';
 
 // Material UI
-import { withStyles, Card, CardHeader, CardContent, Typography} from '@material-ui/core';
+import { Card, CardHeader, CardContent, Typography} from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -19,12 +19,6 @@ import HelpIcon from '@material-ui/icons/Info';
 
 import LocalInfoBox from '../LocalInfoBox';
 
-const styles = {
-  label: {
-    textTransform: 'none',
-  },
-};
-
 class Settings extends Component {
   constructor(props) {
     super(props);
@@ -34,6 +28,7 @@ class Settings extends Component {
       showHelp: false,
     };
     this.forceLeave = false;
+    this.ref = React.createRef();
   }
 
   onHelp = () => {
@@ -67,14 +62,14 @@ class Settings extends Component {
     const openResult = getDefaultSavePath();
     if (openResult && openResult.length > 0 && openResult[0])
       this.setState({defaultSaveDirectory: openResult[0]});
-
+    this.ref.current.blur();
   }
 
   renderEmailInfoBox = () => {
     return (
       <Typography style={{margin: '1em'}}>
         The e-mail address that you set here will be the pre-filled delivery
-        address on the <Link to="/request-signature">`Request a signature' page</Link> of this
+        address on the <Link to="/request-signature">&lsquo;Request a signature&rsquo; page</Link> of this
         application. For instance, you can put your own e-mail address here,
         so that all your signature requests are returned to you by default.
       </Typography>
@@ -82,46 +77,31 @@ class Settings extends Component {
   }
 
   renderContent() {
-    const { classes } = this.props;
     return (
-      <React.Fragment>
-        <CardContent>
-          <CardHeader
-            title="Mail settings"
-            subheader="Set your default delivery address here."
-          />
-        </CardContent>
-        <CardContent>
-          <LocalInfoBox renderMessage={this.renderEmailInfoBox}>
-            <TextField
-              value={this.state.defaultReturnEmail}
-              onChange={this.onDefaultReturnEmailChange}
+      <CardContent>
+        <LocalInfoBox renderMessage={this.renderEmailInfoBox}>
+          <TextField
+            value={this.state.defaultReturnEmail}
+            onChange={this.onDefaultReturnEmailChange}
 
-              label={'Default delivery e-mail address'}
-              fullWidth={true}
-              />
-          </LocalInfoBox>
-        </CardContent>
-        <CardContent>
-          <CardHeader
-            title="Storage settings"
-            subheader="Change the default directory for save dialogs."
+            label={'Default delivery e-mail address'}
+            fullWidth={true}
             />
-        </CardContent>
-        <CardContent>
-          <LocalInfoBox text="Here you can select a local directory on your computer. Then, all your signature requests will be stored there.">
-            <Button classes={{label: classes.label}} size="small" variant="raised" onClick={this.changeDefaultSaveDirectory}>
-              {this.state.defaultSaveDirectory}
-            </Button>
-          </LocalInfoBox>
-        </CardContent>
-        <CardContent>
-          <Button style={{margin: '1em'}} size="small" variant="raised" color="primary" onClick={this.onSubmit} >
-            Store settings
-            <Save style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
-          </Button>
-        </CardContent>
-      </React.Fragment>
+        </LocalInfoBox>
+        <LocalInfoBox text="Here you can select a local directory on your computer. Then, all your signature requests will be stored there.">
+          <TextField
+            value={this.state.defaultSaveDirectory}
+            label={'Default storage directory'}
+            fullWidth={true}
+            onClick={this.changeDefaultSaveDirectory}
+            inputRef={this.ref}
+          />
+        </LocalInfoBox>
+        <Button style={{margin: '1em'}} size="small" variant="raised" color="primary" onClick={this.onSubmit} >
+          Store settings
+          <Save style={{ fontSize: '20', marginLeft: '10', marginRight: '2' }} />
+        </Button>
+      </CardContent>
     );
   }
 
@@ -129,8 +109,8 @@ class Settings extends Component {
     return (
       <CardContent>
         <p> On this page you can set some preferred settings for
-	    this application. After saving, they will be used
-	    throughout. They can be changed again at any later moment.
+      this application. After saving, they will be used
+      throughout. They can be changed again at any later moment.
         </p>
       </CardContent>
     );
@@ -162,7 +142,6 @@ Settings.propTypes = {
   defaultReturnEmail: PropTypes.string,
   defaultSaveDirectory: PropTypes.string,
   history: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -173,4 +152,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withStyles(styles)(withRouter(connect(mapStateToProps)(Settings)));
+export default withRouter(connect(mapStateToProps)(Settings));
