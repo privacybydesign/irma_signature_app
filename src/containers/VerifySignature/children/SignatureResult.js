@@ -12,6 +12,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import VerifiedUser from '@material-ui/icons/VerifiedUser';
 import Error from '@material-ui/icons/Error';
 
+import { formatTimestamp } from '../../../utils/requestUtils';
+
 class SignatureResult extends Component {
 
   getTitle = () => {
@@ -22,7 +24,7 @@ class SignatureResult extends Component {
 
 
     if (matched)
-      return `The signature matches your request ${signatureRequest.name} from ${signatureRequest.date}. All requested signatures have been returned and are valid. You can check the status in the request history.`;
+      return `The signature matches your request ${signatureRequest.name} from ${formatTimestamp(signatureRequest.date)}. All requested signatures have been returned and are valid. You can check the status in the request history.`;
 
 
     return 'This IRMA signature is valid, but doesn\'t match any of your previous requests. You can view the message and included attributes below:';
