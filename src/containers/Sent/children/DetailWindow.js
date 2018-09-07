@@ -52,7 +52,7 @@ class DetailWindow extends Component {
     const cellStyle = { color: '#757575' };
     return (
       <Modal open={open} onClose={onClose}>
-        <Card style={{position: 'fixed', bottom: '12.5vh', top: '12.5vh', left: '12.5vw', right: '12.5vw', overflowY: "auto"}}>
+        <Card style={{position: 'fixed', bottom: '12.5vh', top: '12.5vh', left: '12.5vw', right: '12.5vw', overflowY: 'auto'}}>
           <CardHeader
             action={
               <IconButton onClick={onClose}>
@@ -74,7 +74,7 @@ class DetailWindow extends Component {
                 </TableRow>
               </TableBody>
             </Table>
-            <Typography variant="subheading" style={{marginTop: "1em"}}>
+            <Typography variant="subheading" style={{marginTop: '1em'}}>
               Requested attributes:
             </Typography>
             { attributeDetail }
