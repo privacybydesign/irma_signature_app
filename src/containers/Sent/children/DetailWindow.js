@@ -12,11 +12,14 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Typography,
 } from '@material-ui/core';
 import AttributeResultTable from '../../AttributeResultTable';
 import RequestedAttributeTable from './RequestedAttributeTable';
 
 import CloseIcon from '@material-ui/icons/Close';
+
+import { formatTimestamp } from '../../../utils/requestUtils';
 
 class DetailWindow extends Component {
   render() {
@@ -49,7 +52,7 @@ class DetailWindow extends Component {
     const cellStyle = { color: '#757575' };
     return (
       <Modal open={open} onClose={onClose}>
-        <Card style={{position: 'fixed', bottom: '12.5vh', top: '12.5vh', left: '12.5vw', right: '12.5vw'}}>
+        <Card style={{position: 'fixed', bottom: '12.5vh', top: '12.5vh', left: '12.5vw', right: '12.5vw', overflowY: "auto"}}>
           <CardHeader
             action={
               <IconButton onClick={onClose}>
@@ -67,10 +70,13 @@ class DetailWindow extends Component {
                 </TableRow>
                 <TableRow>
                   <TableCell style={cellStyle}>Date</TableCell>
-                  <TableCell>{request.date}</TableCell>
+                  <TableCell>{formatTimestamp(request.date)}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
+            <Typography variant="subheading" style={{marginTop: "1em"}}>
+              Requested attributes:
+            </Typography>
             { attributeDetail }
           </CardContent>
         </Card>
