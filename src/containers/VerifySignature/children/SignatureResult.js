@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 // Material UI
 import { Card, CardHeader } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
-import { green, red, yellow } from '@material-ui/core/colors';
+import { green, red } from '@material-ui/core/colors';
 
 // Icons
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import VerifiedUser from '@material-ui/icons/VerifiedUser';
-import Warning from '@material-ui/icons/Warning';
 import Error from '@material-ui/icons/Error';
 
 class SignatureResult extends Component {
@@ -30,7 +29,7 @@ class SignatureResult extends Component {
   }
 
   getAvatar = () => {
-    const { proofStatus, matched } = this.props;
+    const { proofStatus } = this.props;
     if (proofStatus !== 'VALID') {
       return (
         <Avatar aria-label="Match" style={{ margin: 10, color: '#fff', backgroundColor: red[500] }} >
@@ -39,17 +38,9 @@ class SignatureResult extends Component {
       );
     }
 
-    if (matched) {
-      return (
-        <Avatar aria-label="Match" style={{ margin: 10, color: '#fff', backgroundColor: green[500] }} >
-          <VerifiedUser />
-        </Avatar>
-      );
-    }
-
     return (
-      <Avatar aria-label="Match" style={{ margin: 10, color: '#fff', backgroundColor: yellow[500] }} >
-        <Warning />
+      <Avatar aria-label="Match" style={{ margin: 10, color: '#fff', backgroundColor: green[500] }} >
+        <VerifiedUser />
       </Avatar>
     );
   }
