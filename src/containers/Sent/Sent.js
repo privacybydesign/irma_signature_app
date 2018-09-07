@@ -38,6 +38,14 @@ res[id] = false; return res;
   onHelp = () => {
     this.setState(state => ({showHelp: !state.showHelp}));
   }
+  
+  resetChecked() {
+    this.setState((state,props) => ({
+      checked: Object.keys(props.requests).reduce((res, id) => {
+        res[id] = false; return res;
+      }, {}), 
+    }));
+  }
 
   componentWillReceiveProps(nextProps) {
     this.setState(state => ({
@@ -49,9 +57,9 @@ res[id] = false; return res;
 
   handleSelectAll = (event, checked) => {
     this.setState((state, props) => ({
-      checked: Object.keys(props.requests).reduce((res, id) => {
+      checked: Object.keys(props.requests).sort((a,b)=>{return props.requests[b].date-props.requests[a].date;}).slice(state.page*state.rowsPerPage, (state.page+1)*state.rowsPerPage).reduce((res, id) => {
 res[id] = checked; return res;
-}, {}),
+}, state.checked),
     }));
   }
 
@@ -87,22 +95,30 @@ return checked[id];
   }
 
   onChangePage = (event, page) => {
+    this.resetChecked();
     this.setState({page});
   }
 
   onChangeRowsPerPage = (event) => {
+    this.resetChecked();
     this.setState({rowsPerPage: event.target.value});
   }
 
   renderContent() {
-    const { checked } = this.state;
+    const { checked, page, rowsPerPage } = this.state;
+    const { requests } = this.props;
     const numChecked = Object.keys(checked).reduce((res, id) => {
  return res + (checked[id]?1:0);
 }, 0);
     return (
       <CardContent style={{ padding: '0px' }}>
         <Table>
-          <EnhancedTableHead handleSelect={this.handleSelectAll} checked={numChecked === Object.keys(checked).length && numChecked !== 0} />
+          <EnhancedTableHead 
+            handleSelect={this.handleSelectAll} checked={numChecked === Object.keys(requests)
+                 .sort((a, b) => {
+ return requests[b].date - requests[a].date;
+})
+                 .slice(page*rowsPerPage, (page+1)*rowsPerPage).length && numChecked !== 0} />
           <TableBody>
             {this.renderBody()}
           </TableBody>

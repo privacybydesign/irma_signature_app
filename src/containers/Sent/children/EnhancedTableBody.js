@@ -48,7 +48,7 @@ class EnhancedTableBody extends Component {
 
     return (
       <React.Fragment>
-        <TableRow>
+        <TableRow hover>
           <TableCell padding="checkbox">
             <Checkbox checked={checked} onChange={onCheckbox} />
           </TableCell>
