@@ -34,7 +34,7 @@ func getAllAttributes(conf *irma.Configuration) []AttributeResult {
 	var results []AttributeResult
 
 	for _, cred := range conf.CredentialTypes {
-		for _, attribute := range cred.Attributes {
+		for _, attribute := range cred.AttributeTypes {
 			attributeIdentifier := irma.NewAttributeTypeIdentifier(cred.SchemeManagerID + "." + cred.IssuerID + "." + cred.ID + "." + attribute.ID)
 			issuerId := attributeIdentifier.CredentialTypeIdentifier().IssuerIdentifier()
 			results = append(results,

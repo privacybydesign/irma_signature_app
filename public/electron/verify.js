@@ -25,6 +25,7 @@ function verifySignatureWithoutRequestGo(signature) {
 
 function verifySignatureGo(signature, request) {
   const requestString = JSON.stringify(request);
+  console.log(`${irmaSignatureVerifyExec} '${signature}' '${requestString}'`);
   return exec(irmaSignatureVerifyExec, [signature, requestString]);
 }
 

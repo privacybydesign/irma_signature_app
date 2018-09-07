@@ -28,8 +28,8 @@ func parse(path string, assets string) (*irma.Configuration, error) {
   return conf, nil
 }
 
-func parseSignature(signatureString string) (*irma.IrmaSignedMessage, error) {
-  signature := &irma.IrmaSignedMessage{}
+func parseSignature(signatureString string) (*irma.SignedMessage, error) {
+  signature := &irma.SignedMessage{}
   signatureJSON := []byte(signatureString)
   err := json.Unmarshal(signatureJSON, signature)
 
@@ -81,28 +81,18 @@ func printError(err error) {
   fmt.Printf("{\"error\": \"%v\"}", err)
 }
 
-func verifyAndSerialize(signature *irma.IrmaSignedMessage, signatureRequest *irma.SignatureRequest, conf *irma.Configuration) (string, error){
-  if signatureRequest == nil {
-    proofStatus, credentialList := irma.VerifySigWithoutRequest(conf, signature)
-
-    credentialString, err := json.Marshal(credentialList)
-    if err != nil {
-      return "", err;
-    }
-
-    return fmt.Sprintf("{\"proofStatus\": \"%v\", \"credentialList\": %v}",
-      proofStatus, string(credentialString)), nil
+func verifyAndSerialize(signature *irma.SignedMessage, signatureRequest *irma.SignatureRequest, conf *irma.Configuration) (string, error){
+  disclosedAttributes, proofStatus, err := signature.Verify(conf, signatureRequest)
+  if (err != nil) {
+    return "", err
   }
 
-  result := irma.VerifySig(conf, signature, signatureRequest)
-  disjunctions , err := json.Marshal(result.Disjunctions)
-
-  if err != nil {
-    return "", err;
+  credentialString, err := json.Marshal(disclosedAttributes);
+  if (err != nil) {
+    return "", err
   }
-
-  return fmt.Sprintf("{\"proofStatus\": \"%v\", \"disjunctions\": %v, \"message\": \"%v\"}",
-    result.ProofStatus, string(disjunctions), result.Message), nil
+  return fmt.Sprintf("{\"proofStatus\": \"%v\", \"credentialList\": %v}",
+    proofStatus, string(credentialString)), nil
 }
 
 func main() {
@@ -132,14 +122,14 @@ func main() {
     return
   }
 
-  signature, err := parseSignature(cliArgs.signature);
+  signature, err := parseSignature(cliArgs.signature)
   if err != nil {
     printError(err)
     exitCode = 1
     return
   }
 
-  signatureRequest, err := parseSignatureRequest(cliArgs.signatureRequest);
+  signatureRequest, err := parseSignatureRequest(cliArgs.signatureRequest)
   if err != nil {
     printError(err)
     exitCode = 1
@@ -147,5 +137,10 @@ func main() {
   }
 
   result, err := verifyAndSerialize(signature, signatureRequest, conf)
+  if err != nil {
+    printError(err)
+    exitCode = 1
+    return
+  }
   fmt.Println(result)
 }

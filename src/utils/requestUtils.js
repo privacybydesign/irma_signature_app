@@ -1,7 +1,7 @@
-import bigInt from 'big-integer';
-
 function generateNonce() {
-  return bigInt.randBetween(bigInt.zero, bigInt('1e80')).toString();
+  const rawData = new Uint8Array(34);
+  window.crypto.getRandomValues(rawData);
+  return btoa(String.fromCharCode.apply(null, rawData));
 }
 
 function attributeMapToContent(attributeMap) {
@@ -15,7 +15,7 @@ function attributeMapToContent(attributeMap) {
 export function createSigrequestFromInput(input) {
   return {
     nonce: generateNonce(),
-    context: '0',
+    context: '',
     message: input.message,
     content: attributeMapToContent(input.attributes),
     from: input.from,

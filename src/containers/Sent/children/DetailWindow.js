@@ -37,7 +37,7 @@ class DetailWindow extends Component {
       attributeDetail = (
         <AttributeResultTable
           matched={true}
-          attributes={request.signatureResult.disjunctions}
+          attributes={request.signatureResult.credentialList}
           proofStatus={request.signatureResult.proofStatus}
         />
       );

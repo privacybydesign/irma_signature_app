@@ -30,7 +30,7 @@
   version = "1.0.1"
 
 [[constraint]]
-  branch = "master"
+  branch = "refactor"
   name = "github.com/privacybydesign/irmago"
 
 # Version v1.1 that dep currently fetches without this stanza breaks compilation

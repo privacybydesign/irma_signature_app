@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import flatten from 'flatten';
 
 // Material UI
 import {
@@ -34,43 +33,25 @@ class AttributeResultTable extends Component {
     return `${attributeResult[low].name} - ${attributeResult[low].credentialName}`;
   }
 
-  genUnmatchedTableData = () => {
-    const credentialList = this.props.attributes;
+  genTableData = () => {
+    const { attributes } = this.props;
 
-    if (credentialList === null)
+    if (attributes === null)
       return [];
 
-
-    // TODO: make this less complicated
-    return flatten(
-      credentialList.map(credential => (
-        Object.keys(credential.attributes)
-          .map(attributeId => ({
-            key: attributeId,
-            name: this.getAttributeName(attributeId), // TODO convert to name
-            value: credential.attributes[attributeId],
-          }))
-      ))
-    );
-  }
-
-  genMatchedTableData = () => {
-    const { attributes } = this.props;
     return attributes.map(attribute => ({
-      key: attribute.disclosedId,
-      name: this.getAttributeName(attribute.disclosedId), // TODO use attribute name or label?
-      value: attribute.disclosedValue,
+      key: attribute.id,
+      name: this.getAttributeName(attribute.id),
+      value: attribute.value.en,
     }));
   }
 
   genTableBody = () => {
-    const { matched } = this.props;
-
     if (this.props.attributes === undefined)
       return <TableBody><TableRow /></TableBody>;
 
 
-    const tableData = (matched ? this.genMatchedTableData() : this.genUnmatchedTableData());
+    const tableData = this.genTableData();
 
     return (
       <TableBody>
@@ -102,7 +83,6 @@ class AttributeResultTable extends Component {
 }
 
 AttributeResultTable.propTypes = {
-  matched: PropTypes.bool.isRequired,
   attributes: PropTypes.arrayOf(PropTypes.object), // Only if there are attributes disclosed
   attributeResult: PropTypes.array.isRequired,
 };

@@ -39,12 +39,6 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/credentials/safeprime"
-  packages = ["."]
-  revision = "b04afffdb6d92bdfb4b8b7305129c3e39fcd000e"
-
-[[projects]]
-  branch = "master"
   name = "github.com/edsrzf/mmap-go"
   packages = ["."]
   revision = "0bce6a6887123b67a60366d2c9fe2dfb74289d2e"
@@ -62,6 +56,12 @@
   revision = "7554cd9344cec97297fa6649b055a8c98c2a1e55"
 
 [[projects]]
+  name = "github.com/hashicorp/go-cleanhttp"
+  packages = ["."]
+  revision = "e8ab9daed8d1ddd2d3c4efba338fe2eeae2e4f18"
+  version = "v0.5.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/hashicorp/go-multierror"
   packages = ["."]
@@ -69,9 +69,20 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/mhe/gabi"
+  name = "github.com/hashicorp/go-retryablehttp"
   packages = ["."]
-  revision = "bf5016a5f3005bef1d2416989588cefcf9a73cb7"
+  revision = "e651d75abec6fbd4f2c09508f72ae7af8a8b7171"
+
+[[projects]]
+  branch = "refactor"
+  name = "github.com/mhe/gabi"
+  packages = [
+    ".",
+    "big",
+    "safeprime"
+  ]
+  revision = "42c4d48e3f35aec81c2ca2692246ad0f30557684"
+  source = "github.com/privacybydesign/gabi"
 
 [[projects]]
   branch = "master"
@@ -86,14 +97,14 @@
   version = "v0.8.0"
 
 [[projects]]
-  branch = "master"
+  branch = "refactor"
   name = "github.com/privacybydesign/irmago"
   packages = [
     ".",
     "internal/disable_sigpipe",
     "internal/fs"
   ]
-  revision = "6ca9a8fa956e0441db6a6d46366da0b782e287d7"
+  revision = "68f296e7e4033b3b112f0b309ea2b37b4b2e3e6d"
 
 [[projects]]
   branch = "master"
@@ -138,6 +149,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "92bc722282caeaa009ce177eabf941fd457c6c70fdb6f49233fa59ef4852a599"
+  inputs-digest = "53a1d07995d95a9ca83ef13b4c7de6068291d71c98c06315d5b25279412ad8af"
   solver-name = "gps-cdcl"
   solver-version = 1

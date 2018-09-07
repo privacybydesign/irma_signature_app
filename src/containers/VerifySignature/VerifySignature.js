@@ -100,12 +100,7 @@ class VerifySignature extends Component {
           />
           <Divider />
           <AttributeResult
-            attributes={signatureResult.disjunctions
-              ?
-              signatureResult.disjunctions
-              :
-              signatureResult.credentialList}
-            matched={signatureResult.request !== undefined}
+            attributes={signatureResult.credentialList}
             proofStatus={signatureResult.proofStatus}
           />
         </div>
