@@ -83,8 +83,10 @@ class VerifySignature extends Component {
   renderDone() {
     const { signatureResult, showVerifyResult, signature } = this.props;
     let message = '';
+    let messageType = '';
     try {
       message = JSON.parse(signature).message;
+      messageType = JSON.parse(signature).messageType;
     } catch (e) {
       // Ignore errors
     }
@@ -94,6 +96,7 @@ class VerifySignature extends Component {
           <SignatureResult
             proofStatus={signatureResult.proofStatus}
             message={message}
+            messageType={messageType}
             matched={signatureResult.request !== undefined}
             signatureRequest={signatureResult.request}
             onClose={this.closeResult}

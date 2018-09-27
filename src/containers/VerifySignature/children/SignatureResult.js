@@ -47,8 +47,25 @@ class SignatureResult extends Component {
     );
   }
 
+  getMessage = () => {
+    const { message, messageType, proofStatus } = this.props;
+    if (proofStatus !== 'VALID') {
+      return null;
+    }
+
+    if (messageType === 'jpg') {
+      return (
+        <img src={`data:image/jpeg;base64,${message}`} width='400px' alt={message} />
+      );
+    }
+
+    return (
+      `Message: ${message}`
+    );
+  }
+
   render() {
-    const { message, onClose, proofStatus } = this.props;
+    const { onClose } = this.props;
     return (
       <Card style={{ marginTop: '30px' }}>
         <CardHeader
@@ -59,7 +76,7 @@ class SignatureResult extends Component {
             }
           avatar={this.getAvatar()}
           title={this.getTitle()}
-          subheader={proofStatus === 'VALID' ? `Message: ${message}` : null}
+          subheader={this.getMessage()}
           />
       </Card>
     );
@@ -69,6 +86,7 @@ class SignatureResult extends Component {
 SignatureResult.propTypes = {
   proofStatus: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
+  messageType: PropTypes.string,
   matched: PropTypes.bool.isRequired,
   signatureRequest: PropTypes.shape({
     date: PropTypes.string,
